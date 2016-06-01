@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MyConcert</string>
+    <string name="register">Registration</string>
+    <string name="name">Name:</string>
+    <string name="username">Username:</string>
+    <string name="mail">E-mail:</string>
+    <string name="password">Password:</string>
+    <string name="confirmpass">Confirm Password:</string>
+    <string name="signup">Sign up</string>
+    <string name="fb">Sign up with Facebook</string>
+    <string-array name="opzioni">
+        <item>App</item>
+        <item>Franco</item>
+        <item>Ciccio</item>
+        <item>Stefano</item>
+    </string-array>
+    <string name="open">Drawer Opened</string>
+    <string name="close">Drawer Closed</string>
+</resources>
