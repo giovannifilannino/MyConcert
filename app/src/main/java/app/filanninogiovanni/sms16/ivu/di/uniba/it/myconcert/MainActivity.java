@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private LoginFragment loginFragment;
     private FragmentManager fragmentManager;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mTitle = "MyMusicLive";
-    private String mDrawerTitle = "MyMusicLive";
     private Toolbar toolbar;
 
     @Override
@@ -61,8 +59,5 @@ public class MainActivity extends AppCompatActivity {
         loginFragment = new LoginFragment();
         fragmentTransaction.add(R.id.content_frame,loginFragment);
         fragmentTransaction.commit();
-
-
-
     }
 }
