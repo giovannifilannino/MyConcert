@@ -14,7 +14,7 @@ import android.widget.ListView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.loginFragment.OnLoginConfirmed{
 
     private DrawerLayout drawerLayout;
     private ListView listViewDrawerLayout;
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
+    private search_fragment search_fragmento;
     
 
     @Override
@@ -76,5 +77,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
 
+    }
+
+    @Override
+    public void goToSearchFragment() {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        search_fragmento = new search_fragment();
+        fragmentTransaction.replace(R.id.content_frame,search_fragmento).commit();
     }
 }
