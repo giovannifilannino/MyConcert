@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //layout per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+
 
         setSupportActionBar(toolbar);
 
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         //collegamento comportamento e icona per la toolbar e drawer
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.ic_drawer);
+
 
         listViewDrawerLayout.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,optionDrawer));
 
@@ -75,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
         fragmentTransaction.add(R.id.content_frame, loginFragment);
         fragmentTransaction.commit();
-
 
     }
 

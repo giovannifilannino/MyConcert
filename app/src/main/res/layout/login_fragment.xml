@@ -2,7 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" android:layout_height="fill_parent"
     android:background="@drawable/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="#10000000"
+        android:minHeight="?attr/actionBarSize"
+        android:elevation="5dp"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <EditText
         android:layout_width="match_parent"
@@ -39,7 +48,7 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:layout_alignParentBottom="true"
-    android:elevation="5dp"
+    android:elevation="30dp"
     android:text="@string/login"
     android:id="@+id/buttonLogin"
     android:background="@color/colorPrimary"
