@@ -19,10 +19,11 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ListView listViewDrawerLayout;
     private String[] optionDrawer;
-    private RegistrationFragment registationfragment;
+    private loginFragment loginFragment;
     private FragmentManager fragmentManager;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getFragmentManager();
         FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
 
-        registationfragment = new RegistrationFragment();
+        loginFragment = new loginFragment();
 
-        fragmentTransaction.add(R.id.content_frame, registationfragment);
+        fragmentTransaction.add(R.id.content_frame, loginFragment);
         fragmentTransaction.commit();
 
 
