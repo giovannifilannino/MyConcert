@@ -4,6 +4,9 @@
     <string name="confirmpass">Conferma Password:</string>
     <string name="fb">Registrati tramite Facebook</string>
     <string name="name">Nome:</string>
+    <string name="login">LOGIN</string>
+    <string name="pass">Password</string>
+    <string name="us">Username</string>
     <string name="register">Registrazione</string>
     <string name="signup">Registrati</string>
     <string name="username">Nome Utente:</string>

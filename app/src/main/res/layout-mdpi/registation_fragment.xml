@@ -113,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signup"
-        android:id="@+id/button"
+        android:id="@+id/buttonl"
         android:layout_below="@+id/editText5"
         android:background="@drawable/rounded_bttn"
         android:textColor="@color/white"
@@ -127,7 +127,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/buttonl"
         android:layout_centerHorizontal="true"/>
 
 

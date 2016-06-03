@@ -70,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
 
         registationfragment = new RegistrationFragment();
+
         fragmentTransaction.add(R.id.content_frame, registationfragment);
         fragmentTransaction.commit();
+
+
     }
 }
