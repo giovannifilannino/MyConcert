@@ -28,15 +28,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        optionDrawer = getResources().getStringArray(R.array.opzioni);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer);
+
+        optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //layout per la comparsa del menu laterale
+        listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
         setSupportActionBar(toolbar);
 
+        //inizializzazione del skd di facebook per il login
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
+
+        /*
+        * Comportamento del drawer in apertura e chiusura
+        * */
         mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
             @Override
             public void onDrawerClosed(View view) {
@@ -51,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 // creates call to onPrepareOptionsMenu()
             }
         };
-
+        //collegamento comportamento e icona per la toolbar e drawer
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
 
         listViewDrawerLayout.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,optionDrawer));
 
+        //fragment registrazione //da sostituire con quella di login
         fragmentManager = getFragmentManager();
         FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
 
