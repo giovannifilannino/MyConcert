@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ListView listViewDrawerLayout;
     private String[] optionDrawer;
-    private LoginFragment loginFragment;
+    private RegistrationFragment registationfragment;
     private FragmentManager fragmentManager;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         setSupportActionBar(toolbar);
@@ -60,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getFragmentManager();
         FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
 
-        loginFragment = new LoginFragment();
-        fragmentTransaction.add(R.id.content_frame,loginFragment);
+        registationfragment = new RegistrationFragment();
+        fragmentTransaction.add(R.id.content_frame, registationfragment);
         fragmentTransaction.commit();
     }
 }

@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 /**
  * Created by Giovanni on 01/06/2016.
  */
-public class LoginFragment extends Fragment {
+public class RegistrationFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.login_fragment,container,false);
+        return inflater.inflate(R.layout.registation_fragment,container,false);
     }
 
     @Override
