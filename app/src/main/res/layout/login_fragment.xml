@@ -18,7 +18,7 @@
         android:inputType="textPersonName"
         android:hint="@string/username"
         android:ems="10"
-
+        android:elevation="0.5dp"
         android:paddingLeft="10dp"
         android:id="@+id/username"
         android:textAlignment="center"
@@ -30,14 +30,16 @@
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="180dp" />
+        android:layout_marginTop="200dp" />
 
     <EditText
         android:textAlignment="center"
+        android:elevation="0.5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:inputType="textPassword"
         android:ems="10"
+        android:layout_marginTop="1dp"
         android:paddingLeft="10dp"
         android:background="@color/indigowhite"
         android:hint="@string/password"
@@ -47,7 +49,6 @@
         android:layout_marginRight="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="15dp"
         />
     <Button
         android:layout_width="match_parent"
@@ -100,12 +101,13 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/immagine"
+
         android:layout_below="@+id/tool_bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp" />
+        android:layout_marginTop="25dp" />
 
 </RelativeLayout>
