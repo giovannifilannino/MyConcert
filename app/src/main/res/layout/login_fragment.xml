@@ -18,9 +18,10 @@
         android:inputType="textPersonName"
         android:hint="@string/username"
         android:ems="10"
-        android:elevation="5dp"
+
         android:paddingLeft="10dp"
         android:id="@+id/username"
+        android:textAlignment="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -29,14 +30,14 @@
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="150dp" />
+        android:layout_marginTop="180dp" />
 
     <EditText
+        android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:inputType="textPassword"
         android:ems="10"
-        android:elevation="5dp"
         android:paddingLeft="10dp"
         android:background="@color/indigowhite"
         android:hint="@string/password"
@@ -60,7 +61,7 @@
         android:layout_below="@id/password"
         android:text="@string/registrati"
         android:id="@+id/buttonRegistrati"
-        android:background="@color/colorPrimary"
+        android:background="@color/red"
         android:textColor="@color/white"
         android:textStyle="bold"
         />
@@ -70,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="90dp"
         android:layout_centerHorizontal="true"
         />
 
@@ -78,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="35dp"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="OR"
@@ -93,9 +94,18 @@
         android:text="@string/need"
         android:textStyle="italic"
         android:id="@+id/textView9"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/login_button"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@+id/tool_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp" />
 
 </RelativeLayout>

@@ -11,5 +11,7 @@
     <color name="indigowhite">#E8EAF6</color>
     <color name="indigodark">#1A237E</color>
 
+
+    <color name="red"> #D32F2F</color>
     <color name="face">#4267B2</color>
 </resources>

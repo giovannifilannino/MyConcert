@@ -50,7 +50,6 @@ public class loginFragment extends Fragment{
         password = (EditText) getActivity().findViewById(R.id.password);
         toolbar=(Toolbar)getActivity().findViewById(R.id.tool_bar);
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
-        toolbar.setLogo(R.mipmap.ic_launcher);
         login = (Button) getActivity().findViewById(R.id.buttonRegistrati);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
