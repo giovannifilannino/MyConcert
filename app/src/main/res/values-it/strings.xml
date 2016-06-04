@@ -9,12 +9,15 @@
     <string name="us">Username</string>
     <string name="register">Registrazione</string>
     <string name="signup">Registrati</string>
-    <string name="username">Nome Utente:</string>
+    <string name="username">Nome Utente</string>
     <string name="open">Drawer Aperto</string>
     <string name="close">Drawer Chiuso</string>
     <string name="mail">E-mail:</string>
     <string name="artist">Artista</string>
     <string name="venues">Sedi</string>
     <string name="find">Cerca</string>
-    <string name="password">Password:</string>
+    <string name="need">Hai bisogno di un account?</string>
+    <string name="registrati">REGISTRATI ORA</string>
+    <string name="condizione">OR</string>
+    <string name="password">Password</string>
 </resources>

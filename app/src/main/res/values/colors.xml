@@ -6,4 +6,10 @@
     <color name="verdeAcqua">#0ce2a9</color>
     <color name="blue">#373ecc</color>
     <color name="white">#ffffff</color>
+
+    <color name="indigo">#3F51B5</color>
+    <color name="indigowhite">#E8EAF6</color>
+    <color name="indigodark">#1A237E</color>
+
+    <color name="face">#4267B2</color>
 </resources>

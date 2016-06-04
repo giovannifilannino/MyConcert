@@ -2,9 +2,9 @@
     <string name="app_name">MyConcert</string>
     <string name="register">Registration</string>
     <string name="name">Name:</string>
-    <string name="username">Username:</string>
+    <string name="username">Username</string>
     <string name="mail">E-mail:</string>
-    <string name="password">Password:</string>
+    <string name="password">Password</string>
     <string name="confirmpass">Confirm Password:</string>
     <string name="signup">Sign up</string>
     <string name="artist">Artist</string>
@@ -13,8 +13,12 @@
     <string name="login">LOGIN</string>
     <string name="pass">Password</string>
     <string name="us">Username</string>
+    <string name="condizione">OR</string>
     <string name="fb">Sign up with Facebook</string>
     <string name="facebook_app_id">135655866842118</string>
+
+    <string name="need">Need an account?</string>
+    <string name="registrati">SIGN UP NOW</string>
     <string-array name="opzioni">
         <item>App</item>
         <item>Franco</item>

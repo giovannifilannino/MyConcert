@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class loginFragment extends Fragment{
     private EditText password;
     private Button login;
     private OnLoginConfirmed mLogin;
+    Toolbar toolbar;
 
     @Override
     public void onAttach(Context context) {
@@ -46,7 +48,10 @@ public class loginFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
-        login = (Button) getActivity().findViewById(R.id.buttonLogin);
+        toolbar=(Toolbar)getActivity().findViewById(R.id.tool_bar);
+        toolbar.setNavigationIcon(R.drawable.ic_drawer);
+        toolbar.setLogo(R.mipmap.ic_launcher);
+        login = (Button) getActivity().findViewById(R.id.buttonRegistrati);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

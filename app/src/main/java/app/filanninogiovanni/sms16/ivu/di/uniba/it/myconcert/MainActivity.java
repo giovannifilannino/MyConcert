@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
         setSupportActionBar(toolbar);
 
+
         //inizializzazione del skd di facebook per il login
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
