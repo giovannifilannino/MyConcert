@@ -22,7 +22,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/txtVenu"
         android:text="@string/venues"
-        android:layout_below="@+id/edtarti"
+        android:layout_below="@+id/artist_name_search"
         android:layout_alignLeft="@+id/txtarti"
         android:layout_alignStart="@+id/txtarti"
         android:layout_marginTop="67dp" />
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/edtarti"
+        android:id="@+id/artist_name_search"
         android:layout_below="@+id/txtarti"
         android:layout_toLeftOf="@+id/imageView2"
         android:layout_toStartOf="@+id/imageView2"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/edtVenu"
+        android:id="@+id/venue_name_search"
         android:layout_marginTop="47dp"
         android:layout_below="@+id/txtVenu"
         android:layout_centerHorizontal="true" />
@@ -54,8 +54,8 @@
         android:src="@drawable/ic_search_black_24dp"
 
         android:layout_alignBottom="@+id/txtarti"
-        android:layout_toRightOf="@+id/edtarti"
-        android:layout_toEndOf="@+id/edtarti" />
+        android:layout_toRightOf="@+id/artist_name_search"
+        android:layout_toEndOf="@+id/artist_name_search" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -64,8 +64,8 @@
         android:src="@drawable/ic_search_black_24dp"
 
         android:layout_alignBottom="@+id/txtVenu"
-        android:layout_toRightOf="@+id/edtVenu"
-        android:layout_toEndOf="@+id/edtVenu" />
+        android:layout_toRightOf="@+id/venue_name_search"
+        android:layout_toEndOf="@+id/venue_name_search" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
         android:padding="10dp"
         android:layout_height="wrap_content"
         android:text="@string/find"
-        android:id="@+id/button2"
+        android:id="@+id/search_button"
         android:background="@drawable/rounded_bttn"
         android:textColor="@color/white"
         android:elevation="5dp"

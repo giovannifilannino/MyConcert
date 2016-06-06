@@ -9,6 +9,7 @@ public class Artist {
     String mbid;
     int tmid;
     String name;
+
     String sortName;
 
     public String getDisambiguation() {
