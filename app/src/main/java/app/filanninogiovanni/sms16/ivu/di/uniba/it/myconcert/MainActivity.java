@@ -3,7 +3,10 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -70,13 +73,40 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         listViewDrawerLayout.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,optionDrawer));
 
         //fragment registrazione //da sostituire con quella di login
-        fragmentManager = getFragmentManager();
-        FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
+       // fragmentManager = getFragmentManager();
+       // FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
 
-        loginFragment = new loginFragment();
+      //  loginFragment = new loginFragment();
 
-        fragmentTransaction.add(R.id.content_frame, loginFragment);
-        fragmentTransaction.commit();
+      //  fragmentTransaction.add(R.id.content_frame, loginFragment);
+      //  fragmentTransaction.commit();
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.login));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.signup));
+        tabLayout.setTabTextColors(ColorStateList.valueOf(Color.WHITE));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
@@ -84,6 +114,6 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     public void goToSearchFragment() {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         search_fragmento = new search_fragment();
-        fragmentTransaction.replace(R.id.content_frame,search_fragmento).commit();
+      //  fragmentTransaction.replace(R.id.content_frame,search_fragmento).commit();
     }
 }

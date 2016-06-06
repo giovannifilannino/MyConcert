@@ -3,17 +3,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!-- The main content view -->
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
     <!-- The navigation drawer -->
     <ListView android:id="@+id/left_drawer"
         android:layout_width="240dp"
@@ -25,4 +23,33 @@
         android:background="#ececec"/>
     </android.support.v4.widget.DrawerLayout>
 
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/view">
+            <include
+                android:id="@+id/tool_bar"
+                layout="@layout/tool_bar"
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                />
+            <android.support.design.widget.TabLayout
+                android:layout_width="match_parent"
+                android:background="@color/indigo"
+                android:id="@+id/tabLayout"
+                android:elevation="2dp"
+                android:layout_height="wrap_content">
+
+            </android.support.design.widget.TabLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+            android:layout_below="@id/view"
+        />
+
+    </RelativeLayout>
 </FrameLayout>
