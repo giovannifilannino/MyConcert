@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         listViewDrawerLayout.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,optionDrawer));
 
         //fragment registrazione //da sostituire con quella di login
-       // fragmentManager = getFragmentManager();
+       fragmentManager = getFragmentManager();
        // FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
 
       //  loginFragment = new loginFragment();
@@ -112,8 +113,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
     @Override
     public void goToSearchFragment() {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        search_fragmento = new search_fragment();
-      //  fragmentTransaction.replace(R.id.content_frame,search_fragmento).commit();
+        Intent intent = new Intent(this, cerca.class);
+        startActivity(intent);
     }
 }

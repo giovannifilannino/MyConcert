@@ -14,7 +14,7 @@
         android:inputType="textPersonName"
         android:hint="@string/username"
         android:ems="10"
-        android:elevation="1dp"
+        android:elevation="0.4dp"
         android:paddingLeft="10dp"
         android:id="@+id/username"
         android:textAlignment="center"
@@ -30,7 +30,7 @@
 
     <EditText
         android:textAlignment="center"
-        android:elevation="1dp"
+        android:elevation="0.4dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:inputType="textPassword"
