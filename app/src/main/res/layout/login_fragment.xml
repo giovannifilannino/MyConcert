@@ -90,7 +90,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView"
-        android:src="@drawable/immagine"
+        android:src="@drawable/nondo"
 
         android:layout_below="@+id/tool_bar"
         android:layout_centerHorizontal="true"
