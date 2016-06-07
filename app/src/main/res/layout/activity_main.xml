@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/scalata"
+    android:background="@drawable/possibilesfondo"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -9,7 +9,7 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:id="@+id/view">
             <include
                 android:id="@+id/tool_bar"
@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:background="@android:color/transparent"
                 android:id="@+id/tabLayout"
-                app:tabTextColor="@color/colorAccent"
+                app:tabTextColor="@android:color/black"
+                app:tabSelectedTextColor="@color/colorAccent"
                 android:layout_marginTop="5dp"
                 android:layout_height="30dp">
 
