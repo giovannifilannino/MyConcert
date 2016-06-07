@@ -26,12 +26,12 @@ public class XMLSetListParser {
         try{
             doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new URL(url).openStream());
             Element root = doc.getDocumentElement();
-            Setlist setlist = new Setlist();
+
             NodeList nodes = root.getChildNodes();
 
             for(int i=0; i<nodes.getLength(); i++){
                 Node c = nodes.item(i);
-
+                Setlist setlist = new Setlist();
                 if(c.getNodeType() == Node.ELEMENT_NODE){
 
 
@@ -55,9 +55,10 @@ public class XMLSetListParser {
 
                     }
 
-
                     parderData.add(setlist);
+
                 }
+
             }
         }catch (Exception e){
             e.printStackTrace();
