@@ -22,10 +22,11 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
        ViewHolder mainViewHolder = null;
+        ViewHolder viewholder = new ViewHolder();
         if(convertView==null){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(layout,parent,false);
-            ViewHolder viewholder = new ViewHolder();
+
             viewholder.nameArtist = (TextView) convertView.findViewById(R.id.textNameArtistItemList);
             viewholder.nameVenue = (TextView) convertView.findViewById(R.id.textNameVenueItemList);
             viewholder.nameCity = (TextView) convertView.findViewById(R.id.textNameCityItemList);
@@ -35,10 +36,10 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
             mainViewHolder = (ViewHolder) convertView.getTag();
         }
         setList = setlists.get(position);
-        mainViewHolder.nameArtist.setText(setList.getArtistName());
-        mainViewHolder.nameVenue.setText(setList.getVenueName());
-        mainViewHolder.nameArtist.setText(setList.getCity());
-        mainViewHolder.date.setText(setList.getDate());
+        viewholder.nameArtist.setText(setList.getArtistName());
+        viewholder.nameVenue.setText(setList.getVenueName());
+        viewholder.nameArtist.setText(setList.getCity());
+        viewholder.date.setText(setList.getDate());
         return convertView;
     }
 

@@ -68,7 +68,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         fragmentManager = getFragmentManager();
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_frame,resultFragment);
+        fragmentTransaction.replace(R.id.content_frame,resultFragment).commit();
 
         resultFragment.riempiArray(urlDaCercare);
     }
