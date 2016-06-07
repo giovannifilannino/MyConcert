@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.login));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.signup));
-        tabLayout.setTabTextColors(ColorStateList.valueOf(Color.WHITE));
+        tabLayout.setTabTextColors(ColorStateList.valueOf(R.color.colorAccent));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
