@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">MyConcert</string>
     <string name="register">Registration</string>
-    <string name="name">Name:</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
     <string name="username">Username</string>
-    <string name="mail">E-mail:</string>
+    <string name="mail">E-mail</string>
     <string name="password">Password</string>
     <string name="confirmpass">Confirm Password:</string>
     <string name="signup">SIGN UP</string>
