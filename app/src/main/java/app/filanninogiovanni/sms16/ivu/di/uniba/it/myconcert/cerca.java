@@ -12,13 +12,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class cerca extends AppCompatActivity {
+import java.util.ArrayList;
+
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+
+public class cerca extends AppCompatActivity implements search_fragment.OnSearch{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
     private FragmentManager fragmentManager;
     private ListView listViewDrawerLayout;
     private String[] optionDrawer;
+    private ResultFragment resultFragment = new ResultFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,5 +61,15 @@ public class cerca extends AppCompatActivity {
 
           fragmentTransaction.replace(R.id.content_frame, search);
           fragmentTransaction.commit();
+    }
+
+    @Override
+    public void searchStart(ArrayList<Setlist> urlDaCercare) {
+        fragmentManager = getFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame,resultFragment);
+
+        resultFragment.riempiArray(urlDaCercare);
     }
 }

@@ -16,6 +16,10 @@
     <string name="condizione">OR</string>
     <string name="fb">Sign up with Facebook</string>
     <string name="facebook_app_id">135655866842118</string>
+    <string name="nomeArtista">Artist:</string>
+    <string name="nomeVenue">Venue:</string>
+    <string name="nomeCitta">City:</string>
+    <string name="data">Date:</string>
 
     <string name="need">Need an account?</string>
     <string name="registrati">SIGN UP NOW</string>

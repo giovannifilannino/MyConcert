@@ -1,6 +1,7 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+
 
 /**
  * Created by Giovanni on 03/06/2016.
@@ -20,15 +25,28 @@ public class search_fragment extends Fragment {
     private XMLArtistParser artistParser;
     private XMLVenueParser venuesParser;
 
-    private  String URL_ARTIST = "http://api.setlist.fm/rest/0.1/search/artists?artistName=";
-    private String URL_VENUES = "http://api.setlist.fm/rest/0.1/search/venues?name=";
+    private XMLSetListParser setListParser;
+
+    private  String URL_ARTIST = "http://api.setlist.fm/rest/0.1/search/setlists?artistName=";
+    private String URL_VENUES = "http://api.setlist.fm/rest/0.1/search/setlists?venueName=";
     private EditText name_artist;
     private EditText name_venue;
     private Button search_button;
-    private LoadXMLData loadXML = new LoadXMLData();
-    private LoadVenuesXMLData loadVenuesXMLData = new LoadVenuesXMLData();
+    private OnSearch onSearch;
+    private LoadSetListXMLData loadSetListXMLData = new LoadSetListXMLData();
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        onSearch = (OnSearch) context;
+    }
 
     private String query = "";
+
+
+    public interface OnSearch{
+        public void searchStart(ArrayList<Setlist> urlDaCercare);
+    }
 
     @Nullable
     @Override
@@ -58,12 +76,12 @@ public class search_fragment extends Fragment {
                 String artist = name_artist.getText().toString();
                 artist = artist.replaceAll("\\s+","%20");
                 query = URL_ARTIST + '"' + artist + '"';
-                loadXML.execute(query);
+                loadSetListXMLData.execute(query);
             } else if(name_venue.getText().toString().compareTo("") != 0){
                 String venues = name_venue.getText().toString();
                 venues = venues.replaceAll("\\s+","%20");
                 query = URL_VENUES + '"' + venues + '"';
-                loadVenuesXMLData.execute(query);
+                loadSetListXMLData.execute(query);
             }
 
 
@@ -72,34 +90,21 @@ public class search_fragment extends Fragment {
 
 
 
-    private class LoadXMLData extends AsyncTask<String,String,String>{
 
+
+    private class LoadSetListXMLData extends AsyncTask<String,String,String>{
         @Override
         protected String doInBackground(String... params) {
-            artistParser = new XMLArtistParser();
-            artistParser.parseXML(params[0]);
-            return artistParser.parsedData.get(0).getName();
+            setListParser = new XMLSetListParser();
+            setListParser.parseXML(params[0]);
+            return "fatto";
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(getActivity(),s,Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private class LoadVenuesXMLData extends AsyncTask<String,String,String>{
-        @Override
-        protected String doInBackground(String... params) {
-            venuesParser = new XMLVenueParser();
-            venuesParser.parseXML(params[0]);
-            return venuesParser.parderData.get(0).getName();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Toast.makeText(getActivity(),s,Toast.LENGTH_LONG).show();
+            ArrayList<Setlist> setList = setListParser.parderData;
+            onSearch.searchStart(setList);
         }
     }
 

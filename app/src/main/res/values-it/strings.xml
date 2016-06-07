@@ -20,4 +20,8 @@
     <string name="registrati">REGISTRATI ORA</string>
     <string name="condizione">O</string>
     <string name="password">Password</string>
+    <string name="data">Data:</string>
+    <string name="nomeArtista">Artista:</string>
+    <string name="nomeCitta">Città:</string>
+    <string name="nomeVenue">Sede:</string>
 </resources>
