@@ -22,10 +22,12 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
        ViewHolder mainViewHolder = null;
-        ViewHolder viewholder = new ViewHolder();
+        ViewHolder viewholder = null;
+
         if(convertView==null){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(layout,parent,false);
+            viewholder = new ViewHolder();
 
             viewholder.nameArtist = (TextView) convertView.findViewById(R.id.textNameArtistItemList);
             viewholder.nameVenue = (TextView) convertView.findViewById(R.id.textNameVenueItemList);
@@ -36,10 +38,14 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
             mainViewHolder = (ViewHolder) convertView.getTag();
         }
         setList = setlists.get(position);
-        viewholder.nameArtist.setText(setList.getArtistName());
-        viewholder.nameVenue.setText(setList.getVenueName());
-        viewholder.nameArtist.setText(setList.getCity());
-        viewholder.date.setText(setList.getDate());
+
+        if(viewholder!=null){
+            viewholder.nameArtist.setText(setList.getArtistName());
+            viewholder.nameVenue.setText(setList.getVenueName());
+            viewholder.nameArtist.setText(setList.getCity());
+            viewholder.date.setText(setList.getDate());
+        }
+
         return convertView;
     }
 
@@ -54,5 +60,11 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
         TextView nameVenue;
         TextView nameCity;
         TextView date;
+    }
+
+    private boolean checkVariables(){
+        if(setList.getArtistName()!=null & setList.getCity() != null && setList.getVenueName() != null && setList.getDate() !=null)
+            return true;
+        return false;
     }
 }
