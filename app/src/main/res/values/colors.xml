@@ -5,14 +5,14 @@
     <color name="colorAccent">#FF4081</color>
     <color name="verdeAcqua">#0ce2a9</color>
     <color name="blue">#373ecc</color>
-    <color name="white">#ffffff</color>
 
     <color name="indigo">#3F51B5</color>
     <color name="indigowhite">#FAFAFA</color>
     <color name="indigodark">#1A237E</color>
     <color name="indigobottoni"> #5C6BC0</color>
 
-
+    fcfbf9
+    <color name="white"> #e0d3c0</color>
     <color name="red"> #D32F2F</color>
     <color name="face">#4267B2</color>
     <color name="bottoni">#F50057</color>
