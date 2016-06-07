@@ -1,14 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/forse"
+    android:background="@drawable/scalata"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
 
             android:id="@+id/view">
             <include
@@ -24,7 +24,7 @@
                 android:id="@+id/tabLayout"
                 app:tabTextColor="@color/colorAccent"
                 android:elevation="2dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="2dp"
                 android:layout_height="wrap_content">
 
             </android.support.design.widget.TabLayout>

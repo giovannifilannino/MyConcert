@@ -50,10 +50,6 @@ public class loginFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
-        Window window = getActivity().getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
         //toolbar=(Toolbar)getActivity().findViewById(R.id.tool_bar);
         //toolbar.setNavigationIcon(R.drawable.ic_drawer);
         login = (Button) getActivity().findViewById(R.id.buttonLogin);
