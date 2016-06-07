@@ -52,26 +52,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         /*
         * Comportamento del drawer in apertura e chiusura
         * */
-        mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
-            @Override
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
-                // creates call to onPrepareOptionsMenu()
-            }
-        };
-        //collegamento comportamento e icona per la toolbar e drawer
-        drawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-
-
-        listViewDrawerLayout.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,optionDrawer));
 
         //fragment registrazione //da sostituire con quella di login
        fragmentManager = getFragmentManager();
