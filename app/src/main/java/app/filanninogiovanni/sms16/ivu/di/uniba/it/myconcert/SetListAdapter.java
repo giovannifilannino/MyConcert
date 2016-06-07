@@ -14,18 +14,20 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
  * Created by Giovanni on 06/06/2016.
  */
 public class SetListAdapter extends ArrayAdapter<Setlist> {
-
+    LayoutInflater inflater;
     List<Setlist> setlists;
     Setlist setList;
     private int layout;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-       ViewHolder mainViewHolder = null;
-        ViewHolder viewholder = new ViewHolder();
+
+        ViewHolder viewholder = null;
+
         if(convertView==null){
-            LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(layout,parent,false);
+
+            viewholder = new ViewHolder();
 
             viewholder.nameArtist = (TextView) convertView.findViewById(R.id.textNameArtistItemList);
             viewholder.nameVenue = (TextView) convertView.findViewById(R.id.textNameVenueItemList);
@@ -33,18 +35,24 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
             viewholder.date = (TextView) convertView.findViewById(R.id.textDataItemList);
             convertView.setTag(viewholder);
         } else {
-            mainViewHolder = (ViewHolder) convertView.getTag();
+            viewholder = (ViewHolder) convertView.getTag();
         }
         setList = setlists.get(position);
-        viewholder.nameArtist.setText(setList.getArtistName());
-        viewholder.nameVenue.setText(setList.getVenueName());
-        viewholder.nameArtist.setText(setList.getCity());
-        viewholder.date.setText(setList.getDate());
+
+        if(setList!=null) {
+            viewholder.nameArtist.setText(setList.getArtistName());
+            viewholder.nameVenue.setText(setList.getVenueName());
+            viewholder.nameArtist.setText(setList.getCity());
+            viewholder.date.setText(setList.getDate());
+        }
+
         return convertView;
     }
 
     public SetListAdapter(Context context, int resource, List<Setlist> objects) {
         super(context, resource, objects);
+
+        inflater = LayoutInflater.from(getContext());
         layout = resource;
         setlists = objects;
     }
@@ -54,5 +62,11 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
         TextView nameVenue;
         TextView nameCity;
         TextView date;
+    }
+
+    private boolean checkVariables(){
+        if(setList.getArtistName()!=null & setList.getCity() != null && setList.getVenueName() != null && setList.getDate() !=null)
+            return true;
+        return false;
     }
 }
