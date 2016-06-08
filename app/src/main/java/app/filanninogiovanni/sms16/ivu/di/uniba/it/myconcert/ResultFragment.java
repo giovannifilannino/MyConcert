@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,9 +22,14 @@ public class ResultFragment extends Fragment {
     ListView listItem;
     SetListAdapter setListAdapter;
     ArrayList<Setlist> setListArrayList;
+    private OnSetListSelecter onSetListSelecter;
 
     public void riempiArray(ArrayList<Setlist> setListArrayList){
         this.setListArrayList = setListArrayList;
+    }
+
+    public interface OnSetListSelecter{
+        public void showSongs(ArrayList<String> songs);
     }
 
     @Override
@@ -32,6 +38,13 @@ public class ResultFragment extends Fragment {
         listItem = (ListView) getActivity().findViewById(R.id.listviewresult);
         setListAdapter = new SetListAdapter(getActivity(),R.layout.item_resultlistitem,setListArrayList);
         listItem.setAdapter(setListAdapter);
+        listItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Setlist dacaricare = setListArrayList.get(position);
+                onSetListSelecter.showSongs(dacaricare.getSongs());
+            }
+        });
     }
 
     @Nullable
@@ -48,7 +61,9 @@ public class ResultFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        onSetListSelecter = (OnSetListSelecter) context;
     }
+
 
 
 }

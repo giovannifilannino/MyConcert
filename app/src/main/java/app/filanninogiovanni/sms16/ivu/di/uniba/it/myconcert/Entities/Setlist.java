@@ -1,5 +1,7 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities;
 
+import java.util.ArrayList;
+
 /**
  * Created by Giovanni on 06/06/2016.
  */
@@ -10,6 +12,18 @@ public class Setlist {
     String venueName;
     String city;
     String date;
+    String id;
+    ArrayList<String> songs;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 
     public String getDate() {
         return date;
@@ -19,7 +33,7 @@ public class Setlist {
         this.date = date;
     }
 
-    String[] songs;
+
 
     public String getIdSetList() {
         return idSetList;
@@ -53,11 +67,11 @@ public class Setlist {
         this.city = city;
     }
 
-    public String[] getSongs() {
+    public ArrayList<String> getSongs() {
         return songs;
     }
 
-    public void setSongs(String[] songs) {
+    public void setSongs(ArrayList<String> songs) {
         this.songs = songs;
     }
 }

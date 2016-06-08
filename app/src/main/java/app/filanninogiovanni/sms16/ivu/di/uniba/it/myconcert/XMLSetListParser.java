@@ -19,6 +19,7 @@ public class XMLSetListParser {
 
 
         ArrayList<Setlist> parderData = new ArrayList<Setlist>();
+        ArrayList<String> canzoniArray = new ArrayList<String>();
 
     public void parseXML(String url){
         Document doc;
@@ -37,7 +38,7 @@ public class XMLSetListParser {
 
                     Element node = (Element) c;
                     setlist.setDate(node.getAttribute("eventDate"));
-
+                    setlist.setId(node.getAttribute("id"));
                     NodeList c1 = c.getChildNodes();
 
                     for(int j=0; j<c1.getLength(); j++){
@@ -51,6 +52,19 @@ public class XMLSetListParser {
                             Node cityNode = subnode.getFirstChild();
                             Element cityElement = (Element) cityNode;
                             setlist.setCity(cityElement.getAttribute("name"));
+                        } else if(subnode.getNodeName().compareToIgnoreCase("sets")==0){
+                            NodeList set = subnode.getChildNodes();
+                            for(int k=0; k<set.getLength(); k++){
+                                Node setCanzone = set.item(k);
+                                NodeList canzoni = setCanzone.getChildNodes();
+                                for (int h=0; h<canzoni.getLength(); h++){
+                                    Node canzonenode = canzoni.item(h);
+                                    Element canzone = (Element) canzonenode;
+                                    canzoniArray.add(canzone.getAttribute("name"));
+
+                                }
+                            }
+                            setlist.setSongs( canzoniArray);
                         }
 
                     }

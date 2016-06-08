@@ -16,12 +16,13 @@ import java.util.ArrayList;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
-public class cerca extends AppCompatActivity implements search_fragment.OnSearch{
+public class cerca extends AppCompatActivity implements search_fragment.OnSearch, ResultFragment.OnSetListSelecter{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
     private FragmentManager fragmentManager;
     private ListView listViewDrawerLayout;
+    private SongList songList;
     private String[] optionDrawer;
     private ResultFragment resultFragment = new ResultFragment();
 
@@ -71,5 +72,17 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         fragmentTransaction.replace(R.id.content_frame,resultFragment).commit();
 
         resultFragment.riempiArray(urlDaCercare);
+    }
+
+    @Override
+    public void showSongs(ArrayList<String> songs) {
+        songList = new SongList();
+
+
+        fragmentManager = getFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame,songList).commit();
+        songList.riempiArray(songs);
     }
 }
