@@ -23,13 +23,14 @@ public class ResultFragment extends Fragment {
     SetListAdapter setListAdapter;
     ArrayList<Setlist> setListArrayList;
     private OnSetListSelecter onSetListSelecter;
+    private Setlist dacaricare;
 
     public void riempiArray(ArrayList<Setlist> setListArrayList){
         this.setListArrayList = setListArrayList;
     }
 
     public interface OnSetListSelecter{
-        public void showSongs(ArrayList<String> songs);
+        public void showSongs(ArrayList<String> songs, boolean songsavaible);
     }
 
     @Override
@@ -41,8 +42,9 @@ public class ResultFragment extends Fragment {
         listItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Setlist dacaricare = setListArrayList.get(position);
-                onSetListSelecter.showSongs(dacaricare.getSongs());
+                dacaricare = setListArrayList.get(position);
+                boolean avaible = dacaricare.getSongs().size() != 0;
+                onSetListSelecter.showSongs(dacaricare.getSongs(),avaible);
             }
         });
     }

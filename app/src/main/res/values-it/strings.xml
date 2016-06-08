@@ -25,4 +25,5 @@
     <string name="nomeArtista">Artista:</string>
     <string name="nomeCitta">Città:</string>
     <string name="nomeVenue">Sede:</string>
+    <string name="nosongs">Non sono disponibili canzoni...</string>
 </resources>

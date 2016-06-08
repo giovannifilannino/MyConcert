@@ -32,6 +32,7 @@ public class search_fragment extends Fragment {
     private EditText name_artist;
     private EditText name_venue;
     private Button search_button;
+
     private OnSearch onSearch;
     private LoadSetListXMLData loadSetListXMLData = new LoadSetListXMLData();
 
@@ -107,6 +108,5 @@ public class search_fragment extends Fragment {
             onSearch.searchStart(setList);
         }
     }
-
 
 }
