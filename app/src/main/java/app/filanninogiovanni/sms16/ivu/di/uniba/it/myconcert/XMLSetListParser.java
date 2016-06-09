@@ -66,10 +66,14 @@ public class XMLSetListParser {
                             }
                             setlist.setSongs( canzoniArray);
                         }
+                        canzoniArray = new ArrayList<>();
 
                     }
 
+
+
                     parderData.add(setlist);
+
 
                 }
 
