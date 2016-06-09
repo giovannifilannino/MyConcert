@@ -18,7 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class JSONfunctions {
+public class JSONFunction {
 
     public static JSONObject getJSONfromURL(String url) {
         InputStream is = null;

@@ -63,10 +63,4 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
         TextView nameCity;
         TextView date;
     }
-
-    private boolean checkVariables(){
-        if(setList.getArtistName()!=null & setList.getCity() != null && setList.getVenueName() != null && setList.getDate() !=null)
-            return true;
-        return false;
-    }
 }
