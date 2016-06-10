@@ -21,30 +21,26 @@
         android:inputType="textPersonName"
         android:hint="@string/artist"
         android:ems="10"
-        android:elevation="5dp"
         android:id="@+id/artist_name_search"
-        android:textAlignment="center"
         android:layout_alignParentTop="true"
-        android:background="@color/indigowhite"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="150dp" />
+        android:layout_marginTop="150dp"
+
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:inputType="textPersonName"
-        android:ems="10"
-        android:elevation="5dp"
         android:id="@+id/venue_name_search"
         android:layout_marginLeft="45dp"
-        android:background="@color/indigowhite"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="80dp"
         android:hint="@string/venues"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="80dp"
         android:layout_marginStart="40dp"
-        android:textAlignment="center"
         android:layout_below="@id/artist_name_search"
          />
 
@@ -56,7 +52,7 @@
         android:text="@string/find"
         android:id="@+id/search_button"
         android:background="@drawable/rounded_bttn_blue"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:elevation="8dp"
         android:layout_below="@id/venue_name_search"
         android:layout_marginBottom="34dp"
@@ -67,6 +63,25 @@
         android:textSize="17dp"
         android:drawableLeft="@drawable/ic_search_white_24dp"
        android:layout_marginTop="50dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_marginTop="156dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_search_black_36dp"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:layout_marginTop="217dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_search_black_36dp"
         />
 
 
