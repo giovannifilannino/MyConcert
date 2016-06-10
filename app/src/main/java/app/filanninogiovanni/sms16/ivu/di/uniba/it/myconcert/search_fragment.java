@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
@@ -32,7 +34,6 @@ public class search_fragment extends Fragment {
     private EditText name_artist;
     private EditText name_venue;
     private Button search_button;
-
     private OnSearch onSearch;
     private LoadSetListXMLData loadSetListXMLData = new LoadSetListXMLData();
 
@@ -98,7 +99,7 @@ public class search_fragment extends Fragment {
         protected String doInBackground(String... params) {
             setListParser = new XMLSetListParser();
             setListParser.parseXML(params[0]);
-            return "fatto";
+            return "fatto!";
         }
 
         @Override

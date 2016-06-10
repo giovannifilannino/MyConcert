@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -11,10 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+
+import java.io.IOException;
 
 
 public class loginFragment extends Fragment{
@@ -23,7 +40,19 @@ public class loginFragment extends Fragment{
     private EditText password;
     private Button login;
     private OnLoginConfirmed mLogin;
+    private String UserURL = "http://mymusiclive.altervista.org/user.php?username=";
+    private String OutPut = "http://mymusiclive.altervista.org/output.json";
+    private String PasswordURL = "&password=";
+    private String formatJson = "&format=json";
     Toolbar toolbar;
+    String movida;
+    private WebView webView;
+    SignUpJSON signUpJSON;
+    String franco;
+    String data = "";
+
+    RequestQueue requestQueue;
+
 
     @Override
     public void onAttach(Context context) {
@@ -50,19 +79,47 @@ public class loginFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
-        //toolbar=(Toolbar)getActivity().findViewById(R.id.tool_bar);
-        //toolbar.setNavigationIcon(R.drawable.ic_drawer);
+        webView = (WebView) getActivity().findViewById(R.id.webviewunder);
+        requestQueue = Volley.newRequestQueue(getActivity());
+        webView.setVisibility(View.INVISIBLE);
+
+
         login = (Button) getActivity().findViewById(R.id.buttonLogin);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(username.getText().toString().compareTo("pippo") == 0 && password.getText().toString().compareTo("pippo") == 0){
+
+                String url = UserURL + "\""  + username.getText().toString() +"\"" +  PasswordURL + "\"" +  password.getText().toString() + "\"" + formatJson;
+                JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        JSONArray jsonArray = response;
+                        franco= jsonArray.toString();
+                        Toast.makeText(getActivity(),franco,Toast.LENGTH_LONG).show();
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                requestQueue.add(arrayRequest);
                     mLogin.goToSearchFragment();
-                }
+
             }
         });
 
         super.onActivityCreated(savedInstanceState);
     }
+
+    private boolean checkUtente(String query){
+        if(query.compareTo("[]")==0){
+            return false;
+        }
+        return true;
+    }
+
+
 }
 
