@@ -44,12 +44,11 @@ public class loginFragment extends Fragment{
     private String OutPut = "http://mymusiclive.altervista.org/output.json";
     private String PasswordURL = "&password=";
     private String formatJson = "&format=json";
-    Toolbar toolbar;
-    String movida;
-    private WebView webView;
-    SignUpJSON signUpJSON;
+
+
+
     String franco;
-    String data = "";
+
 
     RequestQueue requestQueue;
 
@@ -79,9 +78,8 @@ public class loginFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
-        webView = (WebView) getActivity().findViewById(R.id.webviewunder);
         requestQueue = Volley.newRequestQueue(getActivity());
-        webView.setVisibility(View.INVISIBLE);
+
 
 
         login = (Button) getActivity().findViewById(R.id.buttonLogin);
@@ -95,7 +93,10 @@ public class loginFragment extends Fragment{
                     public void onResponse(JSONArray response) {
                         JSONArray jsonArray = response;
                         franco= jsonArray.toString();
-                        Toast.makeText(getActivity(),franco,Toast.LENGTH_LONG).show();
+                        if(checkUtente(franco))
+                            mLogin.goToSearchFragment();
+                        else
+                            Toast.makeText(getActivity(),"Utente non esistente",Toast.LENGTH_LONG);
 
                     }
                 }, new Response.ErrorListener() {
@@ -105,7 +106,6 @@ public class loginFragment extends Fragment{
                     }
                 });
                 requestQueue.add(arrayRequest);
-                    mLogin.goToSearchFragment();
 
             }
         });
