@@ -67,7 +67,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         setList = setlists.get(position);
         holder.nameArtist.setText(setList.getArtistName());
         holder.nameVenue.setText(setList.getVenueName());
-        holder.nameArtist.setText(setList.getCity());
+        holder.nameCity.setText(setList.getCity());
         holder.date.setText(setList.getDate());
 
     }

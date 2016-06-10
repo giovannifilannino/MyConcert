@@ -8,8 +8,8 @@
         android:layout_height="50dp"
         android:id="@+id/toolCerca">
     <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar"
+        android:id="@+id/tool_bar_find"
+        layout="@layout/tool_bar_lista"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         />

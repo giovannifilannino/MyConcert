@@ -42,7 +42,7 @@ public class ResultFragment extends Fragment {
         LinearLayoutManager llm=new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        MyAdapter ca =new MyAdapter(getActivity(),R.layout.item_resultlistitem,setListArrayList);
+        MyAdapter ca =new MyAdapter(getActivity(),R.layout.card,setListArrayList);
         recList.setAdapter(ca);
         /*
         listItem = (ListView) getActivity().findViewById(R.id.listviewresult);
