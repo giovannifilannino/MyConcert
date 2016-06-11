@@ -24,11 +24,7 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
  */
 public class search_fragment extends Fragment {
 
-    private XMLArtistParser artistParser;
-    private XMLVenueParser venuesParser;
-
     private XMLSetListParser setListParser;
-
     private  String URL_ARTIST = "http://api.setlist.fm/rest/0.1/search/setlists?artistName=";
     private String URL_VENUES = "http://api.setlist.fm/rest/0.1/search/setlists?venueName=";
     private EditText name_artist;
