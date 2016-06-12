@@ -97,7 +97,7 @@ public class loginFragment extends Fragment{
                             mLogin.goToSearchFragment();
                         else
                             Toast.makeText(getActivity(),"Utente non esistente",Toast.LENGTH_LONG);
-
+                            //banana
                     }
                 }, new Response.ErrorListener() {
                     @Override
