@@ -81,7 +81,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"ciao"+position,Toast.LENGTH_SHORT).show();
                 ResultFragment.click(setList.getSongs());
             }
         });

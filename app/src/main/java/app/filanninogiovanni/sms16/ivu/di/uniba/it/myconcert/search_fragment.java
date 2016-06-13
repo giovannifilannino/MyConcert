@@ -90,6 +90,8 @@ public class search_fragment extends Fragment {
 
 
 
+
+
     private class LoadSetListXMLData extends AsyncTask<String,String,String>{
         @Override
         protected String doInBackground(String... params) {

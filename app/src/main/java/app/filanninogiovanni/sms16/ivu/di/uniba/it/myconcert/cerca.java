@@ -72,6 +72,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_frame,resultFragment).commit();
 
+
         resultFragment.riempiArray(urlDaCercare);
     }
 
@@ -84,10 +85,11 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if(songsavaible) {
-            fragmentTransaction.replace(R.id.content_frame, songList).commit();
+            fragmentTransaction.replace(R.id.content_frame, songList).addToBackStack("").commit();
             songList.riempiArray(songs);
         } else {
-            fragmentTransaction.replace(R.id.content_frame, noSongsFound).commit();
+            fragmentTransaction.replace(R.id.content_frame, noSongsFound).addToBackStack("").commit();
         }
     }
+
 }
