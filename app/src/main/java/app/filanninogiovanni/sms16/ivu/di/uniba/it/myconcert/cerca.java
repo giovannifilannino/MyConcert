@@ -76,7 +76,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     }
 
     @Override
-    public void showSongs(ArrayList<String> songs, boolean songsavaible) {
+    public  void showSongs(ArrayList<String> songs, boolean songsavaible) {
         songList = new SongList();
         noSongsFound = new NoSongsFound();
 

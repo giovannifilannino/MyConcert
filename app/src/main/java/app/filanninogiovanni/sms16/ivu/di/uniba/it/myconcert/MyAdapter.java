@@ -1,12 +1,16 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
@@ -19,6 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     LayoutInflater inflater;
     List<Setlist> setlists;
     Setlist setList;
+    static cerca cerca=new cerca();
     private int layout;
 
     // Provide a reference to the views for each data item
@@ -30,14 +35,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView nameVenue;
         TextView nameCity;
         TextView date;
+        CardView cardView;
+
+
         public ViewHolder(View v) {
             super(v);
             nameArtist=(TextView) v.findViewById(R.id.textNameArtistItemList);
             nameVenue = (TextView) v.findViewById(R.id.textNameVenueItemList);
             nameCity = (TextView) v.findViewById(R.id.textNameCityItemList);
             date = (TextView) v.findViewById(R.id.textDataItemList);
-
+            cardView=(CardView)v.findViewById(R.id.cv);
         }
+
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -54,14 +63,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // create a new view
         View convertView = inflater.inflate(layout,parent,false);
         // set the view's size, margins, paddings and layout parameters
-
         ViewHolder vh = new ViewHolder(convertView);
+
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         setList = setlists.get(position);
@@ -69,8 +78,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.nameVenue.setText(setList.getVenueName());
         holder.nameCity.setText(setList.getCity());
         holder.date.setText(setList.getDate());
-
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"ciao"+position,Toast.LENGTH_SHORT).show();
+                ResultFragment.click(setList.getSongs());
+            }
+        });
     }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
