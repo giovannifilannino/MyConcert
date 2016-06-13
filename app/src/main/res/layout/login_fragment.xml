@@ -99,10 +99,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp" />
 
-    <WebView
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:id="@+id/webviewunder"
-        ></WebView>
 
 </RelativeLayout>

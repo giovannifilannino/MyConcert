@@ -1,37 +1,31 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 
-import java.io.IOException;
 
 
 public class loginFragment extends Fragment{
@@ -44,6 +38,9 @@ public class loginFragment extends Fragment{
     private String OutPut = "http://mymusiclive.altervista.org/output.json";
     private String PasswordURL = "&password=";
     private String formatJson = "&format=json";
+
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
 
 
 
@@ -78,8 +75,32 @@ public class loginFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
+        loginButton = (LoginButton) getActivity().findViewById(R.id.login_button);
         requestQueue = Volley.newRequestQueue(getActivity());
 
+
+
+        callbackManager = CallbackManager.Factory.create();
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(getActivity(), loginResult.getAccessToken().getUserId(), Toast.LENGTH_LONG).show();
+                Log.d("Faceboook", loginResult.getAccessToken().getUserId());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getActivity(),"Erroreeee",Toast.LENGTH_LONG).show();
+                Log.d("Faceboook", "Erroreeeeee");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getActivity(),error.toString(),Toast.LENGTH_LONG).show();
+                Log.d("Faceboook", error.toString());
+            }
+        });
 
 
         login = (Button) getActivity().findViewById(R.id.buttonLogin);
