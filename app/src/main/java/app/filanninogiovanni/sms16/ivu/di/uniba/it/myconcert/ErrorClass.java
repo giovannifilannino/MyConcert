@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
 
 /**
  * Created by delmi on 13/06/2016.
@@ -30,7 +31,7 @@ public class ErrorClass {
                 builder.setPositiveButton("Attiva", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent AttConn =new Intent(Intent.CATEGORY_PREFERENCE);
+                        Intent AttConn =new Intent(Settings.ACTION_SETTINGS);
                         context.startActivity(AttConn);
                     }
                 });
