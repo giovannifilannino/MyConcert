@@ -40,11 +40,11 @@ public class ResultFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         RecyclerView recList=(RecyclerView)getActivity().findViewById(R.id.rv);
-        LinearLayoutManager llm=new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recList.setLayoutManager(llm);
-        MyAdapter ca =new MyAdapter(getActivity(),R.layout.card,setListArrayList);
-        recList.setAdapter(ca);
+            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            recList.setLayoutManager(llm);
+            MyAdapter ca = new MyAdapter(getActivity(), R.layout.card, setListArrayList);
+            recList.setAdapter(ca);
 /*
         listItem = (ListView) getActivity().findViewById(R.id.listviewresult);
         setListAdapter = new SetListAdapter(getActivity(),R.layout.item_resultlistitem,setListArrayList);

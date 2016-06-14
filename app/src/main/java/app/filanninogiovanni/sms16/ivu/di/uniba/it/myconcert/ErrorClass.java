@@ -13,9 +13,9 @@ import android.provider.Settings;
  */
 
 public class ErrorClass {
-    private static final int DIALOG_NOCONNECTION_ID=1;
-    private static final int DIALOG_NOARTISTFOUND_ID=2;
-    private static final int DIALOG_NOVENUESFOUND_ID=3;
+    public static final int DIALOG_NOCONNECTION_ID=1;
+    public static final int DIALOG_NOARTISTFOUND_ID=2;
+    public static final int DIALOG_NOVENUESFOUND_ID=3;
 
 
     public static Dialog onCreateDialog(int id, final Context context) {

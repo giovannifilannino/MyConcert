@@ -30,6 +30,7 @@ public class search_fragment extends Fragment {
     private EditText name_artist;
     private EditText name_venue;
     private Button search_button;
+    private boolean flag=true;
     private OnSearch onSearch;
     private LoadSetListXMLData loadSetListXMLData = new LoadSetListXMLData();
 
@@ -68,19 +69,39 @@ public class search_fragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        loadSetListXMLData=null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        loadSetListXMLData=null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadSetListXMLData=new LoadSetListXMLData();
+    }
+
     View.OnClickListener artistSearchButton = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
+            public void onClick(View v) {
             if(name_artist.getText().toString().compareTo("") != 0){
                 String artist = name_artist.getText().toString();
                 artist = artist.replaceAll("\\s+","%20");
                 query = URL_ARTIST + '"' + artist + '"';
                 loadSetListXMLData.execute(query);
+                flag=false;
             } else if(name_venue.getText().toString().compareTo("") != 0){
                 String venues = name_venue.getText().toString();
                 venues = venues.replaceAll("\\s+","%20");
                 query = URL_VENUES + '"' + venues + '"';
                 loadSetListXMLData.execute(query);
+                flag=true;
             }
 
 
@@ -105,7 +126,20 @@ public class search_fragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             ArrayList<Setlist> setList = setListParser.parderData;
-            onSearch.searchStart(setList);
+            if(setList.size()!=0){
+                onSearch.searchStart(setList);
+            }
+            else {
+                if(flag==true){
+                    ErrorClass.onCreateDialog(ErrorClass.DIALOG_NOVENUESFOUND_ID,getActivity());
+                    onDestroy();
+                    onResume();
+                }
+                else {
+                    ErrorClass.onCreateDialog(ErrorClass.DIALOG_NOARTISTFOUND_ID,getActivity());
+                    onDestroy();onResume();
+                }
+            }
         }
     }
 

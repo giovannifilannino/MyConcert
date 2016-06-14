@@ -70,7 +70,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         fragmentManager = getFragmentManager();
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_frame,resultFragment).commit();
+        fragmentTransaction.replace(R.id.content_frame,resultFragment).addToBackStack("miro").commit();
 
 
         resultFragment.riempiArray(urlDaCercare);

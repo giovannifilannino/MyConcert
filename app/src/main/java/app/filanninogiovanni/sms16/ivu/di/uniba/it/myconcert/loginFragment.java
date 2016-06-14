@@ -43,7 +43,6 @@ public class loginFragment extends Fragment{
     private String OutPut = "http://mymusiclive.altervista.org/output.json";
     private String PasswordURL = "&password=";
     private String formatJson = "&format=json";
-    private static final int DIALOG_NOCONNECTION_ID=1;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
 
@@ -136,7 +135,7 @@ public class loginFragment extends Fragment{
 
                 }
                 else {
-                    dialog = ErrorClass.onCreateDialog(DIALOG_NOCONNECTION_ID,getActivity());
+                    dialog = ErrorClass.onCreateDialog(ErrorClass.DIALOG_NOCONNECTION_ID,getActivity());
                 }
             }
         });
