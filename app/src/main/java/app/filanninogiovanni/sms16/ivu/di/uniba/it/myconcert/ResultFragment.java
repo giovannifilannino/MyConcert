@@ -45,7 +45,7 @@ public class ResultFragment extends Fragment {
         recList.setLayoutManager(llm);
         MyAdapter ca =new MyAdapter(getActivity(),R.layout.card,setListArrayList);
         recList.setAdapter(ca);
-        /*
+/*
         listItem = (ListView) getActivity().findViewById(R.id.listviewresult);
         setListAdapter = new SetListAdapter(getActivity(),R.layout.item_resultlistitem,setListArrayList);
         listItem.setAdapter(setListAdapter);

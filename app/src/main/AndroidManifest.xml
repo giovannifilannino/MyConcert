@@ -3,6 +3,7 @@
     package="app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"

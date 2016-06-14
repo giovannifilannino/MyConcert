@@ -1,7 +1,10 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 
+import android.app.Dialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -33,6 +36,8 @@ public class loginFragment extends Fragment{
     private EditText username;
     private EditText password;
     private Button login;
+    ErrorClass errorClass=new ErrorClass();
+    private Dialog dialog;
     private OnLoginConfirmed mLogin;
     private String UserURL = "http://mymusiclive.altervista.org/user.php?username=";
     private String OutPut = "http://mymusiclive.altervista.org/output.json";
@@ -107,27 +112,32 @@ public class loginFragment extends Fragment{
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isNetworkAvailable()){
 
-                String url = UserURL + "\""  + username.getText().toString() +"\"" +  PasswordURL + "\"" +  password.getText().toString() + "\"" + formatJson;
-                JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        JSONArray jsonArray = response;
-                        franco= jsonArray.toString();
-                        if(checkUtente(franco))
-                            mLogin.goToSearchFragment();
-                        else
-                            Toast.makeText(getActivity(),"Utente non esistente",Toast.LENGTH_LONG);
+                    String url = UserURL + "\"" + username.getText().toString() + "\"" + PasswordURL + "\"" + password.getText().toString() + "\"" + formatJson;
+                    JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            JSONArray jsonArray = response;
+                            franco = jsonArray.toString();
+                            if (checkUtente(franco))
+                                mLogin.goToSearchFragment();
+                            else
+                                Toast.makeText(getActivity(), "Utente non esistente", Toast.LENGTH_LONG);
                             //banana
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
-                    }
-                });
-                requestQueue.add(arrayRequest);
+                        }
+                    });
+                    requestQueue.add(arrayRequest);
 
+                }
+                else {
+                    dialog = ErrorClass.onCreateDialog(1,getActivity());
+                }
             }
         });
 
@@ -139,6 +149,13 @@ public class loginFragment extends Fragment{
             return false;
         }
         return true;
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 

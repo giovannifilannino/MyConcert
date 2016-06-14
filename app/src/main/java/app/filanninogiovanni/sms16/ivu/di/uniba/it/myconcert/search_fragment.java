@@ -36,6 +36,7 @@ public class search_fragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         onSearch = (OnSearch) context;
     }
 
