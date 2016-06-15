@@ -59,17 +59,21 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
 
+
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);
+        mList.setVisibility(View.GONE);
         isEditTextVisible = false;
 
         setUpAdapter();
         loadPlace();
         windowTransition();
         getPhoto();
+
     }
 
     private void setUpAdapter() {
+
         mList.setAdapter(new ArrayAdapter<String>(this,R.layout.itemsong,R.id.textSong,setlist));
 
     }
@@ -87,8 +91,10 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             @Override
             public void onTransitionEnd(Transition transition) {
                 getWindow().getEnterTransition().removeListener(this);
+                mList.setVisibility(View.VISIBLE);
             }
         });
+
 
     }
 
@@ -117,6 +123,12 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     private void hideEditText(final LinearLayout view) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mList.setVisibility(View.GONE);
     }
 
 }
