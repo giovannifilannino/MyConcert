@@ -142,9 +142,12 @@ public class loginFragment extends Fragment{
                                 ErrorClass.onCreateDialog(ErrorClass.PROGRESS_DIALOG_ID,getActivity());
                                 mLogin.goToSearchFragment(nome,cognome,alias,artista);
 
-                            }
-                            else
+                            } else {
                                 Toast.makeText(getActivity(), "Utente non esistente", Toast.LENGTH_LONG);
+                                ErrorClass.onCreateDialog(ErrorClass.DIALOG_NOARTISTFOUND_ID,getActivity());
+                            }
+
+
 
                         }
                     }, new Response.ErrorListener() {
