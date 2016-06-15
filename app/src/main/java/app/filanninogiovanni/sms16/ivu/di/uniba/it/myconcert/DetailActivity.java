@@ -27,6 +27,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private ImageView mImageView;
     private TextView mTitle;
     private LinearLayout mTitleHolder;
+    private Place mPlace;
     private LinearLayout mRevealView;
     private EditText mEditTextTodo;
     private boolean isEditTextVisible;
@@ -40,7 +41,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail);
 
-
+        mPlace = PlaceData.placeList().get(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));
         mList = (ListView) findViewById(R.id.list);
         mImageView = (ImageView) findViewById(R.id.placeImage);
         mTitle = (TextView) findViewById(R.id.textView);
@@ -59,14 +60,11 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     }
 
     private void setUpAdapter() {
-        mTodoList = new ArrayList<>();
-        mToDoAdapter = new ArrayAdapter(this, R.layout.row_todo, mTodoList);
-        mList.setAdapter(mToDoAdapter);
+
     }
 
     private void loadPlace() {
-        mTitle.setText(mPlace.name);
-        mImageView.setImageResource(mPlace.getImageResourceId(this));
+
     }
 
     private void windowTransition() {
@@ -78,7 +76,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     }
 
     private void getPhoto() {
-        Bitmap photo = BitmapFactory.decodeResource(getResources(), mPlace.getImageResourceId(this));
+
     }
 
     private void colorize(Bitmap photo) {
@@ -90,21 +88,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_add:
-                if (!isEditTextVisible) {
-                    revealEditText(mRevealView);
-                    mEditTextTodo.requestFocus();
-                    mInputManager.showSoftInput(mEditTextTodo, InputMethodManager.SHOW_IMPLICIT);
-
-                } else {
-                    addToDo(mEditTextTodo.getText().toString());
-                    mToDoAdapter.notifyDataSetChanged();
-                    mInputManager.hideSoftInputFromWindow(mEditTextTodo.getWindowToken(), 0);
-                    hideEditText(mRevealView);
-
-                }
-        }
     }
 
     private void revealEditText(LinearLayout view) {
@@ -115,27 +98,4 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
-        alphaAnimation.setDuration(100);
-        mAddButton.startAnimation(alphaAnimation);
-        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                mAddButton.setVisibility(View.GONE);
-                finishAfterTransition();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-    }
 }

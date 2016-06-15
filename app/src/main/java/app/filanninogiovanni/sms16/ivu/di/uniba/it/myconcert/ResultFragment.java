@@ -56,8 +56,7 @@ public class ResultFragment extends Fragment {
                 @Override
                 public void onItemClick(View v, int position) {
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
-                    intent.putExtra(DetailActivity.EXTRA_PARAM_ID, position);
-                    Toast.makeText(getActivity(), "Clicked " + position, Toast.LENGTH_SHORT).show();
+                    intent.putExtra("dati", se);
                     ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                     LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);
 // 2
