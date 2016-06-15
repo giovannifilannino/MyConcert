@@ -118,5 +118,6 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     public void goToSearchFragment() {
         Intent intent = new Intent(this, cerca.class);
         startActivity(intent);
+        this.finish();
     }
 }
