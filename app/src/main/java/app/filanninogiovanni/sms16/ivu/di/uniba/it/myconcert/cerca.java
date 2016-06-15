@@ -28,6 +28,9 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private NoSongsFound noSongsFound;
     private ResultFragment resultFragment = new ResultFragment();
     private int choise;
+    private String nomeArtista;
+    private String cognomeArtista;
+    private String aliasArtista;
 
 
     @Override
@@ -39,6 +42,9 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //layout per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
         choise = getIntent().getIntExtra("artista",0);
+        nomeArtista = getIntent().getStringExtra("nomeArtista");
+        cognomeArtista = getIntent().getStringExtra("cognomeArtista");
+        aliasArtista = getIntent().getStringExtra("aliasArtista");
         mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
             @Override
             public void onDrawerClosed(View view) {
@@ -68,6 +74,9 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
           if(choise==0){
               fragmentTransaction.replace(R.id.content_frame, search);
           } else {
+              artistaHome.setNomeArtistaString(nomeArtista);
+              artistaHome.setCognomeArtitaString(cognomeArtista);
+              artistaHome.setAliasArtistaString(aliasArtista);
               fragmentTransaction.replace(R.id.content_frame, artistaHome);
           }
 

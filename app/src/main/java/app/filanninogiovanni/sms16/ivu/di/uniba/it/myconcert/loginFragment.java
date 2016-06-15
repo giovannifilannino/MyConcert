@@ -47,6 +47,7 @@ public class loginFragment extends Fragment{
     private String nome;
     private String cognome;
     private int artista;
+    private String alias = "";
 
 
 
@@ -67,7 +68,7 @@ public class loginFragment extends Fragment{
     }
 
     public interface OnLoginConfirmed{
-        public void goToSearchFragment(int value);
+        public void goToSearchFragment(String nome, String cognome, String alias, int value);
 
     }
 
@@ -131,12 +132,15 @@ public class loginFragment extends Fragment{
                                     nome = jsonObject.getString("Nome");
                                     cognome = jsonObject.getString("Cognome");
                                     artista = jsonObject.getInt("artista");
+                                    if(artista==1){
+                                        alias = jsonObject.getString("Pseudonimo");
+                                    }
                                 } catch (Exception e){
                                     e.printStackTrace();
                                 }
 
                                 ErrorClass.onCreateDialog(ErrorClass.PROGRESS_DIALOG_ID,getActivity());
-                                mLogin.goToSearchFragment(artista);
+                                mLogin.goToSearchFragment(nome,cognome,alias,artista);
 
                             }
                             else

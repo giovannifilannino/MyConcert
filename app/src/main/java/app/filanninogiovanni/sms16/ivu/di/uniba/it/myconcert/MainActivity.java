@@ -115,9 +115,12 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     }
 
     @Override
-    public void goToSearchFragment(int value) {
+    public void goToSearchFragment(String nome, String cognome, String alias, int value) {
         Intent intent = new Intent(this, cerca.class);
         intent.putExtra("artista",value);
+        intent.putExtra("nomeArtista", nome);
+        intent.putExtra("cognomeArtista", cognome);
+        intent.putExtra("aliasArtista", alias);
         startActivity(intent);
         this.finish();
     }
