@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,31 +25,46 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String[] mDataset;
     LayoutInflater inflater;
     List<Setlist> setlists;
+    OnItemClickListener mItemClickListener;
     Setlist setList;
-    static cerca cerca=new cerca();
     private int layout;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         TextView nameArtist;
-        TextView nameVenue;
-        TextView nameCity;
+      //  TextView nameVenue;
+        //TextView nameCity;
         TextView date;
-        CardView cardView;
-
-
+       // CardView cardView;
+        LinearLayout linearLayout;
         public ViewHolder(View v) {
             super(v);
-            nameArtist=(TextView) v.findViewById(R.id.textNameArtistItemList);
-            nameVenue = (TextView) v.findViewById(R.id.textNameVenueItemList);
-            nameCity = (TextView) v.findViewById(R.id.textNameCityItemList);
-            date = (TextView) v.findViewById(R.id.textDataItemList);
-            cardView=(CardView)v.findViewById(R.id.cv);
+            nameArtist=(TextView) v.findViewById(R.id.artista);
+           // nameVenue = (TextView) v.findViewById(R.id.textNameVenueItemList);
+           // nameCity = (TextView) v.findViewById(R.id.textNameCityItemList);
+            date = (TextView) v.findViewById(R.id.data);
+            //cardView=(CardView)v.findViewById(R.id.cv);
+            linearLayout=(LinearLayout) v.findViewById(R.id.mainHolder);
+            linearLayout.setOnClickListener(this);
+
+        }
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(itemView, getPosition());
+            }
         }
 
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+    public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -75,15 +93,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - replace the contents of the view with that element
         setList = setlists.get(position);
         holder.nameArtist.setText(setList.getArtistName());
-        holder.nameVenue.setText(setList.getVenueName());
-        holder.nameCity.setText(setList.getCity());
+        //holder.nameVenue.setText(setList.getVenueName());
+       // holder.nameCity.setText(setList.getCity());
         holder.date.setText(setList.getDate());
+        /*
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ResultFragment.click(setList.getSongs());
             }
-        });
+        });*/
     }
 
 

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
     private search_fragment search_fragmento;
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //layout per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
-
 
         setSupportActionBar(toolbar);
 
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.login));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.signup));
-       // tabLayout.setTabTextColors(ColorStateList.valueOf(R.color.colorAccent));
+        tabLayout.setTabTextColors(Color.WHITE,R.color.colorAccent);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

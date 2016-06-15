@@ -77,6 +77,7 @@ public class loginFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
+
         loginButton = (LoginButton) getActivity().findViewById(R.id.login_button);
         requestQueue = Volley.newRequestQueue(getActivity());
 
