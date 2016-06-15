@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ public class ErrorClass {
     public static final int DIALOG_NOCONNECTION_ID=1;
     public static final int DIALOG_NOARTISTFOUND_ID=2;
     public static final int DIALOG_NOVENUESFOUND_ID=3;
+    public static final int PROGRESS_DIALOG_ID=4;
 
 
     public static Dialog onCreateDialog(int id, final Context context) {
@@ -65,7 +67,13 @@ public class ErrorClass {
                 });
                 builder2.show();
                 break;
-
+            case 4:
+                ProgressDialog  progress = new ProgressDialog(context);
+                progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progress.setMessage("Caricamento in corso...");
+                progress.setCancelable(true);
+                progress.show();
+                break;
             default:
                 dialog = null;
         }

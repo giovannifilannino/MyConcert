@@ -118,8 +118,10 @@ public class loginFragment extends Fragment{
                         public void onResponse(JSONArray response) {
                             JSONArray jsonArray = response;
                             franco = jsonArray.toString();
-                            if (checkUtente(franco))
+                            if (checkUtente(franco)) {
+                                ErrorClass.onCreateDialog(ErrorClass.PROGRESS_DIALOG_ID,getActivity());
                                 mLogin.goToSearchFragment();
+                            }
                             else
                                 Toast.makeText(getActivity(), "Utente non esistente", Toast.LENGTH_LONG);
 
