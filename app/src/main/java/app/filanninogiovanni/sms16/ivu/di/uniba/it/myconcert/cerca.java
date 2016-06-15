@@ -27,6 +27,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private NoSongsFound noSongsFound;
     private ResultFragment resultFragment = new ResultFragment();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
          FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
           Fragment search = new search_fragment();
-
+        
           fragmentTransaction.replace(R.id.content_frame, search);
           fragmentTransaction.commit();
     }
