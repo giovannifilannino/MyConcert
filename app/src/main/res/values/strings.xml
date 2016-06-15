@@ -23,6 +23,9 @@
     <string name="nomeCitta">City:</string>
     <string name="data">Date:</string>
     <string name="nosongs">No songs avaible...</string>
+    <string name="nameartist">Artist name: </string>
+    <string name="surnameartist">Artist surname: </string>
+    <string name="aliasartist">Alias: </string>
 
     <string name="need">Need an account?</string>
     <string name="registrati">SIGN UP NOW</string>

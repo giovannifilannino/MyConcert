@@ -1,4 +1,4 @@
-package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
+package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities;
 
 /**
  * Created by Giovanni on 06/06/2016.

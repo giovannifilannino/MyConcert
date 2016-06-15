@@ -9,20 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
+
 
 
 /**
@@ -36,7 +31,6 @@ public class RegistrationFragment extends Fragment {
     private EditText nome;
     private EditText cognome;
     private Button registration;
-    private String result;
     private RequestQueue requestQueue;
     private String URLRegistration = "http://mymusiclive.altervista.org/registration.php?";
 
@@ -58,7 +52,7 @@ public class RegistrationFragment extends Fragment {
 
         final JSONObject jsonObject = new JSONObject();
 
-        registration.setOnClickListener(new View.OnClickListener() {
+        registration.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
 

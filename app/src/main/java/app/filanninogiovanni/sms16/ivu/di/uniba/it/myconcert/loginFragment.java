@@ -26,7 +26,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONArray;
-
+import org.json.JSONObject;
 
 
 public class loginFragment extends Fragment{
@@ -43,6 +43,10 @@ public class loginFragment extends Fragment{
     private String formatJson = "&format=json";
     private CallbackManager callbackManager;
     private LoginButton loginButton;
+
+    private String nome;
+    private String cognome;
+    private int artista;
 
 
 
@@ -63,7 +67,8 @@ public class loginFragment extends Fragment{
     }
 
     public interface OnLoginConfirmed{
-        public void goToSearchFragment();
+        public void goToSearchFragment(int value);
+
     }
 
     @Override
@@ -116,11 +121,23 @@ public class loginFragment extends Fragment{
                     JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            JSONArray jsonArray = response;
-                            franco = jsonArray.toString();
+                                JSONArray jsonArray = response;
+                                franco = jsonArray.toString();
+
                             if (checkUtente(franco)) {
+
+                                try {
+                                    JSONObject jsonObject = getJson(jsonArray);
+                                    nome = jsonObject.getString("Nome");
+                                    cognome = jsonObject.getString("Cognome");
+                                    artista = jsonObject.getInt("artista");
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
+
                                 ErrorClass.onCreateDialog(ErrorClass.PROGRESS_DIALOG_ID,getActivity());
-                                mLogin.goToSearchFragment();
+                                mLogin.goToSearchFragment(artista);
+
                             }
                             else
                                 Toast.makeText(getActivity(), "Utente non esistente", Toast.LENGTH_LONG);
@@ -158,6 +175,15 @@ public class loginFragment extends Fragment{
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    private JSONObject getJson(JSONArray jsonArray){
+        JSONObject result = null;
+        try{
+            result = jsonArray.getJSONObject(0);
+        } catch (Exception e){
+
+        }
+        return result;
+    }
+
 
 }
-

@@ -1,4 +1,4 @@
-package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
+package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ParserXML;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,7 +18,7 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 public class XMLSetListParser {
 
 
-        ArrayList<Setlist> parderData = new ArrayList<Setlist>();
+       public ArrayList<Setlist> parderData = new ArrayList<Setlist>();
         ArrayList<String> canzoniArray = new ArrayList<String>();
 
     public void parseXML(String url){

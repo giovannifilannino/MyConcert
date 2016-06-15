@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
 public class cerca extends AppCompatActivity implements search_fragment.OnSearch, ResultFragment.OnSetListSelecter{
@@ -26,16 +27,18 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private String[] optionDrawer;
     private NoSongsFound noSongsFound;
     private ResultFragment resultFragment = new ResultFragment();
+    private int choise;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.irko);
+
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //layout per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
-
+        choise = getIntent().getIntExtra("artista",0);
         mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
             @Override
             public void onDrawerClosed(View view) {
@@ -61,8 +64,13 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
          FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
           Fragment search = new search_fragment();
-        
-          fragmentTransaction.replace(R.id.content_frame, search);
+            ArtistaHome artistaHome = new ArtistaHome();
+          if(choise==0){
+              fragmentTransaction.replace(R.id.content_frame, search);
+          } else {
+              fragmentTransaction.replace(R.id.content_frame, artistaHome);
+          }
+
           fragmentTransaction.commit();
     }
 

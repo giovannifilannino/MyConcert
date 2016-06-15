@@ -1,4 +1,4 @@
-package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
+package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ParserXML;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -7,6 +7,8 @@ import org.w3c.dom.NodeList;
 import java.net.URL;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Venues;
 
 
 public class XMLVenueParser
