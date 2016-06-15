@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.transition.Transition;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -18,18 +19,24 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
 public class DetailActivity extends Activity implements View.OnClickListener {
 
     public static final String EXTRA_PARAM_ID = "place_id";
     private ListView mList;
     private ImageView mImageView;
-    private TextView mTitle;
+    private TextView nomeArtista;
+    private TextView dataTXT;
     private LinearLayout mTitleHolder;
-    private Place mPlace;
+    private ArrayList<String> setlist;
     private LinearLayout mRevealView;
     private EditText mEditTextTodo;
+    private String nome;
+    private String data;
     private boolean isEditTextVisible;
     private InputMethodManager mInputManager;
     private ArrayList<String> mTodoList;
@@ -41,10 +48,13 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail);
 
-        mPlace = PlaceData.placeList().get(getIntent().getIntExtra(EXTRA_PARAM_ID, 0));
+        setlist = getIntent().getStringArrayListExtra("canzoni");
+        nome=getIntent().getStringExtra("cantante");
+        data=getIntent().getStringExtra("data");
         mList = (ListView) findViewById(R.id.list);
         mImageView = (ImageView) findViewById(R.id.placeImage);
-        mTitle = (TextView) findViewById(R.id.textView);
+        nomeArtista = (TextView) findViewById(R.id.artistaDett);
+        dataTXT=(TextView) findViewById(R.id.dataDett);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
         mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
@@ -60,14 +70,25 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     }
 
     private void setUpAdapter() {
+        mList.setAdapter(new ArrayAdapter<String>(this,R.layout.itemsong,R.id.textSong,setlist));
 
     }
 
     private void loadPlace() {
 
+        dataTXT.setText(data);
+
+        nomeArtista.setText(nome);
+
     }
 
     private void windowTransition() {
+        getWindow().getEnterTransition().addListener(new TransitionAdapter() {
+            @Override
+            public void onTransitionEnd(Transition transition) {
+                getWindow().getEnterTransition().removeListener(this);
+            }
+        });
 
     }
 

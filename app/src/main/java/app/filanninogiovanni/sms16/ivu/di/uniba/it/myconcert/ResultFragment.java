@@ -54,9 +54,11 @@ public class ResultFragment extends Fragment {
             recList.setAdapter(ca);
             MyAdapter.OnItemClickListener onItemClickListener= new MyAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(View v, int position) {
+                public void onItemClick(View v, int position,Setlist setlist) {
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
-                    intent.putExtra("dati", se);
+                    intent.putStringArrayListExtra("canzoni", setlist.getSongs());
+                    intent.putExtra("cantante",setlist.getArtistName());
+                    intent.putExtra("data",setlist.getDate());
                     ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                     LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);
 // 2
