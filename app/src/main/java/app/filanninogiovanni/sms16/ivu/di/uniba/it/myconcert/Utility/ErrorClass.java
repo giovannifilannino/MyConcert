@@ -1,4 +1,4 @@
-package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
+package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility;
 
 import android.app.Activity;
 import android.app.Dialog;

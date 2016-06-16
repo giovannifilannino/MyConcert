@@ -1,4 +1,4 @@
-package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
+package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 
 /**
  * Created by Giovanni on 06/06/2016.

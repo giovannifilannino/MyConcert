@@ -1,4 +1,4 @@
-package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
+package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 
 /**
  * Created by Giovanni on 08/06/2016.

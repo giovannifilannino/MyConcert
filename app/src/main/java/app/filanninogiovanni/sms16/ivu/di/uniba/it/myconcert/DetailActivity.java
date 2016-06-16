@@ -4,25 +4,20 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.transition.Transition;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.TransitionAdapter;
 
 public class DetailActivity extends Activity implements View.OnClickListener {
 
