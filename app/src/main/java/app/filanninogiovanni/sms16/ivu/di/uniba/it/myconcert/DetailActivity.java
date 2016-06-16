@@ -67,17 +67,16 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);
-        mList.setVisibility(View.GONE);
-        isEditTextVisible = false;
+        isEditTextVisible = false;fade.excludeTarget(android.R.id.statusBarBackground, true);
+        fade.excludeTarget(android.R.id.navigationBarBackground, true);
+        getWindow().setExitTransition(fade);
+        getWindow().setEnterTransition(fade);
 
         setUpAdapter();
         loadPlace();
         windowTransition();
         getPhoto();
-        fade.excludeTarget(android.R.id.statusBarBackground, true);
-        fade.excludeTarget(android.R.id.navigationBarBackground, true);
-        getWindow().setExitTransition(fade);
-        getWindow().setEnterTransition(fade);
+
 
     }
 
