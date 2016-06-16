@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -32,6 +33,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private String nomeArtista;
     private String cognomeArtista;
     private String aliasArtista;
+
 
 
     @Override
@@ -83,6 +85,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
           fragmentTransaction.commit();
     }
+
 
     @Override
     public void searchStart(ArrayList<Setlist> urlDaCercare) {

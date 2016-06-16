@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
+
 /**
  * Created by delmi on 13/06/2016.
  */
@@ -18,6 +20,8 @@ public class ErrorClass {
     public static final int DIALOG_NOARTISTFOUND_ID=2;
     public static final int DIALOG_NOVENUESFOUND_ID=3;
     public static final int PROGRESS_DIALOG_ID=4;
+    public static final int DIALOG_FAILACCESS_ID=5;
+
 
 
     public static Dialog onCreateDialog(int id, final Context context) {
@@ -25,16 +29,16 @@ public class ErrorClass {
         switch(id) {
             case 1:
                 AlertDialog.Builder builder=new AlertDialog.Builder(context);
-                builder.setTitle("No Connection found");
-                builder.setMessage("Attivare connessione");
+                builder.setTitle(context.getResources().getString(R.string.NoConn));
+                builder.setMessage(context.getResources().getString(R.string.AttConn));
                 builder.setCancelable(true);
-                builder.setNegativeButton("Chiudi", new DialogInterface.OnClickListener(){
+                builder.setNegativeButton(context.getResources().getString(R.string.closea), new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int id){
                         System.exit(0);
                     }
                 });
-                builder.setPositiveButton("Attiva", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(context.getResources().getString(R.string.Imp), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         Intent AttConn =new Intent(Settings.ACTION_SETTINGS);
@@ -45,10 +49,10 @@ public class ErrorClass {
                 break;
             case 2:
                 AlertDialog.Builder builder1=new AlertDialog.Builder(context);
-                builder1.setTitle("No Artist found");
-                builder1.setMessage("Non esiste alcun artista che corrisponda ai parametri di ricerca inseriti");
+                builder1.setTitle(context.getResources().getString(R.string.Artist));
+                builder1.setMessage(context.getResources().getString(R.string.ArtistDescr));
                 builder1.setCancelable(true);
-                builder1.setPositiveButton("Chiudi",new DialogInterface.OnClickListener(){
+                builder1.setPositiveButton(context.getResources().getString(R.string.closea),new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
                         dialog.dismiss();
                     }
@@ -57,23 +61,38 @@ public class ErrorClass {
                 break;
             case 3:
                 AlertDialog.Builder builder2=new AlertDialog.Builder(context);
-                builder2.setTitle("No Venues found");
-                builder2.setMessage("Non esiste alcuna piazza che corrisponda ai parametri di ricerca inseriti");
+                builder2.setTitle(context.getResources().getString(R.string.venues));
+                builder2.setMessage(context.getResources().getString(R.string.VenuesDescr));
                 builder2.setCancelable(true);
-                builder2.setPositiveButton("Chiudi",new DialogInterface.OnClickListener(){
+                builder2.setPositiveButton(context.getResources().getString(R.string.closea),new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
                         dialog.dismiss();
                     }
                 });
-                builder2.show();
+
                 break;
             case 4:
                 ProgressDialog  progress = new ProgressDialog(context);
-                progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                progress.setMessage("Caricamento in corso...");
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.setMessage(context.getResources().getString(R.string.loading));
+
+
                 progress.setCancelable(true);
-                progress.show();
+                dialog=progress;
                 break;
+            case 5:
+                AlertDialog.Builder builder3=new AlertDialog.Builder(context);
+                builder3.setTitle(context.getResources().getString(R.string.Autentication));
+                builder3.setMessage(context.getResources().getString(R.string.AutenticationDescr));
+                builder3.setCancelable(true);
+                builder3.setPositiveButton(context.getResources().getString(R.string.closea),new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        System.exit(0);
+                    }
+                });
+                builder3.show();
+                break;
+
             default:
                 dialog = null;
         }

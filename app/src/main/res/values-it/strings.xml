@@ -26,4 +26,18 @@
     <string name="nomeCitta">Città:</string>
     <string name="nomeVenue">Sede:</string>
     <string name="nosongs">Non sono disponibili canzoni...</string>
+    <string name="loading">Caricamento in corso...</string>
+    <string name="closea">Chiudi</string>
+    <string name="Venues">Piazza non trovata</string>
+    <string name="VenuesDescr">Non esiste alcuna piazza che corrisponda ai parametri di ricerca inseriti</string>
+    <string name="Artist">Artista non trovato</string>
+    <string name="ArtistDescr">Non esiste alcun artista che corrisponda ai parametri di ricerca inseriti</string>
+    <string name="NoConn">Nessuna connessione trovata</string>
+    <string name="AttConn">Attivare connessione</string>
+    <string name="Imp">Impostazioni</string>
+    <string name="Autentication">Problemi di autenticazione</string>
+    <string name="AutenticationDescr">Combinazione username-password errata</string>
+
+
+
 </resources>

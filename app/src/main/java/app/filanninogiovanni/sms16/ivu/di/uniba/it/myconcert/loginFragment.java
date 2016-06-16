@@ -146,7 +146,7 @@ public class loginFragment extends Fragment{
 
                             } else {
                                 Toast.makeText(getActivity(), "Utente non esistente", Toast.LENGTH_LONG);
-                                ErrorClass.onCreateDialog(ErrorClass.DIALOG_NOARTISTFOUND_ID,getActivity());
+                                ErrorClass.onCreateDialog(ErrorClass.DIALOG_FAILACCESS_ID,getActivity());
                             }
 
 
