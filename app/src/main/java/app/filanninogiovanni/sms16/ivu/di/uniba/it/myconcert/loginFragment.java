@@ -49,6 +49,7 @@ public class loginFragment extends Fragment{
     private String nome;
     private String cognome;
     private int artista;
+    private String urlImmagine;
     private String alias = "";
 
 
@@ -70,7 +71,7 @@ public class loginFragment extends Fragment{
     }
 
     public interface OnLoginConfirmed{
-        public void goToSearchFragment(String nome, String cognome, String alias, int value);
+        public void goToSearchFragment(String nome, String cognome, String alias,String url, int value);
 
     }
 
@@ -134,6 +135,7 @@ public class loginFragment extends Fragment{
                                     nome = jsonObject.getString("Nome");
                                     cognome = jsonObject.getString("Cognome");
                                     artista = jsonObject.getInt("artista");
+                                    urlImmagine = jsonObject.getString("Immagine");
                                     if(artista==1){
                                         alias = jsonObject.getString("Pseudonimo");
                                     }
@@ -142,7 +144,7 @@ public class loginFragment extends Fragment{
                                 }
 
                                 ErrorClass.onCreateDialog(ErrorClass.PROGRESS_DIALOG_ID,getActivity());
-                                mLogin.goToSearchFragment(nome,cognome,alias,artista);
+                                mLogin.goToSearchFragment(nome,cognome,alias,urlImmagine,artista);
 
                             } else {
                                 Toast.makeText(getActivity(), "Utente non esistente", Toast.LENGTH_LONG);

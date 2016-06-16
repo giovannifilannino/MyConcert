@@ -2,6 +2,8 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -36,7 +39,10 @@ public class ArtistaHome extends Fragment {
     private TextView aliasArtista;
     private ImageView imageArtista;
     private ListView listaCanzoni;
+    private ImageView artistImage;
 
+
+    private String urlImmagine;
     private String nomeArtistaString;
     private String cognomeArtistaString;
     private String aliasArtistaString;
@@ -57,12 +63,28 @@ public class ArtistaHome extends Fragment {
         cognomeArtista = (TextView) getActivity().findViewById(R.id.cognomeArtistaID);
         aliasArtista = (TextView) getActivity().findViewById(R.id.aliasArtist);
         listaCanzoni = (ListView) getActivity().findViewById(R.id.listTopFiveSongs);
-
+        artistImage = (ImageView) getActivity().findViewById(R.id.artista_immagine);
         requestQueue = Volley.newRequestQueue(getActivity());
 
         nomeArtista.setText(nomeArtistaString);
         cognomeArtista.setText(cognomeArtistaString);
         aliasArtista.setText(aliasArtistaString);
+
+
+        ImageRequest imageRequest = new ImageRequest(urlImmagine, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                    artistImage.setImageBitmap(response);
+                    Log.d("Wanna",urlImmagine);
+            }
+        }, 0,0,Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Wanna",urlImmagine);
+            }
+        });
+
+        requestQueue.add(imageRequest);
 
         songArray = new ArrayList<String>();
 
@@ -84,7 +106,7 @@ public class ArtistaHome extends Fragment {
                     for(int i=0; i<5; i++){
                         jsonObject = response.getJSONObject(i);
                         songArray.add(jsonObject.getString("NomeCanzone"));
-                        Log.d("wannaaaaa", "siamo nel for");
+
                     }
 
                 }catch (Exception e){
@@ -120,5 +142,9 @@ public class ArtistaHome extends Fragment {
 
     public void setCognomeArtitaString(String cognomeArtistaString) {
         this.cognomeArtistaString = cognomeArtistaString;
+    }
+
+    public void setUrlImmagine(String urlImmagine) {
+        this.urlImmagine = urlImmagine;
     }
 }

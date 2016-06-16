@@ -33,7 +33,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private String nomeArtista;
     private String cognomeArtista;
     private String aliasArtista;
-
+    private String urlImmagine;
 
 
     @Override
@@ -48,6 +48,8 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         nomeArtista = getIntent().getStringExtra("nomeArtista");
         cognomeArtista = getIntent().getStringExtra("cognomeArtista");
         aliasArtista = getIntent().getStringExtra("aliasArtista");
+        urlImmagine = getIntent().getStringExtra("urlImmagine");
+
         mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
             @Override
             public void onDrawerClosed(View view) {
@@ -80,6 +82,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
               artistaHome.setNomeArtistaString(nomeArtista);
               artistaHome.setCognomeArtitaString(cognomeArtista);
               artistaHome.setAliasArtistaString(aliasArtista);
+              artistaHome.setUrlImmagine(urlImmagine);
               fragmentTransaction.replace(R.id.content_frame, artistaHome);
           }
 
