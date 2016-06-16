@@ -9,18 +9,23 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Transition;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.support.v4.util.Pair;
 
 import java.util.ArrayList;
 
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.SetListAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
 /**
@@ -60,13 +65,14 @@ public class ResultFragment extends Fragment {
                     intent.putExtra("data",setlist.getDate());
                     ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                     LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);
-// 2
-                    Pair<View, String> imagePair = Pair.create((View) placeImage, "tImage");
+                    View navigationBar = getActivity().findViewById(android.R.id.navigationBarBackground);
+                    Pair<View, String> navbar =Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
+                    Pair<View, String> imagePair = Pair.create((View ) placeImage, "tImage");
                     Pair<View, String> holderPair = Pair.create((View) placeNameHolder, "tNameHolder");
 // 3
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                            imagePair, holderPair);
-                    ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+                            imagePair, holderPair,navbar);
+                    startActivity(intent, options.toBundle());
                 }
             };
         ca.setOnItemClickListener(onItemClickListener);
@@ -99,6 +105,8 @@ public class ResultFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override

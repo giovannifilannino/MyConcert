@@ -4,20 +4,28 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.transition.Transition;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.TransitionAdapter;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
 public class DetailActivity extends Activity implements View.OnClickListener {
 
@@ -54,6 +62,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
 
+        Transition fade = new Fade();
+
 
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);
@@ -64,6 +74,10 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         loadPlace();
         windowTransition();
         getPhoto();
+        fade.excludeTarget(android.R.id.statusBarBackground, true);
+        fade.excludeTarget(android.R.id.navigationBarBackground, true);
+        getWindow().setExitTransition(fade);
+        getWindow().setEnterTransition(fade);
 
     }
 
@@ -82,14 +96,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     }
 
     private void windowTransition() {
-        getWindow().getEnterTransition().addListener(new TransitionAdapter() {
-            @Override
-            public void onTransitionEnd(Transition transition) {
-                getWindow().getEnterTransition().removeListener(this);
-                mList.setVisibility(View.VISIBLE);
-            }
-        });
-
 
     }
 
