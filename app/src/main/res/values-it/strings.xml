@@ -37,7 +37,12 @@
     <string name="Imp">Impostazioni</string>
     <string name="Autentication">Problemi di autenticazione</string>
     <string name="AutenticationDescr">Combinazione username-password errata</string>
-
+    <string name="topfive">Canzoni più apprezzate: </string>
+    <string name="action_settings">Impostazioni:</string>
+    <string name="aliasartist">Alias:</string>
+    <string name="nameartist">Nome Artista:</string>
+    <string name="nomeCanzone">Titolo:</string>
+    <string name="surnameartist">Cognome Artista:</string>
 
 
 </resources>

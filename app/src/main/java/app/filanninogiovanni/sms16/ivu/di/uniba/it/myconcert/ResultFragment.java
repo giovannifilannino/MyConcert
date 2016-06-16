@@ -26,6 +26,8 @@ import android.support.v4.util.Pair;
 
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.SetListAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
 /**
