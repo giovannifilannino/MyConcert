@@ -56,7 +56,7 @@ public class RegistrationFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                URLRegistration += "&nome=" + '"' + nome.getText().toString() + '"' + "&cognome=" + '"' + cognome.getText().toString() + '"' + "&username=" + '"' + user.getText().toString() + '"' + "&password=" + '"' + password.getText().toString() + '"';
+                URLRegistration += "&nome=" + '"' + nome.getText().toString()  + "&cognome="  + cognome.getText().toString() + "&username=" + user.getText().toString()+ "&password=" + password.getText().toString();
 
                 JsonObjectRequest arrayRequest = new JsonObjectRequest(URLRegistration, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
@@ -64,7 +64,11 @@ public class RegistrationFragment extends Fragment {
                         JSONObject test = response;
                         try {
                             String success = test.get(SUCCESS_TAG).toString();
-                            Toast.makeText(getActivity(), success, Toast.LENGTH_LONG).show();
+                            if(success.compareTo("1")==0){
+                                Toast.makeText(getActivity(),"Registrazione effettuata",Toast.LENGTH_LONG);
+                            } else {
+                                Toast.makeText(getActivity(),"Problemi con la registrazione",Toast.LENGTH_LONG);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
