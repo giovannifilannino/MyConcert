@@ -120,7 +120,8 @@ public class loginFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 if(isNetworkAvailable()){
-
+                    dialog=ErrorClass.onCreateDialog(ErrorClass.PROGRESS_DIALOG_ID,getActivity());
+                    dialog.show();
                     String url = UserURL + "\"" + username.getText().toString() + "\"" + PasswordURL + "\"" + password.getText().toString() + "\"" + formatJson;
                     JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                         @Override
@@ -143,7 +144,7 @@ public class loginFragment extends Fragment{
                                     e.printStackTrace();
                                 }
 
-                                ErrorClass.onCreateDialog(ErrorClass.PROGRESS_DIALOG_ID,getActivity());
+
                                 mLogin.goToSearchFragment(nome,cognome,alias,urlImmagine,artista);
 
                             } else {
