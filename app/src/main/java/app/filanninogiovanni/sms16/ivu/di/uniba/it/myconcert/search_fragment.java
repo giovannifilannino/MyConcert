@@ -1,5 +1,6 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -35,14 +36,13 @@ public class search_fragment extends Fragment {
 
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Activity context) {
         super.onAttach(context);
 
         onSearch = (OnSearch) context;
     }
 
     private String query = "";
-
 
     public interface OnSearch{
         public void searchStart(ArrayList<Setlist> urlDaCercare);

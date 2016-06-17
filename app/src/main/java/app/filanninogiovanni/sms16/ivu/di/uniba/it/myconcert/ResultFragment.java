@@ -1,33 +1,23 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
-import android.animation.Animator;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Transition;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.support.v4.util.Pair;
-
 import java.util.ArrayList;
-
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.SetListAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
@@ -90,18 +80,7 @@ public class ResultFragment extends Fragment {
                 }
             };
         ca.setOnItemClickListener(onItemClickListener);
-/*
-        listItem = (ListView) getActivity().findViewById(R.id.listviewresult);
-        setListAdapter = new SetListAdapter(getActivity(),R.layout.item_resultlistitem,setListArrayList);
-        listItem.setAdapter(setListAdapter);
-        listItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dacaricare = setListArrayList.get(position);
-                boolean avaible = dacaricare.getSongs().size() != 0;
-                onSetListSelecter.showSongs(dacaricare.getSongs(),avaible);
-            }
-        });*/
+
     }
 
     public static void click(ArrayList<String> songs){
