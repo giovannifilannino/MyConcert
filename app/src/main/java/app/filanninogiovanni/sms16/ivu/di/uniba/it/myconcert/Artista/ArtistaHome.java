@@ -37,7 +37,6 @@ public class ArtistaHome extends Fragment {
     private TextView nomeArtista;
     private TextView cognomeArtista;
     private TextView aliasArtista;
-    private ImageView imageArtista;
     private ListView listaCanzoni;
     private ImageView artistImage;
 
@@ -75,7 +74,7 @@ public class ArtistaHome extends Fragment {
             @Override
             public void onResponse(Bitmap response) {
                     artistImage.setImageBitmap(response);
-                    Log.d("Wanna",urlImmagine);
+                    artistImage.setScaleType(ImageView.ScaleType.FIT_XY);
             }
         }, 0,0,Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
             @Override
