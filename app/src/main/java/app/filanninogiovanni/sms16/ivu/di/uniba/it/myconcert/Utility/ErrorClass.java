@@ -81,13 +81,13 @@ public class ErrorClass {
                 dialog=progress;
                 break;
             case 5:
-                AlertDialog.Builder builder3=new AlertDialog.Builder(context);
+                final AlertDialog.Builder builder3=new AlertDialog.Builder(context);
                 builder3.setTitle(context.getResources().getString(R.string.Autentication));
                 builder3.setMessage(context.getResources().getString(R.string.AutenticationDescr));
                 builder3.setCancelable(true);
                 builder3.setPositiveButton(context.getResources().getString(R.string.closea),new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
-                        System.exit(0);
+                        dialog.dismiss();
                     }
                 });
                 builder3.show();
