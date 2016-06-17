@@ -70,11 +70,21 @@ public class ResultFragment extends Fragment {
                     ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                     LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);
                     View navigationBar = getActivity().findViewById(android.R.id.navigationBarBackground);
+
                     Pair<View, String> navbar =Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
+
+
                     Pair<View, String> imagePair = Pair.create((View ) placeImage, "tImage");
                     Pair<View, String> holderPair = Pair.create((View) placeNameHolder, "tNameHolder");
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                            imagePair, holderPair,navbar);
+                    ActivityOptionsCompat options;
+                    if(navbar==null) {
+                       options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                imagePair, holderPair, navbar);
+                    }
+                    else {
+                        options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                imagePair, holderPair);
+                    }
                     startActivity(intent, options.toBundle());
 
                 }
