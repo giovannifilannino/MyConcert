@@ -56,7 +56,7 @@ public class RegistrationFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                URLRegistration += "&nome=" + '"' + nome.getText().toString()  + "&cognome="  + cognome.getText().toString() + "&username=" + user.getText().toString()+ "&password=" + password.getText().toString();
+                URLRegistration += "&nome=" + nome.getText().toString()  + "&cognome="  + cognome.getText().toString() + "&username=" + user.getText().toString()+ "&password=" + password.getText().toString();
 
                 JsonObjectRequest arrayRequest = new JsonObjectRequest(URLRegistration, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
