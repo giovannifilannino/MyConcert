@@ -112,7 +112,10 @@ public class search_fragment extends Fragment {
             super.onPostExecute(s);
             ArrayList<Setlist> setList = setListParser.parderData;
             onSearch.searchStart(setList);
+            loadSetListXMLData.cancel(true);
+            loadSetListXMLData=new LoadSetListXMLData();
         }
+
     }
 
 
