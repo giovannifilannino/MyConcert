@@ -1,5 +1,6 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
+import android.animation.Animator;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -71,10 +73,10 @@ public class ResultFragment extends Fragment {
                     Pair<View, String> navbar =Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
                     Pair<View, String> imagePair = Pair.create((View ) placeImage, "tImage");
                     Pair<View, String> holderPair = Pair.create((View) placeNameHolder, "tNameHolder");
-// 3
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                             imagePair, holderPair,navbar);
                     startActivity(intent, options.toBundle());
+
                 }
             };
         ca.setOnItemClickListener(onItemClickListener);

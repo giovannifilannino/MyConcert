@@ -5,12 +5,6 @@
 
     android:orientation="vertical"
     android:background="@android:color/white">
-    <include
-        android:id="@+id/tool_bar_lista"
-        layout="@layout/tool_bar_lista"
-        android:layout_height="45dp"
-        android:layout_width="match_parent"
-        />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
