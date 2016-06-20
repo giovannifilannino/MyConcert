@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Transition;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
@@ -29,7 +30,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.deezer.sdk.model.Track;
 import com.deezer.sdk.network.connect.DeezerConnect;
+import com.deezer.sdk.network.request.DeezerRequest;
+import com.deezer.sdk.network.request.DeezerRequestFactory;
+import com.deezer.sdk.network.request.event.JsonRequestListener;
+import com.deezer.sdk.network.request.event.RequestListener;
 import com.deezer.sdk.player.AlbumPlayer;
 import com.deezer.sdk.player.TrackPlayer;
 import com.deezer.sdk.player.networkcheck.WifiAndMobileNetworkStateChecker;
@@ -38,7 +44,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
@@ -66,10 +75,14 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private Application application;
     private long albumID = 89142;
     private TrackPlayer trackPlayer;
+    JSONObject jsonObject = new JSONObject(); //sta qui per debug
     private long idSong;
     private String URLCover;
     private String queryTrack = "https://api.deezer.com/search?q=track:";
     private RequestQueue requestQueue;
+
+    private DeezerRequest deezerRequest;
+    private RequestListener requestListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +90,32 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.card_detail);
         deezerConnect = new DeezerConnect(this, getResources().getString(R.string.applicazionIDDeezer));
         application = getApplication();
+
         requestQueue = Volley.newRequestQueue(this);
         try {
             trackPlayer = new TrackPlayer(application, deezerConnect, new WifiAndMobileNetworkStateChecker());
         } catch (Exception e){
 
         }
+
+        requestListener = new JsonRequestListener() {
+            @Override
+            public void onResult(Object o, Object o1) {
+                List<Track> traks = (List<Track>) o;
+                idSong = traks.get(0).getId();
+            }
+
+            @Override
+            public void onUnparsedResult(String s, Object o) {
+
+            }
+
+            @Override
+            public void onException(Exception e, Object o) {
+
+            }
+        };
+
         setlist = getIntent().getStringArrayListExtra("canzoni");
         nome=getIntent().getStringExtra("cantante");
         data=getIntent().getStringExtra("data");
@@ -104,6 +137,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         getWindow().setExitTransition(fade);
         getWindow().setEnterTransition(fade);
 
+
+
         setUpAdapter();
         loadPlace();
         windowTransition();
@@ -114,7 +149,18 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String title = setlist.get(position);
-                getDatafromDeezer(title);
+                String queryTitle = "";
+
+                try {
+                    queryTitle = URLEncoder.encode(title, Charset.defaultCharset().name());
+
+                }catch (Exception e){
+
+                }
+
+                deezerRequest = DeezerRequestFactory.requestSearchTracks(queryTitle);
+                deezerRequest.setId("Give me the song");
+                deezerConnect.requestAsync(deezerRequest,requestListener);
                 trackPlayer.playTrack(idSong);
             }
         });
@@ -125,38 +171,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         mList.setAdapter(new ArrayAdapter<String>(this,R.layout.itemsong,R.id.textSong,setlist));
 
     }
-
-
-    private void getDatafromDeezer(String query){
-        String querySong = query;
-        querySong = querySong.replaceAll("\\s+","%20");
-        JSONObject jsonObject = new JSONObject();
-        String url = queryTrack + querySong;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-
-                    JSONArray jsonArray = response.getJSONArray("data");
-                    JSONObject jsonData = jsonArray.getJSONObject(0);
-                    idSong = jsonData.getLong("id");
-                    JSONObject jsonCover = jsonData.getJSONObject("album");
-                    URLCover = jsonCover.getString("cover_big");
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        requestQueue.add(jsonObjectRequest);
-    }
-
-
 
     private void loadPlace() {
 
