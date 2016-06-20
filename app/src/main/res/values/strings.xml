@@ -36,6 +36,13 @@
         <item>Ciccio</item>
         <item>Stefano</item>
     </string-array>
+    <string-array name="opzioni_artista">
+
+        <item>Miei concerti</item>
+        <item>Live Mode</item>
+        <item>Info</item>
+        <item>Esci</item>
+    </string-array>
     <string name="open">Drawer Opened</string>
     <string name="close">Drawer Closed</string>
 
@@ -56,4 +63,6 @@
     <string name="AutenticationDescr">Wrong Username-Password combination</string>
     <string name="loading">loading...</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="applicazionIDDeezer">182722</string>
 </resources>

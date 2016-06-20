@@ -25,7 +25,6 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private Toolbar toolbar;
     private FragmentManager fragmentManager;
     private ListView listViewDrawerLayout;
-    private SongList songList;
     private String[] optionDrawer;
     private NoSongsFound noSongsFound;
     private ResultFragment resultFragment = new ResultFragment();
@@ -103,15 +102,15 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
     @Override
     public  void showSongs(ArrayList<String> songs, boolean songsavaible) {
-        songList = new SongList();
+
         noSongsFound = new NoSongsFound();
 
         fragmentManager = getFragmentManager();
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if(songsavaible) {
-            fragmentTransaction.replace(R.id.content_frame, songList).addToBackStack("").commit();
-            songList.riempiArray(songs);
+
+
         } else {
             fragmentTransaction.replace(R.id.content_frame, noSongsFound).addToBackStack("").commit();
         }

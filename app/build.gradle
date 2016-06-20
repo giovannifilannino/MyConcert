@@ -39,4 +39,5 @@ dependencies {
     compile 'com.android.support:palette-v7:23.4.0'
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'com.google.android.gms:play-services-maps:9.0.2'
+    compile files('src/main/libs/deezer-sdk-0.10.16.jar')
 }
