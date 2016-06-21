@@ -93,12 +93,11 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        if(position==0&&!fatto) {
-            holder.image.setImageDrawable(null);
-            fatto=true;
-        }
-        holder.song.setText(setlists.get(position));
 
+        holder.song.setText(setlists.get(position));
+        if(holder.song.getText().toString().compareToIgnoreCase("Le tue canzoni")==0) {
+            holder.image.setImageDrawable(null);
+        }
     }
 
 
