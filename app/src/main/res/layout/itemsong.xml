@@ -6,15 +6,16 @@
 
 
 <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="300dp"
+    android:layout_height="55dp"
     android:padding="15dp"
     android:id="@+id/textSong"
     android:textAppearance="?android:attr/textAppearanceMedium">
 </TextView>
 
     <ImageView
-        android:src="@drawable/ic_delete_white_24dp"
+        android:src="@drawable/ic_delete_black_24dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textSong"
