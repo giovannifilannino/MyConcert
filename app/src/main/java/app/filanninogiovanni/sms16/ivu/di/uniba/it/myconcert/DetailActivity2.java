@@ -55,6 +55,7 @@ import java.util.List;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
 
 public class DetailActivity2 extends Activity implements View.OnClickListener {
 
@@ -106,17 +107,25 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
         mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
-        RecyclerView recList=(RecyclerView)findViewById(R.id.list);
+
+        final RecyclerView recList=(RecyclerView)findViewById(R.id.list);
+        OvershootInLeftAnimator animator=new OvershootInLeftAnimator();
+        animator.setAddDuration(2000);
+        animator.setRemoveDuration(2000);
+        recList.smoothScrollToPosition(0);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
+
         final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist);
         recList.setAdapter(ca);
         FloatingActionButton floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recList.smoothScrollToPosition(-1);
                 ca.addItem(0,"ciao");
+
             }
         });
 
