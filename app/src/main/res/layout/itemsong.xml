@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    >
+
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:padding="15dp"
     android:id="@+id/textSong"
-    android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+    android:textAppearance="?android:attr/textAppearanceMedium">
+</TextView>
+
+    <ImageView
+        android:src="@android:drawable/ic_menu_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textSong"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="46dp"
+        android:id="@+id/imageView4" />
+</RelativeLayout>
