@@ -84,7 +84,7 @@
             android:src="@drawable/ic_add_white_24dp"
             android:id="@+id/floatingActionButton"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
 </LinearLayout>
