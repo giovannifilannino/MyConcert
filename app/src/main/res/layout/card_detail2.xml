@@ -67,11 +67,18 @@
 
     </FrameLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <EditText
+            android:layout_width="wrap_content"
+            android:hint="Inserisci canzone"
+            android:layout_height="wrap_content"
+            android:id="@+id/canzo"
+            />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
+        android:layout_below="@+id/canzo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:requiresFadingEdge="vertical" >
@@ -80,12 +87,11 @@
         <android.support.design.widget.FloatingActionButton
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_add_white_24dp"
-
-            android:id="@+id/floatingActionButton" />
-    </FrameLayout>
+            android:id="@+id/floatingActionButton"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
 </LinearLayout>
