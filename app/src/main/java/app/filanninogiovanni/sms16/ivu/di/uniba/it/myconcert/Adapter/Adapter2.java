@@ -46,6 +46,7 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
         inflater = LayoutInflater.from(context);
         layout = resource;
         setlists = objects;
+        setlists.add(0,"");
     }
 
     // Create new views (invoked by the layout manager)

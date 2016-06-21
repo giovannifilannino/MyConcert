@@ -70,15 +70,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <EditText
-            android:layout_width="wrap_content"
-            android:hint="Inserisci canzone"
-            android:layout_height="wrap_content"
-            android:id="@+id/canzo"
-            />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
-        android:layout_below="@+id/canzo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:requiresFadingEdge="vertical" >

@@ -123,7 +123,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ca.addItem(ca.getItemCount(),"ciao");
+                ca.addItem(1,"ciao");
                 recList.scrollToPosition(0);
             }
         });
