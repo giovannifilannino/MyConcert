@@ -21,6 +21,7 @@ public class ErrorClass {
     public static final int DIALOG_NOVENUESFOUND_ID=3;
     public static final int PROGRESS_DIALOG_ID=4;
     public static final int DIALOG_FAILACCESS_ID=5;
+    public static final int DIALOG_FAILADDSONG_ID=6;
 
 
 
@@ -92,7 +93,18 @@ public class ErrorClass {
                 });
                 builder3.show();
                 break;
-
+            case 6:
+                final AlertDialog.Builder builder4=new AlertDialog.Builder(context);
+                builder4.setTitle("Attenzione");
+                builder4.setMessage("Canzone già presente");
+                builder4.setCancelable(true);
+                builder4.setPositiveButton(context.getResources().getString(R.string.closea),new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.dismiss();
+                    }
+                });
+                builder4.show();
+                break;
             default:
                 dialog = null;
         }

@@ -13,6 +13,7 @@ import java.util.List;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 
 /**
  * Created by delmi on 09/06/2016.
@@ -62,9 +63,19 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
     }
 
 
-    public void addItem(int position, String data) {
-        setlists.add(position, data);
-        notifyItemInserted(position);
+    public void addItem(int position, String data,Context context) {
+        boolean err=false;
+        for(int i =0;i<setlists.size();i++){
+            if(setlists.get(i)==data){
+                err=true;
+                ErrorClass.onCreateDialog(ErrorClass.DIALOG_FAILADDSONG_ID,context);
+            }
+        }
+        if(!err) {
+            setlists.add(position, data);
+            notifyItemInserted(position);
+        }
+
     }
     public void removeItem(int position) {
         setlists.remove(position);
