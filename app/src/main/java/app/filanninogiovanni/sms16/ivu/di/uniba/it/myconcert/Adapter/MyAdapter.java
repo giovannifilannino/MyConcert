@@ -69,19 +69,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         setlists = objects;
     }
 
-    // Create new views (invoked by the layout manager)
+    // Create new views (invoked by the information manager)
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
         View convertView = inflater.inflate(layout,parent,false);
-        // set the view's size, margins, paddings and layout parameters
+        // set the view's size, margins, paddings and information parameters
         ViewHolder vh = new ViewHolder(convertView);
 
         return vh;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    // Replace the contents of a view (invoked by the information manager)
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
@@ -101,7 +101,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 
-    // Return the size of your dataset (invoked by the layout manager)
+    // Return the size of your dataset (invoked by the information manager)
     @Override
     public int getItemCount() {
         return setlists.size();

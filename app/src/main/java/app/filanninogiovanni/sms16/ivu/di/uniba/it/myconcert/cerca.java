@@ -41,7 +41,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         setContentView(R.layout.irko);
 
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //layout per la comparsa del menu laterale
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
         choise = getIntent().getIntExtra("artista",0);
         nomeArtista = getIntent().getStringExtra("nomeArtista");

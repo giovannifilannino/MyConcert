@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Transition;
@@ -49,6 +51,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
 public class DetailActivity extends Activity implements View.OnClickListener {
@@ -128,6 +132,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
 
         Transition fade = new Fade();
+        setUpAdapter();
 
 
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -136,14 +141,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setExitTransition(fade);
         getWindow().setEnterTransition(fade);
-
-
-
-        setUpAdapter();
-        loadPlace();
-        windowTransition();
-
-        getPhoto();
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -155,7 +152,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                     queryTitle = URLEncoder.encode(title, Charset.defaultCharset().name());
 
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }
 
                 deezerRequest = DeezerRequestFactory.requestSearchTracks(queryTitle);
@@ -211,10 +208,5 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        mList.setVisibility(View.GONE);
-    }
 
 }

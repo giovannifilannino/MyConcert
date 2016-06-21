@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Explode;
 import android.transition.Fade;
@@ -23,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -49,12 +52,14 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
 public class DetailActivity2 extends Activity implements View.OnClickListener {
 
     public static final String EXTRA_PARAM_ID = "place_id";
-    private RecyclerView mList;
+    private ListView mList;
     private ImageView mImageView;
     private TextView nomeArtista;
     private TextView dataTXT;
@@ -87,45 +92,33 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.card_detail);
-        deezerConnect = new DeezerConnect(this, getResources().getString(R.string.applicazionIDDeezer));
+        setContentView(R.layout.card_detail2);
         application = getApplication();
 
-        requestQueue = Volley.newRequestQueue(this);
-        try {
-            trackPlayer = new TrackPlayer(application, deezerConnect, new WifiAndMobileNetworkStateChecker());
-        } catch (Exception e){
-
-        }
-
-        requestListener = new JsonRequestListener() {
-            @Override
-            public void onResult(Object o, Object o1) {
-                List<Track> traks = (List<Track>) o;
-                idSong = traks.get(0).getId();
-            }
-
-            @Override
-            public void onUnparsedResult(String s, Object o) {
-
-            }
-
-            @Override
-            public void onException(Exception e, Object o) {
-
-            }
-        };
 
         setlist = getIntent().getStringArrayListExtra("canzoni");
         nome=getIntent().getStringExtra("cantante");
         data=getIntent().getStringExtra("data");
-        mList = (RecyclerView) findViewById(R.id.list);
+        //mList = (ListView) findViewById(R.id.list);
         mImageView = (ImageView) findViewById(R.id.placeImage);
         nomeArtista = (TextView) findViewById(R.id.artistaDett);
         dataTXT=(TextView) findViewById(R.id.dataDett);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
         mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
+        RecyclerView recList=(RecyclerView)findViewById(R.id.list);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recList.setLayoutManager(llm);
+        final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist);
+        recList.setAdapter(ca);
+        FloatingActionButton floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ca.addItem(0,"ciao");
+            }
+        });
 
         Transition fade = new Fade();
 
@@ -136,34 +129,6 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setExitTransition(fade);
         getWindow().setEnterTransition(fade);
-
-
-
-        setUpAdapter();
-        loadPlace();
-        windowTransition();
-
-        getPhoto();
-
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String title = setlist.get(position);
-                String queryTitle = "";
-
-                try {
-                    queryTitle = URLEncoder.encode(title, Charset.defaultCharset().name());
-
-                }catch (Exception e){
-
-                }
-
-                deezerRequest = DeezerRequestFactory.requestSearchTracks(queryTitle);
-                deezerRequest.setId("Give me the song");
-                deezerConnect.requestAsync(deezerRequest,requestListener);
-                trackPlayer.playTrack(idSong);
-            }
-        });
     }
 
     private void setUpAdapter() {
@@ -211,10 +176,5 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        mList.setVisibility(View.GONE);
-    }
 
 }

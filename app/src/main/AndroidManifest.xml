@@ -36,6 +36,9 @@
             android:name=".DetailActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".DetailActivity2"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
