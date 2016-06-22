@@ -1,7 +1,6 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,8 +59,15 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
     @Override
     public Adapter2.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
+        View convertView=null;
         // create a new view
-        View convertView = inflater.inflate(layout,parent,false);
+        switch (viewType){
+            case 0:convertView = inflater.inflate(R.layout.songs_layout,parent,false);
+                break;
+            case 1:convertView = inflater.inflate(R.layout.itemsong,parent,false);
+                break;
+        }
+
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(convertView);
 
@@ -88,16 +94,23 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
         notifyItemRemoved(position);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        //Implement your logic here
+        if(position==0){
+            return 0;
+        }
+        else
+            return 1;
+    }
+
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+            holder.song.setText(setlists.get(position));
 
-        holder.song.setText(setlists.get(position));
-        if(holder.song.getText().toString().compareToIgnoreCase("Le tue canzoni")==0) {
-            holder.image.setImageDrawable(null);
-        }
     }
 
 

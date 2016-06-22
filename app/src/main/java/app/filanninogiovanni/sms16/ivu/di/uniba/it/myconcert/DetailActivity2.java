@@ -28,11 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.deezer.sdk.model.Track;
 import com.deezer.sdk.network.connect.DeezerConnect;
 import com.deezer.sdk.network.request.DeezerRequest;
@@ -85,7 +80,6 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
     private long idSong;
     private String URLCover;
     private String queryTrack = "https://api.deezer.com/search?q=track:";
-    private RequestQueue requestQueue;
 
     private DeezerRequest deezerRequest;
     private RequestListener requestListener;
@@ -114,12 +108,14 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         animator.setAddDuration(2000);
         animator.setRemoveDuration(2000);
         recList.setItemAnimator(animator);
+        //recList.addItemDecoration(new LineItemDecoration());
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
 
         final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist);
         recList.setAdapter(ca);
+
         FloatingActionButton floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
