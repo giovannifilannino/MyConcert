@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,7 +29,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.searchattivi;
 
 /**
  * Created by Giovanni on 15/06/2016.
@@ -39,8 +43,9 @@ public class ArtistaHome extends Fragment {
     private TextView aliasArtista;
     private ListView listaCanzoni;
     private ImageView artistImage;
-
-
+    public searchattivi attivi=new searchattivi();
+    public static ArrayList<Setlist> concerti;
+    private Toolbar toolbar;
     private String urlImmagine;
     private String nomeArtistaString;
     private String cognomeArtistaString;
@@ -58,17 +63,12 @@ public class ArtistaHome extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        nomeArtista =(TextView) getActivity().findViewById(R.id.nomeArtistaID);
-        cognomeArtista = (TextView) getActivity().findViewById(R.id.cognomeArtistaID);
-        aliasArtista = (TextView) getActivity().findViewById(R.id.aliasArtist);
         listaCanzoni = (ListView) getActivity().findViewById(R.id.listTopFiveSongs);
         artistImage = (ImageView) getActivity().findViewById(R.id.artista_immagine);
         requestQueue = Volley.newRequestQueue(getActivity());
-
-        nomeArtista.setText(nomeArtistaString);
-        cognomeArtista.setText(cognomeArtistaString);
-        aliasArtista.setText(aliasArtistaString);
-
+        toolbar=(Toolbar)getActivity().findViewById(R.id.tool_bar_artista);
+        toolbar.setTitle(aliasArtistaString);
+        toolbar.setSubtitle(nomeArtistaString+" "+cognomeArtistaString);
 
         ImageRequest imageRequest = new ImageRequest(urlImmagine, new Response.Listener<Bitmap>() {
             @Override
@@ -92,8 +92,10 @@ public class ArtistaHome extends Fragment {
 
 
         fillSongArray(url);
+        attivi.getConcerti();
 
-        listaCanzoni.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,songArray));
+
+
     }
 
     private void fillSongArray(String url){
@@ -105,8 +107,8 @@ public class ArtistaHome extends Fragment {
                     for(int i=0; i<5; i++){
                         jsonObject = response.getJSONObject(i);
                         songArray.add(jsonObject.getString("NomeCanzone"));
-
                     }
+                    listaCanzoni.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,songArray));
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -145,5 +147,8 @@ public class ArtistaHome extends Fragment {
 
     public void setUrlImmagine(String urlImmagine) {
         this.urlImmagine = urlImmagine;
+    }
+    public static void popolaconcerti(ArrayList<Setlist> setlist){
+        concerti=setlist;
     }
 }

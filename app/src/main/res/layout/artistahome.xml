@@ -1,86 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+    <include
+          android:id="@+id/tool_bar_artista"
+          layout="@layout/tool_bar_lista"
+          android:layout_height="wrap_content"
+          android:layout_width="match_parent"
+    />
     <ImageView
+        android:layout_below="@id/tool_bar_artista"
         android:layout_marginTop="0dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:id="@+id/artista_immagine"/>
 
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginLeft="15dp"
-    android:columnCount="2"
-    android:rowCount="3">
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nameartist"
-        android:layout_column="0"
-        android:layout_row="0"
-        android:textStyle="bold"
-        android:textSize="19dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/nomeArtistaID"
-        android:layout_column="1"
-        android:layout_row="0"
-        android:textSize="19dp"
-        android:layout_marginLeft="10dp"
-
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/surnameartist"
-        android:layout_column="0"
-        android:layout_row="1"
-        android:textStyle="bold"
-        android:textSize="19dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cognomeArtistaID"
-        android:layout_column="1"
-        android:layout_marginLeft="10dp"
-        android:layout_row="1"
-        android:textSize="19dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/aliasartist"
-        android:layout_column="0"
-        android:layout_row="2"
-        android:textStyle="bold"
-        android:textSize="19dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/aliasArtist"
-        android:layout_marginLeft="10dp"
-        android:layout_column="1"
-        android:layout_row="2"
-        android:textSize="19dp"
-        />
-
-
-
-
-</GridLayout>
-
-    <TextView
+        android:id="@+id/scritta"
+        android:layout_below="@id/artista_immagine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/topfive"
@@ -89,10 +28,9 @@
         android:textSize="20dp"/>
 
     <ListView
+        android:layout_below="@id/scritta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
         android:id="@+id/listTopFiveSongs" />
 
-</LinearLayout>
+</RelativeLayout>
