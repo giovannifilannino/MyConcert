@@ -29,7 +29,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.searchattivi;
 
 /**
  * Created by Giovanni on 15/06/2016.
@@ -41,7 +43,8 @@ public class ArtistaHome extends Fragment {
     private TextView aliasArtista;
     private ListView listaCanzoni;
     private ImageView artistImage;
-
+    public searchattivi attivi=new searchattivi();
+    public static ArrayList<Setlist> concerti;
     private Toolbar toolbar;
     private String urlImmagine;
     private String nomeArtistaString;
@@ -89,6 +92,8 @@ public class ArtistaHome extends Fragment {
 
 
         fillSongArray(url);
+        attivi.getConcerti();
+
 
 
     }
@@ -142,5 +147,8 @@ public class ArtistaHome extends Fragment {
 
     public void setUrlImmagine(String urlImmagine) {
         this.urlImmagine = urlImmagine;
+    }
+    public static void popolaconcerti(ArrayList<Setlist> setlist){
+        concerti=setlist;
     }
 }
