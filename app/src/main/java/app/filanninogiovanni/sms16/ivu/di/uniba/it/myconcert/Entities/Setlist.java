@@ -1,5 +1,8 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 
 /**
@@ -14,6 +17,20 @@ public class Setlist {
     String date;
     String id;
     ArrayList<String> songs;
+    Bitmap cover;
+
+    public Bitmap getCover() {
+        return cover;
+    }
+
+    public void setCover(Bitmap cover) {
+        this.cover = cover;
+    }
+
+
+
+
+
 
     public String getId() {
         return id;

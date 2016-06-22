@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,6 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 
@@ -32,6 +39,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private String cognomeArtista;
     private String aliasArtista;
     private String urlImmagine;
+    private RequestQueue requestQueue;
 
 
     @Override
@@ -47,6 +55,8 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         cognomeArtista = getIntent().getStringExtra("cognomeArtista");
         aliasArtista = getIntent().getStringExtra("aliasArtista");
         urlImmagine = getIntent().getStringExtra("urlImmagine");
+
+        requestQueue = Volley.newRequestQueue(this);
 
         mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
             @Override
@@ -89,14 +99,31 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
 
     @Override
-    public void searchStart(ArrayList<Setlist> urlDaCercare) {
+    public void searchStart(final ArrayList<Setlist> urlDaCercare, String urlCover) {
         fragmentManager = getFragmentManager();
 
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_frame,resultFragment).addToBackStack("miro").commit();
 
 
-        resultFragment.riempiArray(urlDaCercare);
+        ImageRequest imageRequest = new ImageRequest(urlCover, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                for(Setlist set : urlDaCercare){
+                    set.setCover(response);
+                }
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame,resultFragment).addToBackStack("miro").commit();
+                resultFragment.riempiArray(urlDaCercare);
+            }
+        }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        requestQueue.add(imageRequest);
+
+
     }
 
     @Override

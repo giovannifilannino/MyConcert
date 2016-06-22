@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     List<Setlist> setlists;
     OnItemClickListener mItemClickListener;
     Setlist setList;
+    ImageView covertArtist;
     private int layout;
 
     // Provide a reference to the views for each data item
@@ -33,6 +35,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
       //  TextView nameVenue;
         //TextView nameCity;
         TextView date;
+
+        ImageView coverArtista;
        // CardView cardView;
         LinearLayout linearLayout;
         public ViewHolder(View v) {
@@ -42,6 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
            // nameCity = (TextView) v.findViewById(R.id.textNameCityItemList);
             date = (TextView) v.findViewById(R.id.data);
             //cardView=(CardView)v.findViewById(R.id.cv);
+            coverArtista = (ImageView) v.findViewById(R.id.placeImage);
             linearLayout=(LinearLayout) v.findViewById(R.id.mainHolder);
             linearLayout.setOnClickListener(this);
 
@@ -91,6 +96,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //holder.nameVenue.setText(setList.getVenueName());
        // holder.nameCity.setText(setList.getCity());
         holder.date.setText(setList.getDate());
+        holder.coverArtista.setImageBitmap(setList.getCover());
         /*
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.Transition;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -65,7 +66,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private long idSong;
     private String URLCover;
     private String queryTrack = "https://api.deezer.com/search?q=track:";
-    private RequestQueue requestQueue;
 
     private DeezerRequest deezerRequest;
     private RequestListener requestListener;
@@ -77,7 +77,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         deezerConnect = new DeezerConnect(this, getResources().getString(R.string.applicazionIDDeezer));
         application = getApplication();
 
-        requestQueue = Volley.newRequestQueue(this);
+
         try {
             trackPlayer = new TrackPlayer(application, deezerConnect, new WifiAndMobileNetworkStateChecker());
         } catch (Exception e){
@@ -88,7 +88,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             @Override
             public void onResult(Object o, Object o1) {
                 List<Track> traks = (List<Track>) o;
+
                 idSong = traks.get(0).getId();
+                Log.d("idsong","l'id è:  "+idSong);
             }
 
             @Override
@@ -190,5 +192,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        trackPlayer.release();
+    }
 }
