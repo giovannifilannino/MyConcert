@@ -3,17 +3,21 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Transition;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
@@ -70,6 +74,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
     private ArrayList<String> mTodoList;
     private ArrayAdapter mToDoAdapter;
     int defaultColor;
+    private EditText addcanzone;
 
     private DeezerConnect deezerConnect;
     private AlbumPlayer albumPlayer;
@@ -112,7 +117,6 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-
         final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist);
         recList.setAdapter(ca);
 
@@ -120,8 +124,13 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ca.addItem(1,"ciao",context);
-                recList.scrollToPosition(0);
+                Dialog dialog=Customdialog(context,ca,recList);
+                dialog.show();
+                if(!dialog.isShowing()) {
+                    ca.addItem(1, "ciao", context);
+                    recList.scrollToPosition(0);
+                }
+
             }
         });
 
@@ -179,6 +188,33 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
 
     private void hideEditText(final LinearLayout view) {
 
+    }
+    private Dialog Customdialog(final Context context,final Adapter2 ca,final RecyclerView recList){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        // Get the layout inflater
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.customdialog, null))
+
+                // Add action buttons
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        Activity activity = (Activity) context;
+                        EditText canzone = (EditText) activity.findViewById(R.id.canzone);
+
+                        ca.addItem(1, canzone.getText().toString(), context);
+                        recList.scrollToPosition(0);
+                    }
+                })
+                .setNegativeButton("Cancell", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                })
+                .setTitle("Aggiungi titolo canzone");
+        return builder.create();
     }
 
 
