@@ -41,6 +41,7 @@ import java.util.List;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Artist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ParserXML.XMLSetListParser;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerArtist;
 
 
 /**
@@ -59,16 +60,10 @@ public class search_fragment extends Fragment {
     private LoadSetListXMLData loadSetListXMLData = new LoadSetListXMLData();
     ArrayList<Setlist> setList;
 
-    private DeezerConnect deezerConnect;
-    private RequestQueue requestQueue;
-    private RequestListener requestListener;
-    private DeezerRequest deezerRequest;
-
     private String urlARtistCover;
-    private Bitmap coverArtist;
 
-    private Dialog pDialog;
 
+    private DeezerArtist deezerArtist;
 
     @Override
     public void onAttach(Activity context) {
@@ -96,28 +91,7 @@ public class search_fragment extends Fragment {
         name_venue = (EditText) getActivity().findViewById(R.id.venue_name_search);
         search_button = (Button) getActivity().findViewById(R.id.search_button);
         search_button.setOnClickListener(artistSearchButton);
-        deezerConnect = new DeezerConnect(getActivity(), getResources().getString(R.string.applicazionIDDeezer));
-        requestQueue = Volley.newRequestQueue(getActivity());
-        coverArtist = null;
-
-
-        requestListener = new JsonRequestListener() {
-            @Override
-            public void onResult(Object o, Object o1) {
-                List<com.deezer.sdk.model.Artist> listArtist = (List<com.deezer.sdk.model.Artist>) o;
-                urlARtistCover = listArtist.get(0).getImageUrl(AImageOwner.ImageSize.big);
-            }
-
-            @Override
-            public void onUnparsedResult(String s, Object o) {
-
-            }
-
-            @Override
-            public void onException(Exception e, Object o) {
-
-            }
-        };
+        deezerArtist = DeezerArtist.getIstance(getActivity());
 
     }
 
@@ -147,11 +121,7 @@ public class search_fragment extends Fragment {
 
                 }
                 artist = artist.replaceAll("\\s+","%20");
-
-                deezerRequest = DeezerRequestFactory.requestSearchArtists(artistQuery);
-                deezerRequest.setId("Mlml");
-                deezerConnect.requestAsync(deezerRequest, requestListener);
-
+                urlARtistCover = deezerArtist.getURLCover(artistQuery);
                 query = URL_ARTIST + '"' + artist + '"';
                 loadSetListXMLData.execute(query);
             } else if(name_venue.getText().toString().compareTo("") != 0){
@@ -184,8 +154,6 @@ public class search_fragment extends Fragment {
             setList = setListParser.parderData;
             onSearch.searchStart(setList,urlARtistCover);
             loadSetListXMLData=new LoadSetListXMLData();
-
-            Log.d("wanna"," see" + String.valueOf(coverArtist!=null));
 
         }
 

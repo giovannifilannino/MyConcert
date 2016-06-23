@@ -38,6 +38,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerPlayTrack;
+
 public class DetailActivity extends Activity implements View.OnClickListener {
 
     public static final String EXTRA_PARAM_ID = "place_id";
@@ -57,53 +59,13 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private ArrayAdapter mToDoAdapter;
     int defaultColor;
 
-    private DeezerConnect deezerConnect;
-    private AlbumPlayer albumPlayer;
-    private Application application;
-    private long albumID = 89142;
-    private TrackPlayer trackPlayer;
-    JSONObject jsonObject = new JSONObject(); //sta qui per debug
-    private long idSong;
-    private String URLCover;
-    private String queryTrack = "https://api.deezer.com/search?q=track:";
-
-    private DeezerRequest deezerRequest;
-    private RequestListener requestListener;
+    private DeezerPlayTrack deezerPlayTrack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail);
-        deezerConnect = new DeezerConnect(this, getResources().getString(R.string.applicazionIDDeezer));
-        application = getApplication();
-
-
-        try {
-            trackPlayer = new TrackPlayer(application, deezerConnect, new WifiAndMobileNetworkStateChecker());
-        } catch (Exception e){
-
-        }
-
-        requestListener = new JsonRequestListener() {
-            @Override
-            public void onResult(Object o, Object o1) {
-                List<Track> traks = (List<Track>) o;
-
-                idSong = traks.get(0).getId();
-                Log.d("idsong","l'id è:  "+idSong);
-            }
-
-            @Override
-            public void onUnparsedResult(String s, Object o) {
-
-            }
-
-            @Override
-            public void onException(Exception e, Object o) {
-
-            }
-        };
-
+        deezerPlayTrack = DeezerPlayTrack.getIstance(this);
         setlist = getIntent().getStringArrayListExtra("canzoni");
         nome=getIntent().getStringExtra("cantante");
         data=getIntent().getStringExtra("data");
@@ -139,10 +101,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                     e.printStackTrace();
                 }
 
-                deezerRequest = DeezerRequestFactory.requestSearchTracks(queryTitle);
-                deezerRequest.setId("Give me the song");
-                deezerConnect.requestAsync(deezerRequest,requestListener);
-                trackPlayer.playTrack(idSong);
+                deezerPlayTrack.PlaySong(queryTitle);
             }
         });
     }
@@ -192,9 +151,4 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        trackPlayer.release();
-    }
 }

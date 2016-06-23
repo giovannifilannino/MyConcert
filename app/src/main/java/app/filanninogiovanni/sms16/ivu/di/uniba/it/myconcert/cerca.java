@@ -1,6 +1,6 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
-import android.app.Dialog;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -15,18 +15,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
-
 import java.util.ArrayList;
-
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.NoSongsFound;
 
 public class cerca extends AppCompatActivity implements search_fragment.OnSearch, ResultFragment.OnSetListSelecter{
