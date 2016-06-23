@@ -190,21 +190,17 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
 
     }
     private Dialog Customdialog(final Context context,final Adapter2 ca,final RecyclerView recList){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        // Get the layout inflater
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.customdialog, null))
-
+        LayoutInflater factory = LayoutInflater.from(context);
+        final View view = factory.inflate(R.layout.customdialog, null);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(view)
                 // Add action buttons
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        Activity activity = (Activity) context;
-                        EditText canzone = (EditText) activity.findViewById(R.id.canzone);
-
-                        ca.addItem(1, canzone.getText().toString(), context);
+                        EditText canzone = (EditText) view.findViewById(R.id.canzone);
+                        String song=canzone.getText().toString();
+                        ca.addItem(1, song, context);
                         recList.scrollToPosition(0);
                     }
                 })
