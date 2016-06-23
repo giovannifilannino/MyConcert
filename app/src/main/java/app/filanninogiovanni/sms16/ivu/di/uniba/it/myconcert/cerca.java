@@ -1,8 +1,10 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.NoSongsFound;
 
 public class cerca extends AppCompatActivity implements search_fragment.OnSearch, ResultFragment.OnSetListSelecter{
@@ -40,6 +44,8 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private String aliasArtista;
     private String urlImmagine;
     private RequestQueue requestQueue;
+
+    private ProgressDialog dialog;
 
 
     @Override
@@ -102,6 +108,11 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     public void searchStart(final ArrayList<Setlist> urlDaCercare, String urlCover) {
         fragmentManager = getFragmentManager();
 
+        dialog = new ProgressDialog(this);
+
+        dialog.setMessage("Caricamento Foto...");
+        dialog.show();
+
 
 
         ImageRequest imageRequest = new ImageRequest(urlCover, new Response.Listener<Bitmap>() {
@@ -111,12 +122,14 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
                     set.setCover(response);
                 }
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                dialog.hide();
                 fragmentTransaction.replace(R.id.content_frame,resultFragment).addToBackStack("miro").commit();
                 resultFragment.riempiArray(urlDaCercare);
             }
-        }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+        }, 0, 0, ImageView.ScaleType.FIT_XY, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                dialog.hide();
 
             }
         });
