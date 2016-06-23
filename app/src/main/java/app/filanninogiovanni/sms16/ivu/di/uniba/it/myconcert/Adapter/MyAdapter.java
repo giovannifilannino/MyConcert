@@ -1,6 +1,9 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import java.util.List;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ResultFragment;
 
 /**
  * Created by delmi on 09/06/2016.
@@ -23,6 +27,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     List<Setlist> setlists;
     OnItemClickListener mItemClickListener;
     Setlist setList;
+    Context mContext;
+
     ImageView covertArtist;
     private int layout;
 
@@ -35,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
       //  TextView nameVenue;
         //TextView nameCity;
         TextView date;
-
+        LinearLayout barra;
         ImageView coverArtista;
        // CardView cardView;
         LinearLayout linearLayout;
@@ -45,6 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
            // nameVenue = (TextView) v.findViewById(R.id.textNameVenueItemList);
            // nameCity = (TextView) v.findViewById(R.id.textNameCityItemList);
             date = (TextView) v.findViewById(R.id.data);
+            barra=(LinearLayout)v.findViewById(R.id.placeNameHolder);
             //cardView=(CardView)v.findViewById(R.id.cv);
             coverArtista = (ImageView) v.findViewById(R.id.placeImage);
             linearLayout=(LinearLayout) v.findViewById(R.id.mainHolder);
@@ -70,6 +77,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Provide a suitable constructor (depends on the kind of dataset)
     public MyAdapter(Context context, int resource, List<Setlist> objects) {
         inflater = LayoutInflater.from(context);
+        mContext=context;
         layout = resource;
         setlists = objects;
     }
@@ -97,13 +105,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
        // holder.nameCity.setText(setList.getCity());
         holder.date.setText(setList.getDate());
         holder.coverArtista.setImageBitmap(setList.getCover());
-        /*
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ResultFragment.click(setList.getSongs());
-            }
-        });*/
+       Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
+           @Override
+           public void onGenerated(Palette palette) {
+               int bgColor = palette.getMutedColor(mContext.getResources().getColor(android.R.color.black));
+               holder.barra.setBackgroundColor(bgColor);
+           }
+       });
     }
 
 

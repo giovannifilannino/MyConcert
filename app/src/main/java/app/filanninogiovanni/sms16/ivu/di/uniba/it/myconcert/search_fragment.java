@@ -152,6 +152,7 @@ public class search_fragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             setList = setListParser.parderData;
+            Bitmap bitmap=setList.get(0).getCover();
             onSearch.searchStart(setList,urlARtistCover);
             loadSetListXMLData=new LoadSetListXMLData();
 

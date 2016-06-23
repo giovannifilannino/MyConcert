@@ -4,6 +4,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -27,6 +28,7 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
  */
 public class ResultFragment extends Fragment {
 
+    public static Bitmap bitmap;
     ListView listItem;
     SetListAdapter setListAdapter;
     ArrayList<Setlist> setListArrayList;
@@ -57,6 +59,7 @@ public class ResultFragment extends Fragment {
                     intent.putStringArrayListExtra("canzoni", setlist.getSongs());
                     intent.putExtra("cantante",setlist.getArtistName());
                     intent.putExtra("data",setlist.getDate());
+                    bitmap=setlist.getCover();
                     ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                     LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);
                     View navigationBar = getActivity().findViewById(android.R.id.navigationBarBackground);

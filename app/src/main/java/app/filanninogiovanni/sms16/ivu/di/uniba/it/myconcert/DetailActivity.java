@@ -83,6 +83,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);
+        mImageView.setImageBitmap(ResultFragment.bitmap);
         isEditTextVisible = false;fade.excludeTarget(android.R.id.statusBarBackground, true);
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setExitTransition(fade);
@@ -129,6 +130,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     }
 
     private void getPhoto() {
+
 
     }
 
