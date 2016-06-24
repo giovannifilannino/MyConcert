@@ -1,17 +1,22 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.DetailActivity2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
@@ -27,22 +32,25 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
     private static boolean  fatto=false;
     Setlist setList;
     private int layout;
+    Context mcontext;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         TextView song;
-        ImageView image;
+        ImageButton image;
         LinearLayout linearLayout;
         public ViewHolder(View v) {
             super(v);
             song=(TextView) v.findViewById(R.id.textSong);
-            image=(ImageView)v.findViewById(R.id.immagineCestino);
             linearLayout=(LinearLayout) v.findViewById(R.id.mainHolder);
-
+            image=(ImageButton) v.findViewById(R.id.immagineCestino);
         }
+
+
+
 
     }
 
@@ -53,6 +61,8 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
         layout = resource;
         setlists = objects;
         setlists.add(0,"Le tue canzoni");
+        mcontext=context;
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -110,6 +120,15 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
             holder.song.setText(setlists.get(position));
+        if(holder.image!=null) {
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeItem(position);
+
+                }
+            });
+        }
 
     }
 
@@ -119,4 +138,5 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
     public int getItemCount() {
         return setlists.size();
     }
+
 }

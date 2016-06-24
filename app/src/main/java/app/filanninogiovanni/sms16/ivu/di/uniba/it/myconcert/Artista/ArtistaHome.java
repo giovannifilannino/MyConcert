@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.DetailActivity2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.searchattivi;
@@ -69,7 +71,14 @@ public class ArtistaHome extends Fragment {
         toolbar=(Toolbar)getActivity().findViewById(R.id.tool_bar_artista);
         toolbar.setTitle(aliasArtistaString);
         toolbar.setSubtitle(nomeArtistaString+" "+cognomeArtistaString);
+        Button button=(Button) getActivity().findViewById(R.id.ButtunMichele);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+            }
+        });
         ImageRequest imageRequest = new ImageRequest(urlImmagine, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {

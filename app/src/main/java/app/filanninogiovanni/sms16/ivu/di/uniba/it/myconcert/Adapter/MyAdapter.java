@@ -28,6 +28,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     OnItemClickListener mItemClickListener;
     Setlist setList;
     Context mContext;
+    int colore;
 
     ImageView covertArtist;
     private int layout;
@@ -108,7 +109,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
        Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
            @Override
            public void onGenerated(Palette palette) {
-               int bgColor = palette.getMutedColor(mContext.getResources().getColor(android.R.color.black));
+               int bgColor = palette.getLightVibrantColor(mContext.getResources().getColor(android.R.color.black));
+               colore=bgColor;
                holder.barra.setBackgroundColor(bgColor);
            }
        });

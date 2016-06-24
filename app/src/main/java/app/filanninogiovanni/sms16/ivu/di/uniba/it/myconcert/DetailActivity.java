@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
 import android.transition.Fade;
 import android.transition.Transition;
 import android.util.Log;
@@ -58,6 +59,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private ArrayList<String> mTodoList;
     private ArrayAdapter mToDoAdapter;
     int defaultColor;
+    int color;
 
     private DeezerPlayTrack deezerPlayTrack;
 
@@ -76,14 +78,23 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
         mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
-
+        mTitleHolder.setBackgroundColor(color);
+        final Context context=this;
         Transition fade = new Fade();
         setUpAdapter();
+
 
 
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);
         mImageView.setImageBitmap(ResultFragment.bitmap);
+        Palette.from(ResultFragment.bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                int bgColor = palette.getLightVibrantColor(context.getResources().getColor(android.R.color.black));
+                mTitleHolder.setBackgroundColor(bgColor);
+            }
+        });
         isEditTextVisible = false;fade.excludeTarget(android.R.id.statusBarBackground, true);
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setExitTransition(fade);
@@ -105,6 +116,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 deezerPlayTrack.PlaySong(queryTitle);
             }
         });
+        loadPlace();
     }
 
     private void setUpAdapter() {
