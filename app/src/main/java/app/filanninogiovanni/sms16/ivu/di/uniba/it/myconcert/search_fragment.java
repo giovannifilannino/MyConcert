@@ -33,6 +33,8 @@ import com.deezer.sdk.network.request.event.DeezerError;
 import com.deezer.sdk.network.request.event.JsonRequestListener;
 import com.deezer.sdk.network.request.event.RequestListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -111,7 +113,7 @@ public class search_fragment extends Fragment {
     View.OnClickListener artistSearchButton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            /*
+
             if(name_artist.getText().toString().compareTo("") != 0 && name_venue.getText().toString().compareTo("") != 0){
                 String artist = name_artist.getText().toString();
                 String venues = name_venue.getText().toString();
@@ -120,7 +122,7 @@ public class search_fragment extends Fragment {
                 query = URL_ARTIST + '"' + artist + '"' + URL_COMBINED + '"' + venues + '"';
                 loadSetListXMLData.execute(query);
             }
-            else */if(name_artist.getText().toString().compareTo("") != 0){
+            else if(name_artist.getText().toString().compareTo("") != 0){
                 artist = name_artist.getText().toString();
                 String artistQuery = null;
                 try {
@@ -129,7 +131,6 @@ public class search_fragment extends Fragment {
 
                 }
                 artist = artist.replaceAll("\\s+","%20");
-               // urlARtistCover = deezerArtist.getURLCover(artistQuery);
                 query = URL_ARTIST + '"' + artist + '"';
                 loadSetListXMLData.execute(query,artistQuery);
 
@@ -145,13 +146,6 @@ public class search_fragment extends Fragment {
         }
     };
 
-
-    private String getURLCover(long id){
-
-
-
-        return urlARtistCover;
-    }
 
 
 
@@ -175,18 +169,25 @@ public class search_fragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             setList = setListParser.parderData;
-            JSONObject jsonObject;
+            String json = s;
+            JSONObject jsonObject = null;
+            JSONObject trueJsonObject = null;
             try {
                 jsonObject = new JSONObject(s);
-                urlARtistCover = jsonObject.getString("picture_big");
-                
-            } catch (Exception e){
-
+                Log.d("error","qui arriva");
+                Log.d("error",jsonObject.toString());
+                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                trueJsonObject = jsonArray.getJSONObject(0);
+                urlARtistCover = trueJsonObject.getString("picture_big");
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.d("error",e.toString());
             }
-
-            onSearch.searchStart(setList,urlARtistCover);
-            loadSetListXMLData=new LoadSetListXMLData();
-
+            Log.d("wanna",String.valueOf(urlARtistCover==null));
+            if(!(urlARtistCover==null)) {
+                onSearch.searchStart(setList, urlARtistCover);
+                loadSetListXMLData = new LoadSetListXMLData();
+            }
         }
 
     }
