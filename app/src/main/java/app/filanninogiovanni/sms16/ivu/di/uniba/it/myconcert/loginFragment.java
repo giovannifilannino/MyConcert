@@ -121,7 +121,7 @@ public class loginFragment extends Fragment{
             public void onClick(View v) {
                 if(isNetworkAvailable()){
                     dialog=ErrorClass.onCreateDialog(ErrorClass.PROGRESS_DIALOG_ID,getActivity());
-                    dialog.show();
+                    //dialog.show();
                     String url = UserURL + "\"" + username.getText().toString() + "\"" + PasswordURL + "\"" + password.getText().toString() + "\"" + formatJson;
                     JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                         @Override
@@ -146,6 +146,7 @@ public class loginFragment extends Fragment{
 
 
                                 mLogin.goToSearchFragment(nome,cognome,alias,urlImmagine,artista);
+                                requestQueue.stop();
 
                             } else {
                                 Toast.makeText(getActivity(), "Utente non esistente", Toast.LENGTH_LONG);

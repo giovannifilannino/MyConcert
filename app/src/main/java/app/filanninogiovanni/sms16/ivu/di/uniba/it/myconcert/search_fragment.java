@@ -23,14 +23,19 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.deezer.sdk.model.AImageOwner;
 import com.deezer.sdk.network.connect.DeezerConnect;
 import com.deezer.sdk.network.request.DeezerRequest;
 import com.deezer.sdk.network.request.DeezerRequestFactory;
+import com.deezer.sdk.network.request.event.DeezerError;
 import com.deezer.sdk.network.request.event.JsonRequestListener;
 import com.deezer.sdk.network.request.event.RequestListener;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -62,6 +67,8 @@ public class search_fragment extends Fragment {
 
     private String urlARtistCover;
 
+    private RequestQueue requestQueue;
+    private String artist;
 
     private DeezerArtist deezerArtist;
 
@@ -92,7 +99,7 @@ public class search_fragment extends Fragment {
         search_button = (Button) getActivity().findViewById(R.id.search_button);
         search_button.setOnClickListener(artistSearchButton);
         deezerArtist = DeezerArtist.getIstance(getActivity());
-
+        requestQueue = Volley.newRequestQueue(getActivity());
     }
 
     @Override
@@ -104,6 +111,7 @@ public class search_fragment extends Fragment {
     View.OnClickListener artistSearchButton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            /*
             if(name_artist.getText().toString().compareTo("") != 0 && name_venue.getText().toString().compareTo("") != 0){
                 String artist = name_artist.getText().toString();
                 String venues = name_venue.getText().toString();
@@ -112,8 +120,8 @@ public class search_fragment extends Fragment {
                 query = URL_ARTIST + '"' + artist + '"' + URL_COMBINED + '"' + venues + '"';
                 loadSetListXMLData.execute(query);
             }
-            else if(name_artist.getText().toString().compareTo("") != 0){
-                String artist = name_artist.getText().toString();
+            else */if(name_artist.getText().toString().compareTo("") != 0){
+                artist = name_artist.getText().toString();
                 String artistQuery = null;
                 try {
                    artistQuery  = URLEncoder.encode(artist, Charset.defaultCharset().name());
@@ -121,9 +129,11 @@ public class search_fragment extends Fragment {
 
                 }
                 artist = artist.replaceAll("\\s+","%20");
-                urlARtistCover = deezerArtist.getURLCover(artistQuery);
+               // urlARtistCover = deezerArtist.getURLCover(artistQuery);
                 query = URL_ARTIST + '"' + artist + '"';
-                loadSetListXMLData.execute(query);
+                loadSetListXMLData.execute(query,artistQuery);
+
+
             } else if(name_venue.getText().toString().compareTo("") != 0){
                 String venues = name_venue.getText().toString();
                 venues = venues.replaceAll("\\s+","%20");
@@ -136,7 +146,12 @@ public class search_fragment extends Fragment {
     };
 
 
+    private String getURLCover(long id){
 
+
+
+        return urlARtistCover;
+    }
 
 
 
@@ -145,14 +160,30 @@ public class search_fragment extends Fragment {
         protected String doInBackground(String... params) {
             setListParser = new XMLSetListParser();
             setListParser.parseXML(params[0]);
-            return "fatto!";
+            String idArtist = null;
+            try {
+                idArtist = deezerArtist.getIdArtist(params[1]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (DeezerError deezerError) {
+                deezerError.printStackTrace();
+            }
+            return idArtist;
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             setList = setListParser.parderData;
-            Bitmap bitmap=setList.get(0).getCover();
+            JSONObject jsonObject;
+            try {
+                jsonObject = new JSONObject(s);
+                urlARtistCover = jsonObject.getString("picture_big");
+                
+            } catch (Exception e){
+
+            }
+
             onSearch.searchStart(setList,urlARtistCover);
             loadSetListXMLData=new LoadSetListXMLData();
 

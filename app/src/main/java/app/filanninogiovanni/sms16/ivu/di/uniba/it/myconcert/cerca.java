@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -20,6 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
@@ -108,8 +113,6 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
         dialog.setMessage("Caricamento Foto...");
         dialog.show();
-
-
 
         ImageRequest imageRequest = new ImageRequest(urlCover, new Response.Listener<Bitmap>() {
             @Override
