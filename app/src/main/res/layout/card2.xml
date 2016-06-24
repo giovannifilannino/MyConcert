@@ -27,7 +27,7 @@
     <LinearLayout
         android:id="@+id/placeNameHolder"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="55dp"
         android:layout_gravity="bottom"
         android:transitionName="tNameHolder"
         android:background="@color/colorPrimary"
