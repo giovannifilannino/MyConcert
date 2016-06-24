@@ -25,6 +25,7 @@ import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,6 +57,8 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
 
+import static app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R.id.view;
+
 public class DetailActivity2 extends Activity implements View.OnClickListener {
 
     public static final String EXTRA_PARAM_ID = "place_id";
@@ -75,7 +78,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
     private ArrayAdapter mToDoAdapter;
     int defaultColor;
     private EditText addcanzone;
-
+    ImageButton image;
     private DeezerConnect deezerConnect;
     private AlbumPlayer albumPlayer;
     private Application application;
@@ -95,13 +98,10 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         setContentView(R.layout.card_detail2);
         application = getApplication();
         final Context context=this;
-
-
         setlist = getIntent().getStringArrayListExtra("canzoni");
         nome=getIntent().getStringExtra("cantante");
         data=getIntent().getStringExtra("data");
         //mList = (ListView) findViewById(R.id.list);
-        mImageView = (ImageView) findViewById(R.id.placeImage);
         nomeArtista = (TextView) findViewById(R.id.artistaDett);
         dataTXT=(TextView) findViewById(R.id.dataDett);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
@@ -120,7 +120,11 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist);
         recList.setAdapter(ca);
 
+
+
+
         FloatingActionButton floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButton);
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +137,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
 
             }
         });
+
 
         Transition fade = new Fade();
 
@@ -212,6 +217,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
                 .setTitle("Aggiungi titolo canzone");
         return builder.create();
     }
+
 
 
 }

@@ -27,10 +27,25 @@
         android:layout_marginLeft="20dp"
         android:textSize="20dp"/>
 
+
     <ListView
         android:layout_below="@id/scritta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listTopFiveSongs" />
+        android:id="@+id/listTopFiveSongs">
+
+    </ListView>
+
+    <Button
+        android:layout_below="@+id/listTopFiveSongs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ButtunMichele"
+        android:text="ButtonPassaDetail2"
+
+        />
+
+
+
 
 </RelativeLayout>
