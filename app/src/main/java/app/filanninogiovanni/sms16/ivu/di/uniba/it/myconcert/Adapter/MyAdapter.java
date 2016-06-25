@@ -109,7 +109,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
        Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
            @Override
            public void onGenerated(Palette palette) {
-               int bgColor = palette.getLightVibrantColor(mContext.getResources().getColor(android.R.color.black));
+               int bgColor = palette.getLightMutedColor(mContext.getResources().getColor(R.color.colorPrimary));
                colore=bgColor;
                holder.barra.setBackgroundColor(bgColor);
            }

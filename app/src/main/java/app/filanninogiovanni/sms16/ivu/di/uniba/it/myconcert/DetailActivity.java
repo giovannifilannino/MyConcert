@@ -91,7 +91,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         Palette.from(ResultFragment.bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                int bgColor = palette.getLightVibrantColor(context.getResources().getColor(android.R.color.black));
+                int bgColor = palette.getLightMutedColor(context.getResources().getColor(R.color.colorPrimary));
                 mTitleHolder.setBackgroundColor(bgColor);
             }
         });
