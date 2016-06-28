@@ -64,4 +64,5 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
         TextView nameCity;
         TextView date;
     }
+
 }

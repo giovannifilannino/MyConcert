@@ -45,6 +45,7 @@ public class loginFragment extends Fragment{
     private String formatJson = "&format=json";
     private CallbackManager callbackManager;
     private LoginButton loginButton;
+    public static String actualUsername;
 
     private String nome;
     private String cognome;
@@ -130,6 +131,8 @@ public class loginFragment extends Fragment{
                                 franco = jsonArray.toString();
 
                             if (checkUtente(franco)) {
+                                actualUsername = username.getText().toString();
+
 
                                 try {
                                     JSONObject jsonObject = getJson(jsonArray);
@@ -143,7 +146,6 @@ public class loginFragment extends Fragment{
                                 } catch (Exception e){
                                     e.printStackTrace();
                                 }
-
 
                                 mLogin.goToSearchFragment(nome,cognome,alias,urlImmagine,artista);
                                 requestQueue.stop();
@@ -197,6 +199,8 @@ public class loginFragment extends Fragment{
         }
         return result;
     }
+
+
 
 
 }
