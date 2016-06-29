@@ -39,6 +39,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.ItemSongPlayAdapter;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Song;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerPlayTrack;
 
 public class DetailActivity extends Activity implements View.OnClickListener {
@@ -58,6 +60,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private InputMethodManager mInputManager;
     private ArrayList<String> mTodoList;
     private ArrayAdapter mToDoAdapter;
+    private ArrayList<Song> songArrayList;
     int defaultColor;
     int color;
 
@@ -81,6 +84,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         mTitleHolder.setBackgroundColor(color);
         final Context context=this;
         Transition fade = new Fade();
+        songArrayList = getSongArray(nome,setlist);
         setUpAdapter();
 
 
@@ -120,8 +124,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     }
 
     private void setUpAdapter() {
-
-        mList.setAdapter(new ArrayAdapter<String>(this,R.layout.songs_layout,R.id.textSong,setlist));
+        ItemSongPlayAdapter itemSongPlayAdapter = new ItemSongPlayAdapter(this,R.layout.itemplaysong,songArrayList);
+        mList.setAdapter(itemSongPlayAdapter);
 
     }
 
@@ -163,6 +167,15 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     private void hideEditText(final LinearLayout view) {
 
+    }
+
+    private ArrayList<Song> getSongArray(String artist, ArrayList<String> songs){
+        ArrayList<Song> songArray = new ArrayList<Song>();
+        for(String s: songs){
+            songArray.add(new Song(s,artist));
+        }
+
+        return songArray;
     }
 
 }

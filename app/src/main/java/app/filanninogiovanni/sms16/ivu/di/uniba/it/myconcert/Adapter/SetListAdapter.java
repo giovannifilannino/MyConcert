@@ -30,7 +30,7 @@ public class SetListAdapter extends ArrayAdapter<Setlist> {
 
             viewholder = new ViewHolder();
 
-            viewholder.nameArtist = (TextView) convertView.findViewById(R.id.textNameArtistItemList);
+            viewholder.nameArtist = (TextView) convertView.findViewById(R.id.textSong);
             viewholder.nameVenue = (TextView) convertView.findViewById(R.id.textNameVenueItemList);
             viewholder.nameCity = (TextView) convertView.findViewById(R.id.textNameCityItemList);
             viewholder.date = (TextView) convertView.findViewById(R.id.textDataItemList);
