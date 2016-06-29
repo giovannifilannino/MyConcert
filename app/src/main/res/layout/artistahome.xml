@@ -55,15 +55,6 @@
 
     </ListView>
 
-    <Button
-        android:layout_below="@+id/listTopFiveSongs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ButtunMichele"
-        android:text="ButtonPassaDetail2"
-
-        />
-
 
 </RelativeLayout>
     </FrameLayout>

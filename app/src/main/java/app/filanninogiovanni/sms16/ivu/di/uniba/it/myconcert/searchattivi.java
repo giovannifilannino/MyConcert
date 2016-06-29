@@ -40,7 +40,7 @@ public class searchattivi {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             setList = setListParser.parderData;
-            ArtistaHome.popolaconcerti(setList);
+           // ArtistaHome.popolaconcerti(setList);
             loadSetListXMLData=new LoadSetListXMLData();
 
         }

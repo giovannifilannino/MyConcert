@@ -1,6 +1,8 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -34,9 +38,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.DetailActivity2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ResultFragment;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.searchattivi;
 
 /**
@@ -52,13 +58,14 @@ public class ArtistaHome extends AppCompatActivity {
     public searchattivi attivi=new searchattivi();
     public static ArrayList<Setlist> concerti;
     private Toolbar toolbar;
+    ArrayList<Setlist> list=new ArrayList<Setlist>();
     private String urlImmagine;
     private String nomeArtistaString;
     private String cognomeArtistaString;
     private String aliasArtistaString;
     private DrawerLayout drawerLayout;
     private ListView listViewDrawerLayout;
-    private String[] optionDrawer;
+    private ArrayList<String> optionDrawer=new ArrayList<String>();
     private ActionBarDrawerToggle mDrawerToggle;
     private String formatJson = "&format=json";
 
@@ -70,33 +77,21 @@ public class ArtistaHome extends AppCompatActivity {
     Context context;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.artistahome);
         context=this;
-        optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
+
+        optionDrawer.add("CONCERTI ATTIVI");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_artista); //information per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer);
-        mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
-            @Override
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                //drawerView.setOnClickListener(onItemClick());
-                super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
-                // creates call to onPrepareOptionsMenu()
-            }
-        };
-        //collegamento comportamento e icona per la toolbar e drawer
-        drawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
         listViewDrawerLayout.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,optionDrawer));
+        listViewDrawerLayout.setOnItemClickListener(new DrawerItemClickListener());
+
+
+        /*
         urlImmagine=getIntent().getStringExtra("url");
         nomeArtistaString=getIntent().getStringExtra("nome");
         cognomeArtistaString=getIntent().getStringExtra("cognome");
@@ -108,14 +103,6 @@ public class ArtistaHome extends AppCompatActivity {
         toolbar.setTitle(aliasArtistaString);
         toolbar.setSubtitle(nomeArtistaString+" "+cognomeArtistaString);
         toolbar.setLogo(R.drawable.ic_drawer);
-        Button button=(Button)findViewById(R.id.ButtunMichele);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
         ImageRequest imageRequest = new ImageRequest(urlImmagine, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
@@ -133,6 +120,8 @@ public class ArtistaHome extends AppCompatActivity {
 
         songArray = new ArrayList<String>();
 
+
+
         aliasArtistaString = aliasArtistaString.replaceAll("\\s+","%20");
         String url = URL_TOP_FIVE + '"' + aliasArtistaString + '"' +formatJson;
 
@@ -140,10 +129,22 @@ public class ArtistaHome extends AppCompatActivity {
         fillSongArray(url);
         attivi.getConcerti();
 
-
+*/
 
     }
-
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            FragmentManager fragmentManager = getFragmentManager();
+            if(optionDrawer.get(position).compareToIgnoreCase("CONCERTI ATTIVI")==0){
+                ResultFragment resultFragment = new ResultFragment();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame,resultFragment).addToBackStack("miro").commit();
+                resultFragment.riempiArray(list);
+            }
+        }
+    }
+/*
     private void fillSongArray(String url){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
@@ -173,5 +174,5 @@ public class ArtistaHome extends AppCompatActivity {
     public static void popolaconcerti(ArrayList<Setlist> setlist)
     {
         concerti=setlist;
-    }
+    }*/
 }
