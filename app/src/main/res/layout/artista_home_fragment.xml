@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/tool_bar_artista"
+            layout="@layout/tool_bar_lista"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+        <ImageView
+            android:layout_below="@id/tool_bar_artista"
+            android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/artista_immagine"/>
+
+        <TextView
+            android:id="@+id/scritta"
+            android:layout_below="@id/artista_immagine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/topfive"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"/>
+
+
+        <ListView
+            android:layout_below="@id/scritta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listTopFiveSongs">
+
+        </ListView>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
