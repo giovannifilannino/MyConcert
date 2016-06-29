@@ -16,7 +16,14 @@ import android.widget.ArrayAdapter;
 
 import android.widget.ListView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -37,8 +44,15 @@ public class ArtistaHome extends AppCompatActivity {
     private String aliasArtistaString;
     private ListView listViewDrawerLayout;
     private DrawerLayout drawerLayout;
+    public String data;
+    public String postoConcerto;
+    public String cittaConcerto;
+    public String idConcerto;
+    RequestQueue requestQueue;
+    public String pseArtista;
     private ArrayList<String> optionDrawer = new ArrayList<String>();
     FragmentManager fragmentManager;
+    String urlPHPpart = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
 
     Context context;
 
@@ -53,7 +67,7 @@ public class ArtistaHome extends AppCompatActivity {
         cognomeArtistaString=getIntent().getStringExtra("cognome");
         aliasArtistaString=getIntent().getStringExtra("alias");
         context = this;
-
+        requestQueue = Volley.newRequestQueue(this);
         optionDrawer.add("CONCERTI ATTIVI");
         optionDrawer.add(" ATTIVI");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
@@ -69,12 +83,45 @@ public class ArtistaHome extends AppCompatActivity {
         fragmentManager =getFragmentManager();
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         ArtistaHomeFragment artistaHome=new ArtistaHomeFragment();
-
         artistaHome.setNomeArtistaString(nomeArtistaString);
         artistaHome.setCognomeArtitaString(cognomeArtistaString);
         artistaHome.setAliasArtistaString(aliasArtistaString);
         artistaHome.setUrlImmagine(urlImmagine);
         fragmentTransaction.replace(R.id.content_frame, artistaHome);
         fragmentTransaction.commit();
+        String artista=aliasArtistaString.replaceAll("\\s+","%20");
+        String url=urlPHPpart+'"'+artista + '"';
+        JsonArrayRequest arrayRequest =new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                    try{
+                        JSONObject jsonObject = getJson(jsonArray);
+                        data = jsonObject.getString("Data");
+                        postoConcerto = jsonObject.getString("postoConcerto");
+                        cittaConcerto = jsonObject.getString("cittaConcerto");
+                        pseArtista=jsonObject.getString("pseArtista");
+                        idConcerto=jsonObject.getString("IdConcerto");
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(arrayRequest);
+    }
+
+    private JSONObject getJson(JSONArray jsonArray){
+        JSONObject result = null;
+        try{
+            result = jsonArray.getJSONObject(0);
+        } catch (Exception e){
+
+        }
+        return result;
     }
 }

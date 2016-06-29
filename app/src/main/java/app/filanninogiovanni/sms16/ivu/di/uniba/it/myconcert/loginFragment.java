@@ -47,6 +47,7 @@ public class loginFragment extends Fragment{
     private LoginButton loginButton;
     public static String actualUsername;
 
+
     private String nome;
     private String cognome;
     private int artista;
