@@ -67,4 +67,8 @@ public class DeezerPlayTrack {
         trackPlayer.playTrack(idSong);
     }
 
+    public void StopSong(){
+        trackPlayer.stop();
+    }
+
 }

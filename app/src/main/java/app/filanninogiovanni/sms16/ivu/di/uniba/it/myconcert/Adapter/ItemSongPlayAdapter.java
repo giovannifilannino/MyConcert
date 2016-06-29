@@ -1,5 +1,6 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,12 +12,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Song;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerPlayTrack;
 
 /**
  * Created by gianni on 29/06/16.
@@ -27,9 +31,12 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
     private int layout;
     private Song song;
     private Context context;
+    private DeezerPlayTrack deezerPlayTrack;
+    private static boolean playSong = false;
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
 
         ViewHolder viewholder = null;
 
@@ -62,13 +69,40 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
             }
         });
 
+        viewholder.playDeezer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = songs.get(position).getTitle();
+                String queryTitle = "";
+
+                ImageButton imageButton = (ImageButton) v;
+
+                try {
+                    queryTitle = URLEncoder.encode(title, Charset.defaultCharset().name());
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                if(!playSong) {
+                    imageButton.setImageResource(android.R.drawable.ic_media_pause);
+                    playSong = true;
+                    deezerPlayTrack.PlaySong(queryTitle);
+                } else {
+                    imageButton.setImageResource(android.R.drawable.ic_media_play);
+                    playSong = false;
+                    deezerPlayTrack.StopSong();
+
+                }
+                }
+        });
+
 
         return convertView;
     }
 
     public ItemSongPlayAdapter(Context context, int resource, List<Song> objects) {
         super(context, resource, objects);
-
+        deezerPlayTrack = DeezerPlayTrack.getIstance((Activity) context);
         inflater = LayoutInflater.from(getContext());
         layout = resource;
         songs = objects;

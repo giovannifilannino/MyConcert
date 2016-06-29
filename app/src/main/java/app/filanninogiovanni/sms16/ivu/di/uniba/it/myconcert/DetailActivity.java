@@ -66,11 +66,13 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     private DeezerPlayTrack deezerPlayTrack;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail);
-        deezerPlayTrack = DeezerPlayTrack.getIstance(this);
+
         setlist = getIntent().getStringArrayListExtra("canzoni");
         nome=getIntent().getStringExtra("cantante");
         data=getIntent().getStringExtra("data");
@@ -103,23 +105,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setExitTransition(fade);
         getWindow().setEnterTransition(fade);
-
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String title = setlist.get(position);
-                String queryTitle = "";
-
-                try {
-                    queryTitle = URLEncoder.encode(title, Charset.defaultCharset().name());
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                deezerPlayTrack.PlaySong(queryTitle);
-            }
-        });
         loadPlace();
     }
 
