@@ -36,6 +36,9 @@
             android:name=".DetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Artista.ArtistaHome"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".DetailActivity2"
             android:screenOrientation="portrait" />
         <activity

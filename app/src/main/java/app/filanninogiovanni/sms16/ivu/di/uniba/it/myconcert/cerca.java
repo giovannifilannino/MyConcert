@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private String urlImmagine;
     private RequestQueue requestQueue;
     private String usernameS;
-
+    Context context;
     private ProgressDialog dialog;
 
 
@@ -66,7 +67,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.irko);
-
+    context=this;
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
@@ -106,15 +107,15 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
          FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
           Fragment search = new search_fragment();
-            ArtistaHome artistaHome = new ArtistaHome();
           if(choise==0){
               fragmentTransaction.replace(R.id.content_frame, search);
           } else {
-              artistaHome.setNomeArtistaString(nomeArtista);
-              artistaHome.setCognomeArtitaString(cognomeArtista);
-              artistaHome.setAliasArtistaString(aliasArtista);
-              artistaHome.setUrlImmagine(urlImmagine);
-              fragmentTransaction.replace(R.id.content_frame, artistaHome);
+              Intent artistaHome =new Intent(context,ArtistaHome.class);
+              artistaHome.putExtra("nome",nomeArtista);
+              artistaHome.putExtra("cognome",cognomeArtista);
+              artistaHome.putExtra("alias",aliasArtista);
+              artistaHome.putExtra("url",urlImmagine);
+              startActivity(artistaHome);
           }
 
           fragmentTransaction.commit();

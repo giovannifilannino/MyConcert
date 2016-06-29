@@ -1,11 +1,15 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +42,7 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.searchattivi;
 /**
  * Created by Giovanni on 15/06/2016.
  */
-public class ArtistaHome extends Fragment {
+public class ArtistaHome extends AppCompatActivity {
 
     private TextView nomeArtista;
     private TextView cognomeArtista;
@@ -52,6 +56,10 @@ public class ArtistaHome extends Fragment {
     private String nomeArtistaString;
     private String cognomeArtistaString;
     private String aliasArtistaString;
+    private DrawerLayout drawerLayout;
+    private ListView listViewDrawerLayout;
+    private String[] optionDrawer;
+    private ActionBarDrawerToggle mDrawerToggle;
     private String formatJson = "&format=json";
 
     private String URL_TOP_FIVE = "http://mymusiclive.altervista.org/topfivesongs.php?artista=";
@@ -59,19 +67,48 @@ public class ArtistaHome extends Fragment {
     private ArrayList<String> songArray;
 
     private RequestQueue requestQueue;
+    Context context;
 
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.artistahome);
+        context=this;
+        optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_artista); //information per la comparsa del menu laterale
+        listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer);
+        mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
+            @Override
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
 
-        listaCanzoni = (ListView) getActivity().findViewById(R.id.listTopFiveSongs);
-        artistImage = (ImageView) getActivity().findViewById(R.id.artista_immagine);
-        requestQueue = Volley.newRequestQueue(getActivity());
-        toolbar=(Toolbar)getActivity().findViewById(R.id.tool_bar_artista);
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                //drawerView.setOnClickListener(onItemClick());
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
+                // creates call to onPrepareOptionsMenu()
+            }
+        };
+        //collegamento comportamento e icona per la toolbar e drawer
+        drawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        listViewDrawerLayout.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,optionDrawer));
+        urlImmagine=getIntent().getStringExtra("url");
+        nomeArtistaString=getIntent().getStringExtra("nome");
+        cognomeArtistaString=getIntent().getStringExtra("cognome");
+        aliasArtistaString=getIntent().getStringExtra("alias");
+        listaCanzoni = (ListView) findViewById(R.id.listTopFiveSongs);
+        artistImage = (ImageView) findViewById(R.id.artista_immagine);
+        requestQueue = Volley.newRequestQueue(this);
+        toolbar=(Toolbar)findViewById(R.id.tool_bar_artista);
         toolbar.setTitle(aliasArtistaString);
         toolbar.setSubtitle(nomeArtistaString+" "+cognomeArtistaString);
-        Button button=(Button) getActivity().findViewById(R.id.ButtunMichele);
+        toolbar.setLogo(R.drawable.ic_drawer);
+        Button button=(Button)findViewById(R.id.ButtunMichele);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +154,7 @@ public class ArtistaHome extends Fragment {
                         jsonObject = response.getJSONObject(i);
                         songArray.add(jsonObject.getString("NomeCanzone"));
                     }
-                    listaCanzoni.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,songArray));
+                    listaCanzoni.setAdapter(new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,songArray));
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -133,31 +170,8 @@ public class ArtistaHome extends Fragment {
 
         requestQueue.add(jsonArrayRequest);
     }
-
-
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.artistahome, container, false);
-    }
-
-    public void setAliasArtistaString(String aliasArtistaString) {
-        this.aliasArtistaString = aliasArtistaString;
-    }
-
-    public void setNomeArtistaString(String nomeArtistaString) {
-        this.nomeArtistaString = nomeArtistaString;
-    }
-
-    public void setCognomeArtitaString(String cognomeArtistaString) {
-        this.cognomeArtistaString = cognomeArtistaString;
-    }
-
-    public void setUrlImmagine(String urlImmagine) {
-        this.urlImmagine = urlImmagine;
-    }
-    public static void popolaconcerti(ArrayList<Setlist> setlist){
+    public static void popolaconcerti(ArrayList<Setlist> setlist)
+    {
         concerti=setlist;
     }
 }

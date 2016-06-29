@@ -55,7 +55,7 @@ public class ResultFragment extends Fragment {
             MyAdapter.OnItemClickListener onItemClickListener= new MyAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View v, int position,Setlist setlist) {
-                    Intent intent = new Intent(getActivity(), DetailActivity2.class);
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
                     intent.putStringArrayListExtra("canzoni", setlist.getSongs());
                     intent.putExtra("cantante",setlist.getArtistName());
                     intent.putExtra("data",setlist.getDate());
