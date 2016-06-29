@@ -18,11 +18,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:layout_marginRight="20dp"
         android:id="@+id/playDeezer"
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/playYoutube" />
     <ImageButton
-        android:src="@android:drawable/ic_menu_camera"
+        android:src="@drawable/youtubeicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"

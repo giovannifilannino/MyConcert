@@ -53,7 +53,7 @@ public class loginFragment extends Fragment{
     private String urlImmagine;
     private String alias = "";
 
-
+    private static String usernameShare;
 
     String franco;
 
@@ -123,6 +123,7 @@ public class loginFragment extends Fragment{
                 if(isNetworkAvailable()){
                     dialog=ErrorClass.onCreateDialog(ErrorClass.PROGRESS_DIALOG_ID,getActivity());
                     //dialog.show();
+
                     String url = UserURL + "\"" + username.getText().toString() + "\"" + PasswordURL + "\"" + password.getText().toString() + "\"" + formatJson;
                     JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                         @Override
@@ -146,7 +147,7 @@ public class loginFragment extends Fragment{
                                 } catch (Exception e){
                                     e.printStackTrace();
                                 }
-
+                                usernameShare = username.getText().toString();
                                 mLogin.goToSearchFragment(nome,cognome,alias,urlImmagine,artista);
                                 requestQueue.stop();
 
@@ -198,6 +199,10 @@ public class loginFragment extends Fragment{
 
         }
         return result;
+    }
+
+    public String getActualUsername(){
+        return usernameShare;
     }
 
 

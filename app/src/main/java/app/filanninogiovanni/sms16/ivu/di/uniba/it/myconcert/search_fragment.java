@@ -126,7 +126,7 @@ public class search_fragment extends Fragment {
                 artist = name_artist.getText().toString();
                 String artistQuery = null;
                 try {
-                   artistQuery  = URLEncoder.encode(artist, Charset.defaultCharset().name());
+                    artistQuery  = URLEncoder.encode(artist, Charset.defaultCharset().name());
                 } catch (Exception e){
 
                 }
