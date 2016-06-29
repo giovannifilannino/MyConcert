@@ -10,6 +10,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -95,12 +96,14 @@ public class ArtistaHome extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONArray jsonArray = response;
+                Log.d("mlml",jsonArray.toString());
+                JSONObject jsonObject;
                     try{
-                        JSONObject jsonObject = getJson(jsonArray);
+                        jsonObject = response.getJSONObject(0);
                         data = jsonObject.getString("Data");
-                        postoConcerto = jsonObject.getString("postoConcerto");
-                        cittaConcerto = jsonObject.getString("cittaConcerto");
-                        pseArtista=jsonObject.getString("pseArtista");
+                        postoConcerto = jsonObject.getString("PostoConcerto");
+                        cittaConcerto = jsonObject.getString("CittaConcerto");
+                        pseArtista=jsonObject.getString("PseArtista");
                         idConcerto=jsonObject.getString("IdConcerto");
                     }catch (Exception e){
                         e.printStackTrace();
@@ -114,14 +117,5 @@ public class ArtistaHome extends AppCompatActivity {
         });
         requestQueue.add(arrayRequest);
     }
-
-    private JSONObject getJson(JSONArray jsonArray){
-        JSONObject result = null;
-        try{
-            result = jsonArray.getJSONObject(0);
-        } catch (Exception e){
-
-        }
-        return result;
-    }
+    
 }
