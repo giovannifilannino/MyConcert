@@ -73,7 +73,6 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail2);
-        application = getApplication();
         final Context context=this;
         setlist = getIntent().getStringArrayListExtra("canzoni");
         nome=getIntent().getStringExtra("cantante");

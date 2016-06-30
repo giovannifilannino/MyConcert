@@ -1,6 +1,8 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 
+import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -27,10 +29,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ResultFragment;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerArtist;
 
 
@@ -50,7 +55,9 @@ public class ArtistaHome extends AppCompatActivity {
     public String cittaConcerto;
     public String idConcerto;
     RequestQueue requestQueue;
+    ProgressDialog dialog;
     public String pseArtista;
+    ArrayList<Setlist> concerti=new ArrayList<Setlist>();
     private ArrayList<String> optionDrawer = new ArrayList<String>();
     FragmentManager fragmentManager;
     String urlPHPpart = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
@@ -78,36 +85,57 @@ public class ArtistaHome extends AppCompatActivity {
         listViewDrawerLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //chiama resultFragmentArtisti
+                dialog = new ProgressDialog(context);
+                dialog.setMessage("Caricamento..");
+                dialog.show();
+                ResultFragmentArtisti resultFragmentArtisti=new ResultFragmentArtisti();
+                goToConcert(resultFragmentArtisti);
             }
         });
-        fragmentManager =getFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+
         ArtistaHomeFragment artistaHome=new ArtistaHomeFragment();
         artistaHome.setNomeArtistaString(nomeArtistaString);
         artistaHome.setCognomeArtitaString(cognomeArtistaString);
         artistaHome.setAliasArtistaString(aliasArtistaString);
         artistaHome.setUrlImmagine(urlImmagine);
-        fragmentTransaction.replace(R.id.content_frame, artistaHome);
-        fragmentTransaction.commit();
+        startTransiction(artistaHome);
+
+
+
+
+
+    }
+    public void goToConcert(final ResultFragmentArtisti fragment){
         String artista=aliasArtistaString.replaceAll("\\s+","%20");
         String url=urlPHPpart+'"'+artista + '"';
         JsonArrayRequest arrayRequest =new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONArray jsonArray = response;
-                Log.d("mlml",jsonArray.toString());
                 JSONObject jsonObject;
-                    try{
-                        jsonObject = response.getJSONObject(0);
+                try{
+                    for(int i=0;i< response.length();i++){
+                        Setlist conc=new Setlist();
+                        jsonObject = response.getJSONObject(i);
                         data = jsonObject.getString("Data");
+                        conc.setDate(data);
                         postoConcerto = jsonObject.getString("PostoConcerto");
+                        conc.setVenueName(postoConcerto);
                         cittaConcerto = jsonObject.getString("CittaConcerto");
+                        conc.setCity(cittaConcerto);
                         pseArtista=jsonObject.getString("PseArtista");
+                        conc.setArtistName(pseArtista);
                         idConcerto=jsonObject.getString("IdConcerto");
-                    }catch (Exception e){
-                        e.printStackTrace();
+                        conc.setId(idConcerto);
+                        conc.setCover(ArtistaHomeFragment.immagine);
+                        concerti.add(conc);
                     }
+                    fragment.riempiArray(concerti);
+                    dialog.hide();
+                    startTransiction(fragment);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -116,6 +144,13 @@ public class ArtistaHome extends AppCompatActivity {
             }
         });
         requestQueue.add(arrayRequest);
+    }
+
+    public void startTransiction(Fragment fragment){
+        fragmentManager =getFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, fragment);
+        fragmentTransaction.commit();
     }
     
 }

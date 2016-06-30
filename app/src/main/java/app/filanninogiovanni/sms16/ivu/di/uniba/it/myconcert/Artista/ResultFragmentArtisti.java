@@ -18,10 +18,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.support.v4.util.Pair;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.SetListAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.DetailActivity;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.DetailActivity2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 
@@ -33,10 +44,13 @@ public class ResultFragmentArtisti extends Fragment {
     public static Bitmap bitmap;
     ListView listItem;
     SetListAdapter setListAdapter;
+    ArrayList<String> canzoni=new ArrayList<String>();
     ArrayList<Setlist> setListArrayList;
     private static OnSetListSelecter onSetListSelecter;
     private Setlist dacaricare;
+    RequestQueue requestQueue;
 
+    String urlPHPpart = "http://mymusiclive.altervista.org/canzoniConcerto.php?idConcerto=";
     public void riempiArray(ArrayList<Setlist> setListArrayList){
         this.setListArrayList = setListArrayList;
     }
@@ -52,22 +66,20 @@ public class ResultFragmentArtisti extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
+        requestQueue = Volley.newRequestQueue(getActivity());
         MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
         recList.setAdapter(ca);
         MyAdapter.OnItemClickListener onItemClickListener= new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position,Setlist setlist) {
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putStringArrayListExtra("canzoni", setlist.getSongs());
+                Intent intent = new Intent(getActivity(), DetailActivity2.class);
                 intent.putExtra("cantante",setlist.getArtistName());
                 intent.putExtra("data",setlist.getDate());
                 bitmap=setlist.getCover();
                 ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                 LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);
                 View navigationBar = getActivity().findViewById(android.R.id.navigationBarBackground);
-
                 Pair<View, String> navbar =Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
-
                 Pair<View, String> imagePair = Pair.create((View ) placeImage, "tImage");
                 Pair<View, String> holderPair = Pair.create((View) placeNameHolder, "tNameHolder");
                 ActivityOptionsCompat options;
@@ -79,7 +91,7 @@ public class ResultFragmentArtisti extends Fragment {
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                             imagePair, holderPair);
                 }
-                startActivity(intent, options.toBundle());
+                caricaCanzoni(position,intent,options);
 
             }
         };
@@ -99,6 +111,35 @@ public class ResultFragmentArtisti extends Fragment {
         super.onCreate(savedInstanceState);
 
 
+    }
+    public void caricaCanzoni(int position, final Intent intent, final ActivityOptionsCompat options){
+        String id=setListArrayList.get(position).getId();
+        String url=urlPHPpart+'"'+id + '"';
+        JsonArrayRequest arrayRequest =new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                JSONObject jsonObject;
+                try{
+                    for(int i=0;i< response.length();i++){
+                        jsonObject = response.getJSONObject(i);
+                        canzoni.add( jsonObject.getString("TitoloCanzone"));
+
+                    }
+                    intent.putStringArrayListExtra("canzoni", canzoni);
+                    startActivity(intent, options.toBundle());
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(arrayRequest);
     }
 
 

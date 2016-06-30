@@ -54,6 +54,7 @@ public class ArtistaHomeFragment extends Fragment {
     private String cognomeArtistaString;
     private String aliasArtistaString;
     private DrawerLayout drawerLayout;
+    public static Bitmap immagine;
     private ListView listViewDrawerLayout;
     private ArrayList<String> optionDrawer = new ArrayList<String>();
     private ActionBarDrawerToggle mDrawerToggle;
@@ -82,11 +83,12 @@ public class ArtistaHomeFragment extends Fragment {
         toolbar.setTitle(aliasArtistaString);
         toolbar.setSubtitle(nomeArtistaString + " " + cognomeArtistaString);
         toolbar.setLogo(R.drawable.ic_drawer);
-        ImageRequest imageRequest = new ImageRequest(urlImmagine, new Response.Listener<Bitmap>() {
+        final ImageRequest imageRequest = new ImageRequest(urlImmagine, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
                 artistImage.setImageBitmap(response);
                 artistImage.setScaleType(ImageView.ScaleType.FIT_XY);
+                immagine=response;
             }
         }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
             @Override
