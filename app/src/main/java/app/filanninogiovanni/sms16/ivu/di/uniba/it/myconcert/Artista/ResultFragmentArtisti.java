@@ -1,6 +1,7 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -63,12 +65,12 @@ public class ResultFragmentArtisti extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        RecyclerView recList=(RecyclerView)getActivity().findViewById(R.id.rv);
+        final RecyclerView recList=(RecyclerView)getActivity().findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
         requestQueue = Volley.newRequestQueue(getActivity());
-        MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
+        final MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
         recList.setAdapter(ca);
         MyAdapter.OnItemClickListener onItemClickListener= new MyAdapter.OnItemClickListener() {
             @Override
@@ -99,6 +101,19 @@ public class ResultFragmentArtisti extends Fragment {
         };
         ca.setOnItemClickListener(onItemClickListener);
         canzoni.clear();
+        FloatingActionButton floatingActionButton=(FloatingActionButton)getActivity().findViewById(R.id.addconcerto);
+        final Setlist prova=new Setlist();
+        prova.setArtistName(setListArrayList.get(0).getArtistName());
+        prova.setCover(setListArrayList.get(0).getCover());
+        prova.setCity("bari");
+        prova.setDate("22/10/2015");
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    ca.addItem(1,prova);
+                    recList.scrollToPosition(0);
+            }
+        });
 
     }
 
@@ -106,7 +121,7 @@ public class ResultFragmentArtisti extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.lista,container,false);
+        return inflater.inflate(R.layout.lista_concerti_artista,container,false);
     }
 
     @Override

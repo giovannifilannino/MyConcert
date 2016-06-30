@@ -17,6 +17,7 @@ import java.util.List;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ResultFragment;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 
 /**
  * Created by delmi on 09/06/2016.
@@ -94,6 +95,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         return vh;
     }
+    public void addItem(int position,Setlist setList) {
+            setlists.add(0, setList);
+            notifyItemInserted(0);
+    }
 
     // Replace the contents of a view (invoked by the information manager)
     @Override
@@ -117,8 +122,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             });
         }
         else {
-            holder.coverArtista.setImageResource(R.drawable.concertimilano);
-            Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
+
+            Bitmap bit=BitmapFactory.decodeResource(mContext.getResources(),R.drawable.concertimilano);
+            holder.coverArtista.setImageBitmap(bit);
+            Palette.from(bit).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
                     int bgColor = palette.getLightMutedColor(mContext.getResources().getColor(R.color.colorPrimary));
