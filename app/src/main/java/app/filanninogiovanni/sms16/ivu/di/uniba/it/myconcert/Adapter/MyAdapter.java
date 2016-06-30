@@ -16,8 +16,6 @@ import java.util.List;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ResultFragment;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 
 /**
  * Created by delmi on 09/06/2016.

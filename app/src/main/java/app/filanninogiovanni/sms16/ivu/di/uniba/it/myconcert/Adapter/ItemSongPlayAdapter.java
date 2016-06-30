@@ -12,17 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import com.deezer.sdk.network.request.event.DeezerError;
-
-import java.io.IOException;
-import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.StringTokenizer;
-
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Song;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerPlayTrack;

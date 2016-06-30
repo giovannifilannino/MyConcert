@@ -63,6 +63,9 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".ChosenConcerts"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f2798c3ffce4f42ddaa204557cfe96eb1d5cc48a" />
     </application>
 
 </manifest>
