@@ -96,6 +96,7 @@ public class ArtistaHome extends AppCompatActivity {
                             dialog.show();
                             ResultFragmentArtisti resultFragmentArtisti=new ResultFragmentArtisti();
                             goToConcert(resultFragmentArtisti);
+                            concerti.clear();
                         }
                         break;
                     case "HOME":
@@ -154,6 +155,7 @@ public class ArtistaHome extends AppCompatActivity {
                     fragment.riempiArray(concerti);
                     dialog.hide();
                     startTransiction(fragment);
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }

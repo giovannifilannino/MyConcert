@@ -101,6 +101,7 @@ public class ResultFragmentArtisti extends Fragment {
             }
         };
         ca.setOnItemClickListener(onItemClickListener);
+        canzoni.clear();
 
     }
 
