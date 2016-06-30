@@ -117,8 +117,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             });
         }
         else {
-            holder.coverArtista.setImageResource(R.drawable.concertimilano);
-            Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
+
+            Bitmap bit=BitmapFactory.decodeResource(mContext.getResources(),R.drawable.concertimilano);
+            holder.coverArtista.setImageBitmap(bit);
+            Palette.from(bit).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
                     int bgColor = palette.getLightMutedColor(mContext.getResources().getColor(R.color.colorPrimary));

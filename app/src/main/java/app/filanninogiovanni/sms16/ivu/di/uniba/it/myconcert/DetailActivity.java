@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.transition.Fade;
@@ -171,8 +172,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             });
         }
         else {
-            mImageView.setBackground(getDrawable(R.drawable.concertimilano));
-            Palette.from(ResultFragment.bitmap).generate(new Palette.PaletteAsyncListener() {
+            Bitmap bit= BitmapFactory.decodeResource(getResources(),R.drawable.concertimilano);
+            mImageView.setImageBitmap(bit);
+            Palette.from(bit).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
                     int bgColor = palette.getLightMutedColor(context.getResources().getColor(R.color.colorPrimary));
