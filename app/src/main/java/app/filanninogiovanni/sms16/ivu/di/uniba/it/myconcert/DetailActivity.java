@@ -122,6 +122,15 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         }
     };
 
+    private ListView.OnItemLongClickListener editSongs = new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+            return false;
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

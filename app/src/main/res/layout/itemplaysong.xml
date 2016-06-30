@@ -4,13 +4,22 @@
     android:layout_height="wrap_content"
     >
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sendThisSong"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:visibility="visible"/>
+
 
     <TextView
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:id="@+id/textSong"
-        android:textAppearance="?android:attr/textAppearanceMedium">
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toStartOf="@+id/playDeezer">
     </TextView>
 
     <ImageButton

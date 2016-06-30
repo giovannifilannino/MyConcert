@@ -133,29 +133,34 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
         dialog.setMessage("Caricamento Foto...");
         dialog.show();
-
-        ImageRequest imageRequest = new ImageRequest(urlCover, new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                for(Setlist set : urlDaCercare){
-                    set.setCover(response);
+        if(urlCover.compareTo("")==0){
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            dialog.hide();
+            fragmentTransaction.replace(R.id.content_frame,resultFragment).addToBackStack("miro").commit();
+            resultFragment.riempiArray(urlDaCercare);
+        }else {
+            ImageRequest imageRequest = new ImageRequest(urlCover, new Response.Listener<Bitmap>() {
+                @Override
+                public void onResponse(Bitmap response) {
+                    for (Setlist set : urlDaCercare) {
+                        set.setCover(response);
+                    }
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    dialog.hide();
+                    fragmentTransaction.replace(R.id.content_frame, resultFragment).addToBackStack("miro").commit();
+                    resultFragment.riempiArray(urlDaCercare);
                 }
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                dialog.hide();
-                fragmentTransaction.replace(R.id.content_frame,resultFragment).addToBackStack("miro").commit();
-                resultFragment.riempiArray(urlDaCercare);
-            }
-        }, 0, 0, ImageView.ScaleType.FIT_XY, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                dialog.hide();
+            }, 0, 0, ImageView.ScaleType.FIT_XY, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    dialog.hide();
 
-            }
-        });
+                }
+            });
 
-        requestQueue.add(imageRequest);
+            requestQueue.add(imageRequest);
 
-
+        }
     }
 
     @Override

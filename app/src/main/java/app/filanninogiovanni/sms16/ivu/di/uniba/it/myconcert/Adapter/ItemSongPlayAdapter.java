@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.deezer.sdk.network.request.event.DeezerError;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -34,6 +39,10 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
     private DeezerPlayTrack deezerPlayTrack;
     private static boolean playSong = false;
 
+
+
+
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -48,6 +57,14 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
             viewholder.titleSong = (TextView) convertView.findViewById(R.id.textSong);
             viewholder.playDeezer = (ImageButton) convertView.findViewById(R.id.playDeezer);
             viewholder.playYoutube = (ImageButton) convertView.findViewById(R.id.playYoutube);
+            viewholder.sendData = (CheckBox) convertView.findViewById(R.id.sendThisSong);
+            viewholder.titleSong.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Log.d("ml","siamo qui castori piccolini tutti qui");
+                    return false;
+                }
+            });
             convertView.setTag(viewholder);
         } else {
             viewholder = (ViewHolder) convertView.getTag();
@@ -86,7 +103,15 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
                 if(!playSong) {
                     imageButton.setImageResource(android.R.drawable.ic_media_pause);
                     playSong = true;
-                    deezerPlayTrack.PlaySong(queryTitle);
+                    String id="";
+                    try {
+                        deezerPlayTrack.getID(queryTitle);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (DeezerError deezerError) {
+                        deezerError.printStackTrace();
+                    }
+                    deezerPlayTrack.PlaySong();
                 } else {
                     imageButton.setImageResource(android.R.drawable.ic_media_play);
                     playSong = false;
@@ -113,5 +138,7 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
         TextView titleSong;
         ImageButton playDeezer;
         ImageButton playYoutube;
+        CheckBox sendData;
     }
+
 }

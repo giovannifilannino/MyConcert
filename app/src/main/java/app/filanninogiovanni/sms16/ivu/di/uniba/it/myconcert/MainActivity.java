@@ -56,19 +56,6 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         AppEventsLogger.activateApp(this);
 
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo("app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert", PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
-
         /*
         * Comportamento del drawer in apertura e chiusura
         * */

@@ -66,6 +66,7 @@ public class search_fragment extends Fragment {
     private OnSearch onSearch;
     private LoadSetListXMLData loadSetListXMLData = new LoadSetListXMLData();
     ArrayList<Setlist> setList;
+    private  boolean FROM_VENUES = false;
 
     private String urlARtistCover;
 
@@ -139,6 +140,7 @@ public class search_fragment extends Fragment {
                 String venues = name_venue.getText().toString();
                 venues = venues.replaceAll("\\s+","%20");
                 query = URL_VENUES + '"' + venues + '"';
+                FROM_VENUES = true;
                 loadSetListXMLData.execute(query);
             }
 
@@ -154,13 +156,15 @@ public class search_fragment extends Fragment {
         protected String doInBackground(String... params) {
             setListParser = new XMLSetListParser();
             setListParser.parseXML(params[0]);
-            String idArtist = null;
+            String idArtist = "";
+            if(params.length>1){
             try {
                 idArtist = deezerArtist.getIdArtist(params[1]);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (DeezerError deezerError) {
                 deezerError.printStackTrace();
+            }
             }
             return idArtist;
         }
@@ -174,18 +178,18 @@ public class search_fragment extends Fragment {
             JSONObject trueJsonObject = null;
             try {
                 jsonObject = new JSONObject(s);
-                Log.d("error","qui arriva");
-                Log.d("error",jsonObject.toString());
                 JSONArray jsonArray = jsonObject.getJSONArray("data");
                 trueJsonObject = jsonArray.getJSONObject(0);
                 urlARtistCover = trueJsonObject.getString("picture_big");
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.d("error",e.toString());
+
             }
-            Log.d("wanna",String.valueOf(urlARtistCover==null));
             if(!(urlARtistCover==null)) {
                 onSearch.searchStart(setList, urlARtistCover);
+                loadSetListXMLData = new LoadSetListXMLData();
+            } else if(FROM_VENUES){
+                onSearch.searchStart(setList, "");
                 loadSetListXMLData = new LoadSetListXMLData();
             }
         }
