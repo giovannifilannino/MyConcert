@@ -29,6 +29,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     Context mContext;
     int colore;
 
+
+
     ImageView covertArtist;
     private int layout;
 
