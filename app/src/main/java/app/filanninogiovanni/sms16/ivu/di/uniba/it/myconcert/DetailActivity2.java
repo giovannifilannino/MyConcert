@@ -25,6 +25,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.deezer.sdk.network.connect.DeezerConnect;
 import com.deezer.sdk.network.request.DeezerRequest;
 import com.deezer.sdk.network.request.event.RequestListener;
@@ -67,6 +70,10 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
     JSONObject jsonObject = new JSONObject(); //sta qui per debug
     private long idSong;
     private String URLCover;
+    String idConcerto;
+    private RequestQueue requestQueue;
+
+
     private String queryTrack = "https://api.deezer.com/search?q=track:";
 
     private DeezerRequest deezerRequest;
@@ -80,6 +87,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         setlist = getIntent().getStringArrayListExtra("canzoni");
         nome=getIntent().getStringExtra("cantante");
         data=getIntent().getStringExtra("data");
+        idConcerto=getIntent().getStringExtra("id");
         //mList = (ListView) findViewById(R.id.list);
         mImageView = (ImageView) findViewById(R.id.placeImage);
         nomeArtista = (TextView) findViewById(R.id.artistaDett);
@@ -87,17 +95,17 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
         mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
-
+        requestQueue = Volley.newRequestQueue(this);
         final RecyclerView recList=(RecyclerView)findViewById(R.id.list);
         OvershootInLeftAnimator animator=new OvershootInLeftAnimator();
         animator.setAddDuration(2000);
-        animator.setRemoveDuration(3000);
+        animator.setRemoveDuration(2500);
         recList.setItemAnimator(animator);
         //recList.addItemDecoration(new LineItemDecoration());
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist);
+        final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist,idConcerto);
         mImageView.setImageBitmap(ArtistaHomeFragment.immagine);
         Palette.from(ArtistaHomeFragment.immagine).generate(new Palette.PaletteAsyncListener() {
             @Override
@@ -118,11 +126,6 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
             public void onClick(View v) {
                 Dialog dialog=Customdialog(context,ca,recList);
                 dialog.show();
-                if(!dialog.isShowing()) {
-                    ca.addItem(1, "ciao", context);
-                    recList.scrollToPosition(0);
-                }
-
             }
         });
 

@@ -13,6 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +37,15 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
     private String[] mDataset;
     LayoutInflater inflater;
     List<String> setlists;
-
+    private static final String SUCCESS_TAG = "success";
     private static boolean  fatto=false;
     Setlist setList;
     private int layout;
+    String idConerto;
     Context mcontext;
+    private RequestQueue requestQueue;
+    String URLAddCanzone="http://mymusiclive.altervista.org/AddSong.php?";
+    String URLDeleteCanzone="http://mymusiclive.altervista.org/RemoveSong.php?";
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -56,12 +69,14 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public Adapter2(Context context, int resource, ArrayList<String> objects) {
+    public Adapter2(Context context, int resource, ArrayList<String> objects,String idConcert) {
         inflater = LayoutInflater.from(context);
         layout = resource;
         setlists = objects;
         setlists.add(0,"Le tue canzoni");
+        this.idConerto=idConcert;
         mcontext=context;
+        requestQueue= Volley.newRequestQueue(context);
 
     }
 
@@ -94,14 +109,60 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
             }
         }
         if(!err) {
+            final JSONObject jsonObject = new JSONObject();
             setlists.add(position, data);
             notifyItemInserted(position);
+            data=data.replaceAll("\\s+","%20");
+            URLAddCanzone += "&IdConcerto=" + idConerto+"&TitoloCanzone=" + '"'+data+'"';
+            JsonObjectRequest arrayRequest = new JsonObjectRequest(URLAddCanzone, jsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    JSONObject test = response;
+                    try {
+                        String success = test.get(SUCCESS_TAG).toString();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+
+
+            });
+            requestQueue.add(arrayRequest);
         }
 
     }
-    public void removeItem(int position) {
+    public void removeItem(int position,String data) {
         setlists.remove(position);
         notifyItemRemoved(position);
+        final JSONObject jsonObject = new JSONObject();
+        data=data.replaceAll("\\s+","%20");
+        URLDeleteCanzone += "&IdConcerto=" +idConerto+"&TitoloCanzone=" + '"'+data+'"';
+        JsonObjectRequest arrayRequest = new JsonObjectRequest(URLDeleteCanzone, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONObject test = response;
+                try {
+                    String success = test.get(SUCCESS_TAG).toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+
+        });
+        requestQueue.add(arrayRequest);
     }
 
     @Override
@@ -124,7 +185,7 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    removeItem(position);
+                    removeItem(position,holder.song.getText().toString());
 
                 }
             });

@@ -87,6 +87,7 @@ public class ResultFragmentArtisti extends Fragment {
                 Intent intent = new Intent(getActivity(), DetailActivity2.class);
                 intent.putExtra("cantante",setlist.getArtistName());
                 intent.putExtra("data",setlist.getDate());
+                intent.putExtra("id",setlist.getId());
                 bitmap=setlist.getCover();
                 ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                 LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);
@@ -104,11 +105,12 @@ public class ResultFragmentArtisti extends Fragment {
                             imagePair, holderPair);
                 }
                 caricaCanzoni(position,intent,options);
+                canzoni.clear();
 
             }
         };
         ca.setOnItemClickListener(onItemClickListener);
-        canzoni.clear();
+
         FloatingActionButton floatingActionButton=(FloatingActionButton)getActivity().findViewById(R.id.addconcerto);
         add=new Setlist();
         add.setArtistName(setListArrayList.get(0).getArtistName());
