@@ -1,9 +1,11 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.support.annotation.BoolRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -114,6 +116,7 @@ public class ArtistaHome extends AppCompatActivity {
 
             }
         });
+
 
         ArtistaHomeFragment artistaHome=new ArtistaHomeFragment();
         artistaHome.setNomeArtistaString(nomeArtistaString);

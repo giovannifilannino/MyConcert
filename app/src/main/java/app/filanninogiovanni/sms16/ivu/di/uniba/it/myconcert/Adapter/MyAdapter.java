@@ -17,6 +17,7 @@ import java.util.List;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ResultFragment;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 
 /**
  * Created by delmi on 09/06/2016.
@@ -93,6 +94,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         ViewHolder vh = new ViewHolder(convertView);
 
         return vh;
+    }
+    public void addItem(int position,Setlist setList) {
+            setlists.add(0, setList);
+            notifyItemInserted(0);
     }
 
     // Replace the contents of a view (invoked by the information manager)
