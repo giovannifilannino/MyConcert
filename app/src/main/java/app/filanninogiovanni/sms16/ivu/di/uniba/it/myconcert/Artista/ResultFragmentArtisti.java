@@ -2,6 +2,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -49,7 +50,7 @@ public class ResultFragmentArtisti extends Fragment {
     private static OnSetListSelecter onSetListSelecter;
     private Setlist dacaricare;
     RequestQueue requestQueue;
-
+    ProgressDialog dialog;
     String urlPHPpart = "http://mymusiclive.altervista.org/canzoniConcerto.php?idConcerto=";
     public void riempiArray(ArrayList<Setlist> setListArrayList){
         this.setListArrayList = setListArrayList;
@@ -66,12 +67,16 @@ public class ResultFragmentArtisti extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
+        final Context context=getActivity().getBaseContext();
         requestQueue = Volley.newRequestQueue(getActivity());
         MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
         recList.setAdapter(ca);
         MyAdapter.OnItemClickListener onItemClickListener= new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position,Setlist setlist) {
+                dialog = new ProgressDialog(context);
+                dialog.setMessage("Caricamento..");
+                dialog.show();
                 Intent intent = new Intent(getActivity(), DetailActivity2.class);
                 intent.putExtra("cantante",setlist.getArtistName());
                 intent.putExtra("data",setlist.getDate());
@@ -127,6 +132,7 @@ public class ResultFragmentArtisti extends Fragment {
 
                     }
                     intent.putStringArrayListExtra("canzoni", canzoni);
+                    dialog.hide();
                     startActivity(intent, options.toBundle());
 
                 }catch (Exception e){

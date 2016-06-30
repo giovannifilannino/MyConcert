@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.support.annotation.BoolRes;
 import android.support.v7.app.AppCompatActivity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -70,14 +71,15 @@ public class ArtistaHome extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.artistahome);
+        fragmentManager =getFragmentManager();
         urlImmagine=getIntent().getStringExtra("url");
         nomeArtistaString=getIntent().getStringExtra("nome");
         cognomeArtistaString=getIntent().getStringExtra("cognome");
         aliasArtistaString=getIntent().getStringExtra("alias");
         context = this;
         requestQueue = Volley.newRequestQueue(this);
+        optionDrawer.add("HOME") ;
         optionDrawer.add("CONCERTI ATTIVI");
-        optionDrawer.add(" ATTIVI");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, optionDrawer);
@@ -85,11 +87,30 @@ public class ArtistaHome extends AppCompatActivity {
         listViewDrawerLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dialog = new ProgressDialog(context);
-                dialog.setMessage("Caricamento..");
-                dialog.show();
-                ResultFragmentArtisti resultFragmentArtisti=new ResultFragmentArtisti();
-                goToConcert(resultFragmentArtisti);
+                switch (optionDrawer.get(position)){
+                    case "CONCERTI ATTIVI":
+                        Fragment f=fragmentManager.findFragmentById(R.id.content_frame);
+                        if(f!=null && f instanceof ArtistaHomeFragment){
+                            dialog = new ProgressDialog(context);
+                            dialog.setMessage("Caricamento..");
+                            dialog.show();
+                            ResultFragmentArtisti resultFragmentArtisti=new ResultFragmentArtisti();
+                            goToConcert(resultFragmentArtisti);
+                        }
+                        break;
+                    case "HOME":
+                        Fragment c=fragmentManager.findFragmentById(R.id.content_frame);
+                        if(c!=null && c instanceof ResultFragmentArtisti){
+                            ArtistaHomeFragment artistaHome=new ArtistaHomeFragment();
+                            artistaHome.setNomeArtistaString(nomeArtistaString);
+                            artistaHome.setCognomeArtitaString(cognomeArtistaString);
+                            artistaHome.setAliasArtistaString(aliasArtistaString);
+                            artistaHome.setUrlImmagine(urlImmagine);
+                            startTransiction(artistaHome);
+                        }
+                        break;
+                }
+
             }
         });
 
@@ -147,10 +168,10 @@ public class ArtistaHome extends AppCompatActivity {
     }
 
     public void startTransiction(Fragment fragment){
-        fragmentManager =getFragmentManager();
+
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.addToBackStack("").commit();
     }
     
 }
