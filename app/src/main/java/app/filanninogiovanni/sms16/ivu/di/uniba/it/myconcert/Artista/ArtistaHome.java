@@ -4,8 +4,10 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.support.annotation.BoolRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -15,11 +17,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -35,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 
@@ -177,5 +183,7 @@ public class ArtistaHome extends AppCompatActivity {
         fragmentTransaction.replace(R.id.content_frame, fragment);
         fragmentTransaction.addToBackStack("").commit();
     }
+
+
     
 }

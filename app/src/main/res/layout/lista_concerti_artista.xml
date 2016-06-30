@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:windowAllowReturnTransitionOverlap="false"
+
+    android:orientation="vertical"
+    android:background="@android:color/white">
+    <include
+        android:id="@+id/tool_bar_lista"
+        layout="@layout/tool_bar_lista"
+        android:layout_height="45dp"
+        android:layout_width="match_parent"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv"
+        />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+android:id="@+id/addconcerto"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            />
+    </RelativeLayout>
+</LinearLayout>
