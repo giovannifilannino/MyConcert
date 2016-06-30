@@ -31,8 +31,7 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.PagerAdapte
 public class MainActivity extends AppCompatActivity implements app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.loginFragment.OnLoginConfirmed{
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "6P9f6p5KQseT5x36RhGRpjNTc";
-    private static final String TWITTER_SECRET = "	z5zlsXOTGH9dYI6iRa7BTnaAeGxGpDJHjm4UewCG8DUqQiePV3";
+
 
 
     private DrawerLayout drawerLayout;
@@ -48,8 +47,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+
         setContentView(R.layout.activity_main);
 
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale

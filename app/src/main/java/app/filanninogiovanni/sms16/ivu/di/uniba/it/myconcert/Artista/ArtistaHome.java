@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.BoolRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -32,6 +33,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,11 +44,14 @@ import java.util.Objects;
 
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.BigScreenUtility.TwitterList;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Artist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ResultFragment;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerArtist;
+import io.fabric.sdk.android.Fabric;
 
 
 /**
@@ -70,9 +76,11 @@ public class ArtistaHome extends AppCompatActivity {
     private ArrayList<String> optionDrawer = new ArrayList<String>();
     FragmentManager fragmentManager;
     String urlPHPpart = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
-
+    private Intent goToTwitter;
     Context context;
 
+    private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
+    private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
 
 
     @Override
@@ -86,8 +94,12 @@ public class ArtistaHome extends AppCompatActivity {
         aliasArtistaString=getIntent().getStringExtra("alias");
         context = this;
         requestQueue = Volley.newRequestQueue(this);
+
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
         optionDrawer.add("HOME") ;
         optionDrawer.add("CONCERTI ATTIVI");
+        optionDrawer.add("SCHERMI GRANDI");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, optionDrawer);
@@ -117,6 +129,11 @@ public class ArtistaHome extends AppCompatActivity {
                             artistaHome.setUrlImmagine(urlImmagine);
                             startTransiction(artistaHome);
                         }
+                        break;
+                    case "SCHERMI GRANDI":
+                        Fragment d = fragmentManager.findFragmentById(R.id.content_frame);
+                        TwitterList twitterList = new TwitterList();
+                        startTransiction(twitterList);
                         break;
                 }
 
