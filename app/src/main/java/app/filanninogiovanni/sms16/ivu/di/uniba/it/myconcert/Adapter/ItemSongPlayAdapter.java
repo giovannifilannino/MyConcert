@@ -89,7 +89,7 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
         viewholder.playDeezer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = songs.get(position).getTitle();
+                String title = song.getTitle();
                 String queryTitle = "";
 
                 ImageButton imageButton = (ImageButton) v;
@@ -103,15 +103,7 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
                 if(!playSong) {
                     imageButton.setImageResource(android.R.drawable.ic_media_pause);
                     playSong = true;
-                    String id="";
-                    try {
-                        deezerPlayTrack.getID(queryTitle);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (DeezerError deezerError) {
-                        deezerError.printStackTrace();
-                    }
-                    deezerPlayTrack.PlaySong();
+                    deezerPlayTrack.PlaySong(queryTitle);
                 } else {
                     imageButton.setImageResource(android.R.drawable.ic_media_play);
                     playSong = false;

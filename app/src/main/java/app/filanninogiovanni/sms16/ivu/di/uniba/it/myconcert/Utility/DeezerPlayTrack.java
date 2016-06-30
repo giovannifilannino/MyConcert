@@ -33,12 +33,13 @@ public class DeezerPlayTrack {
     private long idSong = 0;
     private RequestListener requestListener;
     private static TrackPlayer trackPlayer;
-    private RequestID requestID;
-    private static String query;
+
+    private playTrak play;
+
 
     private DeezerPlayTrack(Context c){
-        requestID = new RequestID();
         deezerConnect = new DeezerConnect(c, idDeezer);
+        play = new playTrak();
     }
 
     public static DeezerPlayTrack  getIstance(Activity context){
@@ -54,21 +55,48 @@ public class DeezerPlayTrack {
     }
 
 
-    public void getID(String track) throws IOException, DeezerError{
 
-        requestID.execute(track);
+
+
+    public void PlaySong(String track){
+        requestListener = new JsonRequestListener() {
+            @Override
+            public void onResult(Object o, Object o1) {
+                List<Track> list = (List<Track>) o;
+                idSong = list.get(0).getId();
+                Log.d("debuggianni","E' entrato qui e l'id è" + idSong);
+            }
+
+            @Override
+            public void onUnparsedResult(String s, Object o) {
+
+            }
+
+            @Override
+            public void onException(Exception e, Object o) {
+
+            }
+        };
+
+        deezerRequest = DeezerRequestFactory.requestSearchTracks(track);
+        deezerConnect.requestAsync(deezerRequest,requestListener);
+
+        play.execute(idSong);
     }
 
+    private class playTrak extends AsyncTask<Long,Void,String>{
 
-    public void PlaySong(){
-        long id= 0;
-        try {
-            JSONObject jsonObject = new JSONObject(query);
-            id=jsonObject.getLong("id");
-        } catch (JSONException e) {
-            e.printStackTrace();
+        @Override
+        protected String doInBackground(Long ... params) {
+            trackPlayer.playTrack(params[0]);
+            return "done";
         }
-        trackPlayer.playTrack(id);
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            play = new playTrak();
+        }
     }
 
 
@@ -77,27 +105,6 @@ public class DeezerPlayTrack {
         trackPlayer.stop();
     }
 
-    private class RequestID extends AsyncTask<String,String,String>{
 
-        @Override
-        protected String doInBackground(String... params) {
-            deezerRequest = DeezerRequestFactory.requestSearchTracks(params[0]);
-            try {
-                return deezerConnect.requestSync(deezerRequest);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (DeezerError deezerError) {
-                deezerError.printStackTrace();
-            }
-            return "";
-        }
-
-        @Override
-        protected void onPostExecute(String aLong) {
-            super.onPostExecute(aLong);
-            query = aLong;
-            requestID = new RequestID();
-        }
-    }
 
 }
