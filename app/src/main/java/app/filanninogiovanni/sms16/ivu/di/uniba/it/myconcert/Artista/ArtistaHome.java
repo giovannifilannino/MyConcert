@@ -1,33 +1,20 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 
-import android.app.Dialog;
+
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.BoolRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-
 import android.content.Context;
-
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-
-import android.widget.EditText;
 import android.widget.ListView;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -35,22 +22,12 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Objects;
-
-
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.BigScreenUtility.TwitterList;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Artist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
-
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ResultFragment;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerArtist;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -110,7 +87,7 @@ public class ArtistaHome extends AppCompatActivity {
                 switch (optionDrawer.get(position)){
                     case "CONCERTI ATTIVI":
                         Fragment f=fragmentManager.findFragmentById(R.id.content_frame);
-                        if(f!=null && f instanceof ArtistaHomeFragment){
+                        if(f!=null && (f instanceof ArtistaHomeFragment || f instanceof TwitterList)){
                             dialog = new ProgressDialog(context);
                             dialog.setMessage("Caricamento..");
                             dialog.show();
@@ -121,7 +98,7 @@ public class ArtistaHome extends AppCompatActivity {
                         break;
                     case "HOME":
                         Fragment c=fragmentManager.findFragmentById(R.id.content_frame);
-                        if(c!=null && c instanceof ResultFragmentArtisti){
+                        if(c!=null && (c instanceof ResultFragmentArtisti || c instanceof TwitterList)){
                             ArtistaHomeFragment artistaHome=new ArtistaHomeFragment();
                             artistaHome.setNomeArtistaString(nomeArtistaString);
                             artistaHome.setCognomeArtitaString(cognomeArtistaString);
@@ -132,8 +109,10 @@ public class ArtistaHome extends AppCompatActivity {
                         break;
                     case "SCHERMI GRANDI":
                         Fragment d = fragmentManager.findFragmentById(R.id.content_frame);
-                        TwitterList twitterList = new TwitterList();
-                        startTransiction(twitterList);
+                        if(d!=null && (d instanceof ResultFragmentArtisti || d instanceof ArtistaHomeFragment)) {
+                            TwitterList twitterList = new TwitterList();
+                            startTransiction(twitterList);
+                        }
                         break;
                 }
 
