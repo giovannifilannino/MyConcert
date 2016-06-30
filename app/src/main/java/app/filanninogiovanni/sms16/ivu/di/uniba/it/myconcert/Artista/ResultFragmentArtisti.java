@@ -67,16 +67,13 @@ public class ResultFragmentArtisti extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        final Context context=getActivity().getBaseContext();
         requestQueue = Volley.newRequestQueue(getActivity());
         MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
         recList.setAdapter(ca);
         MyAdapter.OnItemClickListener onItemClickListener= new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position,Setlist setlist) {
-                dialog = new ProgressDialog(context);
-                dialog.setMessage("Caricamento..");
-                dialog.show();
+
                 Intent intent = new Intent(getActivity(), DetailActivity2.class);
                 intent.putExtra("cantante",setlist.getArtistName());
                 intent.putExtra("data",setlist.getDate());
@@ -133,7 +130,6 @@ public class ResultFragmentArtisti extends Fragment {
 
                     }
                     intent.putStringArrayListExtra("canzoni", canzoni);
-                    dialog.hide();
                     startActivity(intent, options.toBundle());
 
                 }catch (Exception e){

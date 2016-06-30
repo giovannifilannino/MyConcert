@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
@@ -32,6 +33,8 @@ import com.deezer.sdk.player.TrackPlayer;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHomeFragment;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ResultFragmentArtisti;
 import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
 
 
@@ -78,6 +81,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         nome=getIntent().getStringExtra("cantante");
         data=getIntent().getStringExtra("data");
         //mList = (ListView) findViewById(R.id.list);
+        mImageView = (ImageView) findViewById(R.id.placeImage);
         nomeArtista = (TextView) findViewById(R.id.artistaDett);
         dataTXT=(TextView) findViewById(R.id.dataDett);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
@@ -87,13 +91,21 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         final RecyclerView recList=(RecyclerView)findViewById(R.id.list);
         OvershootInLeftAnimator animator=new OvershootInLeftAnimator();
         animator.setAddDuration(2000);
-        animator.setRemoveDuration(2000);
+        animator.setRemoveDuration(3000);
         recList.setItemAnimator(animator);
         //recList.addItemDecoration(new LineItemDecoration());
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
         final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist);
+        mImageView.setImageBitmap(ArtistaHomeFragment.immagine);
+        Palette.from(ArtistaHomeFragment.immagine).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                int bgColor = palette.getLightMutedColor(context.getResources().getColor(R.color.colorPrimary));
+                mTitleHolder.setBackgroundColor(bgColor);
+            }
+        });
         recList.setAdapter(ca);
 
 
@@ -124,6 +136,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setExitTransition(fade);
         getWindow().setEnterTransition(fade);
+        loadPlace();
     }
 
     private void setUpAdapter() {
