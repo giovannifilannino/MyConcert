@@ -103,17 +103,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         setList = setlists.get(position);
         holder.nameArtist.setText(setList.getArtistName());
         //holder.nameVenue.setText(setList.getVenueName());
-       // holder.nameCity.setText(setList.getCity());
+        // holder.nameCity.setText(setList.getCity());
         holder.date.setText(setList.getDate());
-        holder.coverArtista.setImageBitmap(setList.getCover());
-       Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
-           @Override
-           public void onGenerated(Palette palette) {
-               int bgColor = palette.getLightMutedColor(mContext.getResources().getColor(R.color.colorPrimary));
-               colore=bgColor;
-               holder.barra.setBackgroundColor(bgColor);
-           }
-       });
+        if (setList.getCover() != null) {
+            holder.coverArtista.setImageBitmap(setList.getCover());
+            Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(Palette palette) {
+                    int bgColor = palette.getLightMutedColor(mContext.getResources().getColor(R.color.colorPrimary));
+                    colore = bgColor;
+                    holder.barra.setBackgroundColor(bgColor);
+                }
+            });
+        }
+        else {
+            holder.coverArtista.setImageResource(R.drawable.concertimilano);
+            Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(Palette palette) {
+                    int bgColor = palette.getLightMutedColor(mContext.getResources().getColor(R.color.colorPrimary));
+                    colore = bgColor;
+                    holder.barra.setBackgroundColor(bgColor);
+                }
+            });
+        }
     }
 
 

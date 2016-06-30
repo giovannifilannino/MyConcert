@@ -155,7 +155,6 @@ public class ArtistaHome extends AppCompatActivity {
                     fragment.riempiArray(concerti);
                     dialog.hide();
                     startTransiction(fragment);
-
                 }catch (Exception e){
                     e.printStackTrace();
                 }

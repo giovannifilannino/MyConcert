@@ -59,6 +59,7 @@ public class ResultFragment extends Fragment {
                     intent.putStringArrayListExtra("canzoni", setlist.getSongs());
                     intent.putExtra("cantante",setlist.getArtistName());
                     intent.putExtra("data",setlist.getDate());
+
                     bitmap=setlist.getCover();
                     ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                     LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);

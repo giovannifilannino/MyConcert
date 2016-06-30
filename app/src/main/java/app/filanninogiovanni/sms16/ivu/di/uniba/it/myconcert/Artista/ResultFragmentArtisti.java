@@ -51,7 +51,7 @@ public class ResultFragmentArtisti extends Fragment {
     private Setlist dacaricare;
     RequestQueue requestQueue;
     ProgressDialog dialog;
-    String urlPHPpart = "http://mymusiclive.altervista.org/canzoniConcerto.php?idConcerto=";
+    String urlPHPpart = "http://mymusiclive.altervista.org/canzoniConcerto.php?id=";
     public void riempiArray(ArrayList<Setlist> setListArrayList){
         this.setListArrayList = setListArrayList;
     }
@@ -117,7 +117,7 @@ public class ResultFragmentArtisti extends Fragment {
     }
     public void caricaCanzoni(int position, final Intent intent, final ActivityOptionsCompat options){
         String id=setListArrayList.get(position).getId();
-        String url=urlPHPpart+'"'+id + '"';
+        String url=urlPHPpart+id;
         JsonArrayRequest arrayRequest =new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

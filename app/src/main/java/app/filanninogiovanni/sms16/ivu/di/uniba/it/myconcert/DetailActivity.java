@@ -151,14 +151,26 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);
-        mImageView.setImageBitmap(ResultFragment.bitmap);
-        Palette.from(ResultFragment.bitmap).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                int bgColor = palette.getLightMutedColor(context.getResources().getColor(R.color.colorPrimary));
-                mTitleHolder.setBackgroundColor(bgColor);
-            }
-        });
+        if(ResultFragment.bitmap!=null) {
+            mImageView.setImageBitmap(ResultFragment.bitmap);
+            Palette.from(ResultFragment.bitmap).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(Palette palette) {
+                    int bgColor = palette.getLightMutedColor(context.getResources().getColor(R.color.colorPrimary));
+                    mTitleHolder.setBackgroundColor(bgColor);
+                }
+            });
+        }
+        else {
+            mImageView.setBackground(getDrawable(R.drawable.concertimilano));
+            Palette.from(ResultFragment.bitmap).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(Palette palette) {
+                    int bgColor = palette.getLightMutedColor(context.getResources().getColor(R.color.colorPrimary));
+                    mTitleHolder.setBackgroundColor(bgColor);
+                }
+            });
+        }
         isEditTextVisible = false;fade.excludeTarget(android.R.id.statusBarBackground, true);
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setExitTransition(fade);
