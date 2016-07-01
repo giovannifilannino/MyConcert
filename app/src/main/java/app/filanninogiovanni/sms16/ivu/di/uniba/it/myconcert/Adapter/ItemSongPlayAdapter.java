@@ -71,9 +71,9 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
             public void onClick(View v) {
                 Log.d("machecazzodiobaliss","" + position);
                 if(((CheckBox) v).isChecked()){
-                    checked[position] = false;
-                } else {
                     checked[position] = true;
+                } else {
+                    checked[position] = false;
                 }
             }
         });
