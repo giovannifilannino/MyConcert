@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class ResultFragmentArtisti extends Fragment {
     RequestQueue requestQueue;
     ProgressDialog dialog;
     Setlist add;
+    Toolbar toolbar;
     Context context;
     String urlPHPpart = "http://mymusiclive.altervista.org/canzoniConcerto.php?id=";
     public void riempiArray(ArrayList<Setlist> setListArrayList){
@@ -77,12 +79,15 @@ public class ResultFragmentArtisti extends Fragment {
         context=getActivity();
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar_artista);
+        toolbar.setTitle("CONCERTI ATTIVI");
         requestQueue = Volley.newRequestQueue(getActivity());
         final MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
         recList.setAdapter(ca);
         MyAdapter.OnItemClickListener onItemClickListener= new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position,Setlist setlist) {
+
 
                 Intent intent = new Intent(getActivity(), DetailActivity2.class);
                 intent.putExtra("cantante",setlist.getArtistName());

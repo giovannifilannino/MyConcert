@@ -80,9 +80,7 @@ public class ArtistaHomeFragment extends Fragment {
         artistImage = (ImageView) getActivity().findViewById(R.id.artista_immagine);
         requestQueue = Volley.newRequestQueue(getActivity());
         toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar_artista);
-        toolbar.setTitle(aliasArtistaString);
-        toolbar.setSubtitle(nomeArtistaString + " " + cognomeArtistaString);
-        toolbar.setLogo(R.drawable.ic_drawer);
+        toolbar.setTitle("HOME");
         final ImageRequest imageRequest = new ImageRequest(urlImmagine, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
@@ -102,8 +100,8 @@ public class ArtistaHomeFragment extends Fragment {
         songArray = new ArrayList<String>();
 
 
-        aliasArtistaString = aliasArtistaString.replaceAll("\\s+", "%20");
-        String url = URL_TOP_FIVE + '"' + aliasArtistaString + '"' + formatJson;
+        String app = aliasArtistaString.replaceAll("\\s+", "%20");
+        String url = URL_TOP_FIVE + '"' + app + '"' + formatJson;
 
 
         fillSongArray(url);

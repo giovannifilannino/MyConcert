@@ -99,7 +99,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         final RecyclerView recList=(RecyclerView)findViewById(R.id.list);
         OvershootInLeftAnimator animator=new OvershootInLeftAnimator();
         animator.setAddDuration(2000);
-        animator.setRemoveDuration(2500);
+        animator.setRemoveDuration(2000);
         recList.setItemAnimator(animator);
         //recList.addItemDecoration(new LineItemDecoration());
         LinearLayoutManager llm = new LinearLayoutManager(this);
