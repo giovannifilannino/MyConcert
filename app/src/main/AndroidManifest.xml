@@ -26,11 +26,6 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateVisible|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".DetailActivity"
@@ -65,10 +60,23 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".ChosenConcerts"></activity>
+        <activity android:name=".ChosenConcerts" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="f2798c3ffce4f42ddaa204557cfe96eb1d5cc48a" />
+
+        <activity
+            android:name=".SplashScrrenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_splash_scrren"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

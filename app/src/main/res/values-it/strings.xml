@@ -5,7 +5,6 @@
     <string name="fb">Registrati tramite Facebook</string>
     <string name="name">Nome</string>
     <string name="surname">Cognome</string>
-    <string name="login">LOGIN</string>
     <string name="pass">Password</string>
     <string name="us">Username</string>
     <string name="register">Registrazione</string>
@@ -13,7 +12,6 @@
     <string name="username">Nome Utente</string>
     <string name="open">Drawer Aperto</string>
     <string name="close">Drawer Chiuso</string>
-    <string name="mail">E-mail</string>
     <string name="artist">Artista</string>
     <string name="venues">Sedi</string>
     <string name="find">Cerca</string>
@@ -43,6 +41,14 @@
     <string name="nameartist">Nome Artista:</string>
     <string name="nomeCanzone">Titolo:</string>
     <string name="surnameartist">Cognome Artista:</string>
+    <string name="hello_blank_fragment">ciao fragment vuoto</string>
+    <string name="navigation_drawer_close">apri menu di navigazione</string>
+    <string name="navigation_drawer_open">chiudi menu di navigazione</string>
+    <string name="player_error">errore nell\'izializzazione di YouTube</string>
+    <string name="seek_to">Vai a</string>
+    <string name="seek_to_hint">Secondi</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_maps">Mappa</string>
 
 
 </resources>
