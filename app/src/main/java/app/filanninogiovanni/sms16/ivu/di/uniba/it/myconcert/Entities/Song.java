@@ -9,6 +9,15 @@ public class Song {
 
     private String title;
     private String artist;
+    private boolean checked = false;
+
+    public boolean getCheched(){
+        return checked;
+    }
+
+    public void setCheckd(boolean bool){
+        this.checked = bool;
+    }
 
 
     public Song(String title,String artist){

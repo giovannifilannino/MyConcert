@@ -32,7 +32,7 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
     private static boolean playSong = false;
 
 
-
+    private boolean[] checked;
 
 
     @Override
@@ -50,16 +50,34 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
             viewholder.playDeezer = (ImageButton) convertView.findViewById(R.id.playDeezer);
             viewholder.playYoutube = (ImageButton) convertView.findViewById(R.id.playYoutube);
             viewholder.sendData = (CheckBox) convertView.findViewById(R.id.sendThisSong);
+            viewholder.sendData.setFocusable(false);
+            viewholder.sendData.setFocusableInTouchMode(false);
+
             convertView.setTag(viewholder);
         } else {
             viewholder = (ViewHolder) convertView.getTag();
         }
         song = songs.get(position);
 
+
         if(song!=null) {
             viewholder.titleSong.setText(song.getTitle());
 
         }
+
+        viewholder.sendData.setChecked(checked[position]);
+        viewholder.sendData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("machecazzodiobaliss","" + position);
+                if(((CheckBox) v).isChecked()){
+                    checked[position] = false;
+                } else {
+                    checked[position] = true;
+                }
+            }
+        });
+
 
         viewholder.playYoutube.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +121,7 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
         layout = resource;
         songs = objects;
         this.context = context;
+        checked = new boolean[songs.size()];
     }
 
     private class ViewHolder{
@@ -110,6 +129,12 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
         ImageButton playDeezer;
         ImageButton playYoutube;
         CheckBox sendData;
+    }
+
+    public void setChecked(int position){
+        Song song = songs.get(position);
+        song.setCheckd(!song.getCheched());
+        notifyDataSetChanged();
     }
 
 }

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -75,6 +76,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     int color;
     private static final String SUCCESS_TAG = "success";
     private RequestQueue requestQueue;
+    private ItemSongPlayAdapter itemSongPlayAdapter;
 
 
     private static String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"';
@@ -158,7 +160,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         partecipero.setOnClickListener(setPartecipation);
         editSongList.setOnClickListener(editSong);
 
-
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);
         if(ResultFragment.bitmap!=null) {
@@ -190,10 +191,12 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     }
 
     private void setUpAdapter() {
-        ItemSongPlayAdapter itemSongPlayAdapter = new ItemSongPlayAdapter(this,R.layout.itemplaysong,songArrayList);
+        itemSongPlayAdapter = new ItemSongPlayAdapter(this,R.layout.itemplaysong,songArrayList);
         mList.setAdapter(itemSongPlayAdapter);
 
     }
+
+
 
     private void loadPlace() {
 
