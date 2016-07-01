@@ -50,13 +50,6 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
             viewholder.playDeezer = (ImageButton) convertView.findViewById(R.id.playDeezer);
             viewholder.playYoutube = (ImageButton) convertView.findViewById(R.id.playYoutube);
             viewholder.sendData = (CheckBox) convertView.findViewById(R.id.sendThisSong);
-            viewholder.titleSong.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Log.d("ml","siamo qui castori piccolini tutti qui");
-                    return false;
-                }
-            });
             convertView.setTag(viewholder);
         } else {
             viewholder = (ViewHolder) convertView.getTag();
@@ -81,21 +74,15 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
         viewholder.playDeezer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = song.getTitle();
-                String queryTitle = "";
-
+                String title = songs.get(position).getTitle();
+                String queryTitle = title.replaceAll("\\s+","%20");
+                String artista = songs.get(position).getArtist();
                 ImageButton imageButton = (ImageButton) v;
 
-                try {
-                    queryTitle = URLEncoder.encode(title, Charset.defaultCharset().name());
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
                 if(!playSong) {
                     imageButton.setImageResource(android.R.drawable.ic_media_pause);
                     playSong = true;
-                    deezerPlayTrack.PlaySong(queryTitle);
+                    deezerPlayTrack.PlaySong(queryTitle,artista);
                 } else {
                     imageButton.setImageResource(android.R.drawable.ic_media_play);
                     playSong = false;
