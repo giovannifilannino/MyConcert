@@ -12,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rowIcon"
+        android:paddingTop="4dp"
+        android:layout_gravity="center"
         android:paddingLeft="16dp"
        />
 

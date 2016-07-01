@@ -135,7 +135,8 @@ public class ArtistaHome extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
         ActionBarDrawerToggle mDrowerToggle =new ActionBarDrawerToggle(this,drawerLayout,
-                toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+                toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close){
+        };
         drawerLayout.setDrawerListener(mDrowerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -148,16 +149,19 @@ public class ArtistaHome extends AppCompatActivity {
                 switch (optionDrawer[position]){
                     case "CONCERTI ATTIVI":
                         if(current!=null && !(current instanceof ResultFragmentArtisti)){
+                            drawerLayout.closeDrawers();
                             dialog = new ProgressDialog(context);
                             dialog.setMessage("Caricamento..");
                             dialog.show();
                             ResultFragmentArtisti resultFragmentArtisti=new ResultFragmentArtisti();
                             goToConcert(resultFragmentArtisti);
                             concerti.clear();
+
                         }
                         break;
                     case "HOME":
                         if(current!=null && !(current instanceof ArtistaHomeFragment)){
+                            drawerLayout.closeDrawers();
                             ArtistaHomeFragment artistaHome=new ArtistaHomeFragment();
                             artistaHome.setNomeArtistaString(nomeArtistaString);
                             artistaHome.setCognomeArtitaString(cognomeArtistaString);
@@ -168,6 +172,7 @@ public class ArtistaHome extends AppCompatActivity {
                         break;
                     case "SCHERMI GRANDI":
                         if(current!=null && !(current instanceof TwitterList)) {
+                            drawerLayout.closeDrawers();
                             TwitterList twitterList = new TwitterList();
                             startTransiction(twitterList);
                         }

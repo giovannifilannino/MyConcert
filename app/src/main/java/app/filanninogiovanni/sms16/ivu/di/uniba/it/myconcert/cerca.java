@@ -37,7 +37,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.prova;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.NoSongsFound;
 
