@@ -33,7 +33,8 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
 
 
     private boolean[] checked;
-
+    private boolean[] visibles;
+    public boolean visible;
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -52,10 +53,12 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
             viewholder.sendData = (CheckBox) convertView.findViewById(R.id.sendThisSong);
             viewholder.sendData.setFocusable(false);
             viewholder.sendData.setFocusableInTouchMode(false);
-
             convertView.setTag(viewholder);
         } else {
             viewholder = (ViewHolder) convertView.getTag();
+        }
+        if(visible){
+            viewholder.sendData.setVisibility(View.VISIBLE);
         }
         song = songs.get(position);
 
@@ -64,6 +67,7 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
             viewholder.titleSong.setText(song.getTitle());
 
         }
+
 
         viewholder.sendData.setChecked(checked[position]);
         viewholder.sendData.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +81,7 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
                 }
             }
         });
+
 
 
         viewholder.playYoutube.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +118,11 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
 
         return convertView;
     }
+    public void setVisible(){
+        visible=true;
+    }
+
+
 
     public ItemSongPlayAdapter(Context context, int resource, List<Song> objects) {
         super(context, resource, objects);
@@ -122,6 +132,7 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
         songs = objects;
         this.context = context;
         checked = new boolean[songs.size()];
+        visibles=new boolean[songs.size()];
     }
 
     private class ViewHolder{
@@ -131,10 +142,6 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
         CheckBox sendData;
     }
 
-    public void setChecked(int position){
-        Song song = songs.get(position);
-        song.setCheckd(!song.getCheched());
-        notifyDataSetChanged();
-    }
+
 
 }

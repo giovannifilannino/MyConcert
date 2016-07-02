@@ -121,7 +121,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private View.OnClickListener editSong = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            itemSongPlayAdapter.setVisible();
+            Log.d("Wanna","Chi sei goku non lo sai");
         }
     };
 
