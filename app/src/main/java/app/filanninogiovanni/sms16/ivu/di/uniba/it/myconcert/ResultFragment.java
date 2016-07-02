@@ -85,12 +85,7 @@ public class ResultFragment extends Fragment {
         ca.setOnItemClickListener(onItemClickListener);
 
     }
-
-    public static void click(ArrayList<String> songs){
-        boolean avaible = songs.size() != 0;
-        onSetListSelecter.showSongs(songs,avaible);
-    }
-
+    
 
     @Nullable
     @Override

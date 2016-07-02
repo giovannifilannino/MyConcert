@@ -37,11 +37,9 @@
     <string name="need">Need an account?</string>
     <string name="registrati">SIGN UP NOW</string>
     <string-array name="opzioni">
-        <item>App</item>
-        <item>Franco</item>
-        <item>Ciccio</item>
-        <item>Stefano</item>
-        <item>Concerti scelti</item>
+        <item>Search</item>
+        <item>My SetList</item>
+        <item>Concerts</item>
     </string-array>
     <string-array name="opzioni_artista">
 
@@ -76,4 +74,5 @@
     <string name="title_activity_splash_scrren">My Concert</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_concert_live_big_screen">ConcertLiveBigScreen</string>
 </resources>

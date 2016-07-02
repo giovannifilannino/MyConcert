@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -30,10 +31,14 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
  */
 public class TwitterList extends ListFragment {
 
+    private Toolbar toolbar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar_twitter);
+        toolbar.setTitle("I VOSTRI TWEET");
         SearchTimeline searchTimeline = new SearchTimeline.Builder().query("#gameofthrones").build();
         TweetTimelineListAdapter tweetTimelineListAdapter = new TweetTimelineListAdapter.Builder(getActivity()).setTimeline(searchTimeline).build();
 

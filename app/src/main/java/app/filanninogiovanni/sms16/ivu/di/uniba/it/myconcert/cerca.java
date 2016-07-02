@@ -12,7 +12,10 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,6 +39,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.AdapterItemDrawer;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.NoSongsFound;
@@ -58,7 +62,8 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private String usernameS;
     Context context;
     private ProgressDialog dialog;
-
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
 
 
 
@@ -68,15 +73,24 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         super.onCreate(savedInstanceState);
         setContentView(R.layout.irko);
     context=this;
+        recyclerView = (RecyclerView) findViewById(R.id.left_drawer);
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
-        listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
         choise = getIntent().getIntExtra("artista",0);
         nomeArtista = getIntent().getStringExtra("nomeArtista");
         cognomeArtista = getIntent().getStringExtra("cognomeArtista");
         aliasArtista = getIntent().getStringExtra("aliasArtista");
         urlImmagine = getIntent().getStringExtra("urlImmagine");
 
+        layoutManager = new LinearLayoutManager(this);
+
+        int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp};
+
+        AdapterItemDrawer adapterItemDrawer =new AdapterItemDrawer(optionDrawer,ICONS,"Utente",loginFragment.actualUsername,R.drawable.account,this);
+
+        recyclerView.setAdapter(adapterItemDrawer);
+
+        recyclerView.setLayoutManager(layoutManager);
         requestQueue = Volley.newRequestQueue(this);
 
         mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
@@ -97,9 +111,6 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         //collegamento comportamento e icona per la toolbar e drawer
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-
-
-        listViewDrawerLayout.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,optionDrawer));
 
 
 

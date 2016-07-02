@@ -18,6 +18,15 @@ public class Setlist {
     String id;
     ArrayList<String> songs;
     Bitmap cover;
+    String hashTag;
+
+    public String getHashTag() {
+        return hashTag;
+    }
+
+    public void setHashTag(String hashTag) {
+        this.hashTag = hashTag;
+    }
 
     public Bitmap getCover() {
         return cover;
