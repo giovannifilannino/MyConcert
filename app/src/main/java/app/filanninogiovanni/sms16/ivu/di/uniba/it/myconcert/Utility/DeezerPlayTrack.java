@@ -109,8 +109,6 @@ public class DeezerPlayTrack {
                     Log.d("mlml",artistaName);
                     if(artistaName.compareToIgnoreCase(artistName)==0) {
                         idSong = songObject.getLong("id");
-                    } else {
-                        Toast.makeText(c, "La canzone che cerchi non riesco a trovarla :(", Toast.LENGTH_LONG).show();
                     }
                 }
 
