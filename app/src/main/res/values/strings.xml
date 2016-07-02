@@ -36,18 +36,17 @@
 
     <string name="need">Need an account?</string>
     <string name="registrati">SIGN UP NOW</string>
-    <string-array name="opzioni">
-        <item>Search</item>
-        <item>My SetList</item>
-        <item>Concerts</item>
-    </string-array>
-    <string-array name="opzioni_artista">
+    <string name="search">Search</string>
+    <string name="setlistmy">My SetList</string>
+    <string name="concert">Concerts</string>
 
-        <item>Miei concerti</item>
-        <item>Live Mode</item>
-        <item>Info</item>
-        <item>Esci</item>
+
+    <string-array name="opzioni">
+        <item>@string/search</item>
+        <item>@string/setlistmy</item>
+        <item>@string/concert</item>
     </string-array>
+
     <string name="open">Drawer Opened</string>
     <string name="close">Drawer Closed</string>
 

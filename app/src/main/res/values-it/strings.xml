@@ -55,4 +55,7 @@
         <item>Le mie scalette</item>
         <item>Concerti</item>
     </string-array>
+    <string name="search">Cerca</string>
+    <string name="setlistmy">Le mie scalette</string>
+    <string name="concert">Concerti</string>
 </resources>

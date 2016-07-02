@@ -65,7 +65,9 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
-
+    private String searchString;
+    private String setlistString;
+    private String concertString;
 
 
     @Override
@@ -73,6 +75,9 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         super.onCreate(savedInstanceState);
         setContentView(R.layout.irko);
     context=this;
+        searchString = getResources().getString(R.string.search);
+        setlistString = getResources().getString(R.string.setlistmy);
+        concertString = getResources().getString(R.string.concert);
         recyclerView = (RecyclerView) findViewById(R.id.left_drawer);
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
@@ -112,6 +117,20 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
 
+
+        adapterItemDrawer.setOnItemClickListener(new AdapterItemDrawer.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view, int position, String scelta) {
+                if(optionDrawer[position].compareToIgnoreCase(searchString)==0){
+                    Log.d("mlml","cerca");
+                } else if(optionDrawer[position].compareToIgnoreCase(setlistString)==0){
+                    Log.d("mlml","setlist");
+                } else if(optionDrawer[position].compareToIgnoreCase(concertString)==0){
+                    Log.d("mlml","concerto");
+                }
+            }
+        });
 
 
         fragmentManager = getFragmentManager();

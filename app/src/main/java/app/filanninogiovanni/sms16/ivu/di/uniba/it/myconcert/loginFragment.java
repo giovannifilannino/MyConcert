@@ -19,12 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -43,8 +37,6 @@ public class loginFragment extends Fragment{
     private String OutPut = "http://mymusiclive.altervista.org/output.json";
     private String PasswordURL = "&password=";
     private String formatJson = "&format=json";
-    private CallbackManager callbackManager;
-    private LoginButton loginButton;
     public static String actualUsername;
 
 
@@ -89,32 +81,9 @@ public class loginFragment extends Fragment{
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
 
-        loginButton = (LoginButton) getActivity().findViewById(R.id.login_button);
+
         requestQueue = Volley.newRequestQueue(getActivity());
 
-
-
-        callbackManager = CallbackManager.Factory.create();
-
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getActivity(), loginResult.getAccessToken().getUserId(), Toast.LENGTH_LONG).show();
-                Log.d("Faceboook", loginResult.getAccessToken().getUserId());
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(getActivity(),"Erroreeee",Toast.LENGTH_LONG).show();
-                Log.d("Faceboook", "Erroreeeeee");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(getActivity(),error.toString(),Toast.LENGTH_LONG).show();
-                Log.d("Faceboook", error.toString());
-            }
-        });
 
 
         login = (Button) getActivity().findViewById(R.id.buttonLogin);

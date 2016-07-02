@@ -3,9 +3,6 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,17 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.widget.ListView;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import io.fabric.sdk.android.Fabric;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.PagerAdapter;
 
@@ -55,19 +42,6 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
 
         setSupportActionBar(toolbar);
-
-
-
-
-        //inizializzazione del skd di facebook per il login
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-
-
-        /*
-        * Comportamento del drawer in apertura e chiusura
-        * */
-
 
         //fragment registrazione //da sostituire con quella di login
        fragmentManager = getFragmentManager();

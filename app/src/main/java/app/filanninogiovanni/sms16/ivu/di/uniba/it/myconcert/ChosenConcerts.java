@@ -1,29 +1,24 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import java.util.ArrayList;
 
-public class ChosenConcerts extends AppCompatActivity {
+public class ChosenConcerts extends Fragment {
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chosen_concerts);
-        TableLayout tab = (TableLayout) findViewById(R.id.mytablayout);
-        ArrayList<String> concerti = getIntent().getStringArrayListExtra("concertiscelti");
-        for(int i=0;i<concerti.size();i++)
-        {
-            TableRow row=new TableRow(this);
-            String debt = concerti.get(i);
-            TextView tvDebt=new TextView(this);
-            tvDebt.setText(""+debt);
-            row.addView(tvDebt);
-            tab.addView(row);
-        }
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 }

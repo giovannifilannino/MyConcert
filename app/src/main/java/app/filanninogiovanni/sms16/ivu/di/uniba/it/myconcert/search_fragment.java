@@ -23,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.deezer.sdk.model.AImageOwner;
@@ -32,6 +33,7 @@ import com.deezer.sdk.network.request.DeezerRequestFactory;
 import com.deezer.sdk.network.request.event.DeezerError;
 import com.deezer.sdk.network.request.event.JsonRequestListener;
 import com.deezer.sdk.network.request.event.RequestListener;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +51,7 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Artist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ParserXML.XMLSetListParser;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerArtist;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 
 
 /**
@@ -60,13 +63,15 @@ public class search_fragment extends Fragment {
     private  String URL_ARTIST = "http://api.setlist.fm/rest/0.1/search/setlists?artistName=";
     private String URL_VENUES = "http://api.setlist.fm/rest/0.1/search/setlists?venueName=";
     private String URL_COMBINED = "&venueName=";
+    private String URL_ARTIST_CONCERT = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
     private EditText name_artist;
     private EditText name_venue;
     private Button search_button;
     private OnSearch onSearch;
     private LoadSetListXMLData loadSetListXMLData = new LoadSetListXMLData();
-    ArrayList<Setlist> setList;
+    ArrayList<Setlist> setList = new ArrayList<Setlist>();
     private  boolean FROM_VENUES = false;
+    private boolean FROM_MYCONCERTDB = false;
 
     private String urlARtistCover;
 
@@ -133,6 +138,7 @@ public class search_fragment extends Fragment {
                 }
                 artist = artist.replaceAll("\\s+","%20");
                 query = URL_ARTIST + '"' + artist + '"';
+                fillArrayByDB(artist);
                 loadSetListXMLData.execute(query,artistQuery);
 
 
@@ -147,6 +153,41 @@ public class search_fragment extends Fragment {
 
         }
     };
+
+
+    private void fillArrayByDB(String artist) {
+        String url = URL_ARTIST_CONCERT + '"' + artist + '"';
+
+        JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                JSONObject jsonObject;
+                Setlist setlist;
+                for(int i=0; i<jsonArray.length(); i++){
+                    try {
+                        jsonObject = jsonArray.getJSONObject(i);
+                        setlist = new Setlist();
+                        setlist.setArtistName(jsonObject.getString("PseArtista"));
+                        setlist.setCity(jsonObject.getString("CittaConcerto"));
+                        setlist.setDate(jsonObject.getString("Data"));
+                        setlist.setVenueName(jsonObject.getString("PostoConcerto"));
+                        setlist.setId(jsonObject.getString("IdConcerto"));
+                        setList.add(setlist);
+                        FROM_MYCONCERTDB = true;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(arrayRequest);
+    }
 
 
 
@@ -172,7 +213,7 @@ public class search_fragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            setList = setListParser.parderData;
+            setList.addAll(setListParser.parderData);
             String json = s;
             JSONObject jsonObject = null;
             JSONObject trueJsonObject = null;
@@ -191,6 +232,8 @@ public class search_fragment extends Fragment {
             } else if(FROM_VENUES){
                 onSearch.searchStart(setList, "");
                 loadSetListXMLData = new LoadSetListXMLData();
+            } else if(FROM_MYCONCERTDB){
+                onSearch.searchStart(setList, "");
             }
         }
 
