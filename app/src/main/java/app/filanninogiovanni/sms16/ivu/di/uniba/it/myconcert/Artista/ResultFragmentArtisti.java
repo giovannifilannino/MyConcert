@@ -20,22 +20,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.support.v4.util.Pair;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
@@ -120,13 +126,17 @@ public class ResultFragmentArtisti extends Fragment {
         add=new Setlist();
         add.setArtistName(setListArrayList.get(0).getArtistName());
         add.setCover(setListArrayList.get(0).getCover());
-        add.setCity("bari");
-        add.setDate("22/10/2015");
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Dialog dialog= Customdialog(context,ca,recList);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.MATCH_PARENT;
                 dialog.show();
+                dialog.getWindow().setAttributes(lp);
                 recList.scrollToPosition(0);
             }
         });
@@ -148,16 +158,37 @@ public class ResultFragmentArtisti extends Fragment {
                         EditText luogo = (EditText) view.findViewById(R.id.luogoConcerto);
                         String lu=luogo.getText().toString();
                         add.setVenueName(lu);
-                        EditText data = (EditText) view.findViewById(R.id.dataConcerto);
-                        String da=data.getText().toString();
-                        add.setDate(da);
-                        ca.addItem(0,add);
-                        recList.scrollToPosition(0);
+                        DatePicker data = (DatePicker) view.findViewById(R.id.dataConcerto);
+                        data.setBackgroundColor(getResources().getColor(R.color.bottoni));
+                        int mese=data.getMonth()+1;
+                        int giorno=data.getDayOfMonth();
+                        String mes;
+                        String gio;
+                        if(1<=mese&&mese<=9){
+                            mes="0"+mese;
+                        }
+                        else {
+                            mes= String.valueOf(mese);
+                        }
+                        if(1<=giorno&&giorno<=9){
+                            gio="0"+giorno;
+                        }
+                        else {
+                            gio=String.valueOf(giorno);
+                        }
+                        String dataFinale=data.getYear()+"-"+mes+"-"+gio;
+                        add.setDate(dataFinale);
+                        if(cit.compareToIgnoreCase("")==0||lu.compareToIgnoreCase("")==0){
+                            Toast.makeText(context,"Dati errati",Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            ca.addItem(0, add);
+                            recList.scrollToPosition(0);
+                        }
                     }
                 })
                 .setNegativeButton("Cancell", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
                     }
                 })
                 .setTitle("Aggiungi dati concerto");
@@ -201,7 +232,6 @@ public class ResultFragmentArtisti extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         });
         requestQueue.add(arrayRequest);

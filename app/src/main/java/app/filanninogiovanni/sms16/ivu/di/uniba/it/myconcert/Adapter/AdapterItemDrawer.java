@@ -25,7 +25,7 @@ public class AdapterItemDrawer extends RecyclerView.Adapter<AdapterItemDrawer.Vi
     private int mIcons[];
     private String name;        //String Resource for header View Name
     private int profile;        //int Resource for header view profile picture
-    private String email;       //String Resource for header view email
+    private String alias;       //String Resource for header view email
     Context context;
     OnItemClickListener mItemClickListener;
 
@@ -89,12 +89,12 @@ public class AdapterItemDrawer extends RecyclerView.Adapter<AdapterItemDrawer.Vi
         this.mItemClickListener = mItemClickListener;
     }
 
-    public AdapterItemDrawer(String Titles[],int Icons[],  String Name, String Email, int Profile, Context passedContext){ // MyAdapter Constructor with titles and icons parameter
+    public AdapterItemDrawer(String Titles[],int Icons[],  String Name, String Alias, int Profile, Context passedContext){ // MyAdapter Constructor with titles and icons parameter
         // titles, icons, name, email, profile pic are passed from the main activity as we
         mNavTitles = Titles;//have seen earlier
         name = Name;
         mIcons = Icons;
-        email = Email;
+        alias = Alias;
         profile = Profile;                     //here we assign those passed values to the values we declared here
         this.context = passedContext;
 
@@ -152,7 +152,7 @@ public class AdapterItemDrawer extends RecyclerView.Adapter<AdapterItemDrawer.Vi
 
             holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
             holder.Name.setText(name);
-            holder.email.setText(email);
+            holder.email.setText(alias);
         }
     }
 
