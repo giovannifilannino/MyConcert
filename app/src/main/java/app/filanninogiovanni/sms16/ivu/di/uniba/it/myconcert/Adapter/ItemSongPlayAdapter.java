@@ -60,6 +60,8 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
         }
         if(visible){
             viewholder.sendData.setVisibility(View.VISIBLE);
+        }else {
+            viewholder.sendData.setVisibility(View.GONE);
         }
         song = songs.get(position);
 
@@ -121,6 +123,11 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
     }
     public void setVisible(){
         visible=true;
+        notifyDataSetChanged();
+
+    }
+    public void setGone(){
+        visible=false;
         notifyDataSetChanged();
 
     }
