@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -120,7 +121,10 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
     }
     public void setVisible(){
         visible=true;
+        notifyDataSetChanged();
+
     }
+
 
 
 
