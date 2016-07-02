@@ -4,15 +4,18 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
  * Created by Michele on 01/07/2016.
  */
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -214,7 +217,7 @@ public class ArtistaHome extends AppCompatActivity {
                         conc.setCover(ArtistaHomeFragment.immagine);
                         concerti.add(conc);
                     }
-                    fragment.riempiArray(concerti);
+                    fragment.riempiArray(concerti,aliasArtistaString,ArtistaHomeFragment.immagine);
                     dialog.hide();
                     startTransiction(fragment);
                 }catch (Exception e){
@@ -237,6 +240,32 @@ public class ArtistaHome extends AppCompatActivity {
         fragmentTransaction.addToBackStack("").commit();
     }
 
+    @Override
+    public void onBackPressed() {
 
+        Fragment current=fragmentManager.findFragmentById(R.id.content_frame);
+        boolean check=current instanceof ArtistaHomeFragment;
+        if(check){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Are you sure you want to exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            moveTaskToBack(true);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 
 }

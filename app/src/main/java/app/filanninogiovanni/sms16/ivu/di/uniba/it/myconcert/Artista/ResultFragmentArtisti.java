@@ -66,15 +66,20 @@ public class ResultFragmentArtisti extends Fragment {
     RequestQueue requestQueue;
     ProgressDialog dialog;
     Setlist add;
+    String nome;
+    Bitmap sfondo;
     Toolbar toolbar;
     Context context;
     String urlPHPpart = "http://mymusiclive.altervista.org/canzoniConcerto.php?id=";
-    public void riempiArray(ArrayList<Setlist> setListArrayList){
+    public void riempiArray(ArrayList<Setlist> setListArrayList,String artistName,Bitmap sfondo){
         this.setListArrayList = setListArrayList;
+        this.sfondo=sfondo;
+        this.nome=artistName;
     }
 
     public interface OnSetListSelecter{
         public void showSongs(ArrayList<String> songs, boolean songsavaible);
+
     }
 
     @Override
@@ -90,6 +95,7 @@ public class ResultFragmentArtisti extends Fragment {
         requestQueue = Volley.newRequestQueue(getActivity());
         final MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
         recList.setAdapter(ca);
+        final FloatingActionButton floatingActionButton=(FloatingActionButton)getActivity().findViewById(R.id.addconcerto);
         MyAdapter.OnItemClickListener onItemClickListener= new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position,Setlist setlist) {
@@ -105,6 +111,7 @@ public class ResultFragmentArtisti extends Fragment {
                 View navigationBar = getActivity().findViewById(android.R.id.navigationBarBackground);
                 Pair<View, String> navbar =Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
                 Pair<View, String> imagePair = Pair.create((View ) placeImage, "tImage");
+                Pair<View, String> bott = Pair.create((View ) floatingActionButton, "bottone");
                 Pair<View, String> holderPair = Pair.create((View) placeNameHolder, "tNameHolder");
                 ActivityOptionsCompat options;
                 if(navbar==null) {
@@ -113,7 +120,7 @@ public class ResultFragmentArtisti extends Fragment {
                 }
                 else {
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                            imagePair, holderPair);
+                            imagePair, holderPair,bott);
                 }
                 caricaCanzoni(position,intent,options);
                 canzoni.clear();
@@ -122,10 +129,11 @@ public class ResultFragmentArtisti extends Fragment {
         };
         ca.setOnItemClickListener(onItemClickListener);
 
-        FloatingActionButton floatingActionButton=(FloatingActionButton)getActivity().findViewById(R.id.addconcerto);
-        add=new Setlist();
-        add.setArtistName(setListArrayList.get(0).getArtistName());
-        add.setCover(setListArrayList.get(0).getCover());
+
+            add = new Setlist();
+            add.setArtistName(nome);
+            add.setCover(sfondo);
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
