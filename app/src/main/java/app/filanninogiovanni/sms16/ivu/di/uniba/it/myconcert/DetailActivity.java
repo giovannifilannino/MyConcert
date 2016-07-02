@@ -2,9 +2,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,37 +14,23 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.deezer.sdk.model.Track;
-import com.deezer.sdk.network.connect.DeezerConnect;
-import com.deezer.sdk.network.request.DeezerRequest;
-import com.deezer.sdk.network.request.DeezerRequestFactory;
-import com.deezer.sdk.network.request.event.JsonRequestListener;
-import com.deezer.sdk.network.request.event.RequestListener;
-import com.deezer.sdk.player.AlbumPlayer;
-import com.deezer.sdk.player.TrackPlayer;
-import com.deezer.sdk.player.networkcheck.WifiAndMobileNetworkStateChecker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.List;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.ItemSongPlayAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Song;
@@ -77,7 +61,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private static final String SUCCESS_TAG = "success";
     private RequestQueue requestQueue;
     private ItemSongPlayAdapter itemSongPlayAdapter;
-
+    private boolean partecipation=false;
+    private boolean visible=false;
 
     private static String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"';
 
@@ -87,41 +72,62 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private View.OnClickListener setPartecipation = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            JSONObject jsonObject = new JSONObject();
-            JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    JSONObject test = response;
-                    try {
-                        String success = test.get(SUCCESS_TAG).toString();
-                        if(success.compareTo("1")==0){
-                            Log.d("partecipera","partecipera");
-                            editSongList.setVisibility(View.VISIBLE);
-                        } else {
-                            Log.d("partecipera"," non partecipera");
-                            editSongList.setVisibility(View.VISIBLE);
+            if(!partecipation){
+                partecipero.setImageResource(R.drawable.thumbsup_selected);
+                partecipation=true;
+                editSongList.setVisibility(View.VISIBLE);
+                JSONObject jsonObject = new JSONObject();
+                JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        JSONObject test = response;
+                        /*
+                        try {
+                            String success = test.get(SUCCESS_TAG).toString();
+                            if(success.compareTo("1")==0){
+                                Log.d("partecipera","partecipera");
+                                editSongList.setVisibility(View.VISIBLE);
+                            } else {
+                                Log.d("partecipera"," non partecipera");
+                                editSongList.setVisibility(View.VISIBLE);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        */
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
                     }
 
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
 
-                }
+                });
+                requestQueue.add(arrayRequest);
+            } else {
+                partecipation=false;
+                partecipero.setImageResource(R.drawable.thumbsup);
+                editSongList.setVisibility(View.GONE);
+                itemSongPlayAdapter.setGone();
+                visible=false;
+            }
 
-
-            });
-            requestQueue.add(arrayRequest);
         }
     };
 
     private View.OnClickListener editSong = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            itemSongPlayAdapter.setVisible();
+            if(!visible) {
+                itemSongPlayAdapter.setVisible();
+                visible=true;
+            }else {
+                itemSongPlayAdapter.setGone();
+                visible=false;
+            }
             Log.d("Wanna","Chi sei goku non lo sai");
         }
     };

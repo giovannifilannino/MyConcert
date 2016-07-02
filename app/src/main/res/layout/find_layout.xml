@@ -5,7 +5,8 @@
     android:background="@color/indigowhite">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="74dp"
+
         android:id="@+id/toolCerca">
     <include
         android:id="@+id/tool_bar_find"
