@@ -12,6 +12,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
@@ -28,6 +37,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     Setlist setList;
     Context mContext;
     int colore;
+    private RequestQueue requestQueue;
+    String URLAddConcerto="http://mymusiclive.altervista.org/AddConcerti.php?";
 
 
 
@@ -82,6 +93,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         mContext=context;
         layout = resource;
         setlists = objects;
+        requestQueue= Volley.newRequestQueue(context);
     }
 
     // Create new views (invoked by the information manager)
@@ -98,6 +110,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void addItem(int position,Setlist setList) {
             setlists.add(0, setList);
             notifyItemInserted(0);
+        final JSONObject jsonObject = new JSONObject();
+
+        URLAddConcerto += "&username="+ '"' +setList.getArtistName().replaceAll("\\s+","%20")+ '"'+
+                "&CittaConcerto=" + '"'+setList.getCity().replaceAll("\\s+","%20")+'"'+
+                +'"'+"&Data=" + '"'+setList.getDate().replaceAll("\\s+","%20")+'"'+"&PostoConcerto=" + '"'+setList.getVenueName().replaceAll("\\s+","%20")+'"';
+        JsonObjectRequest arrayRequest = new JsonObjectRequest(URLAddConcerto, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+
+        });
+        requestQueue.add(arrayRequest);
     }
 
     // Replace the contents of a view (invoked by the information manager)

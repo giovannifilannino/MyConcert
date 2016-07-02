@@ -139,7 +139,7 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewHolder> {
     }
     public void removeItem(int position,String data) {
         setlists.remove(position);
-        notifyItemRemoved(position);
+        notifyDataSetChanged();
         final JSONObject jsonObject = new JSONObject();
         data=data.replaceAll("\\s+","%20");
         URLDeleteCanzone += "&IdConcerto=" +idConerto+"&TitoloCanzone=" + '"'+data+'"';
