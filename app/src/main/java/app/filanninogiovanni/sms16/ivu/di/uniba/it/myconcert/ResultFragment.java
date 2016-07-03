@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.support.v4.util.Pair;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.SetListAdapter;
@@ -29,38 +41,53 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 public class ResultFragment extends Fragment {
 
     public static Bitmap bitmap;
-    ListView listItem;
-    SetListAdapter setListAdapter;
     ArrayList<Setlist> setListArrayList;
-    private static OnSetListSelecter onSetListSelecter;
-    private Setlist dacaricare;
+
+    private String URL_CANZONI_CONCERTO = "http://mymusiclive.altervista.org/canzoniConcerto.php?id=";
+    private ArrayList songs = new ArrayList();
+    private RequestQueue requestQueue;
+
+
 
     public void riempiArray(ArrayList<Setlist> setListArrayList){
         this.setListArrayList = setListArrayList;
     }
 
-    public interface OnSetListSelecter{
-        public void showSongs(ArrayList<String> songs, boolean songsavaible);
-    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        RecyclerView recList=(RecyclerView)getActivity().findViewById(R.id.rv);
-            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-            llm.setOrientation(LinearLayoutManager.VERTICAL);
-            recList.setLayoutManager(llm);
-            MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
-            recList.setAdapter(ca);
-            MyAdapter.OnItemClickListener onItemClickListener= new MyAdapter.OnItemClickListener() {
+
+    MyAdapter.OnItemClickListener onItemClickListener = new MyAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position, Setlist setlist) {
+
+            final String artistName = setlist.getArtistName();
+            final String idM = setlist.getId();
+            final String dataM = setlist.getDate();
+            final Bitmap bitmapM = setlist.getCover();
+            String url = URL_CANZONI_CONCERTO + idM;
+            final View v = view;
+
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                 @Override
-                public void onItemClick(View v, int position,Setlist setlist) {
-                    Intent intent = new Intent(getActivity(), DetailActivity.class);
-                    intent.putStringArrayListExtra("canzoni", setlist.getSongs());
-                    intent.putExtra("cantante",setlist.getArtistName());
-                    intent.putExtra("data",setlist.getDate());
+                public void onResponse(JSONArray response) {
+                    JSONObject jsonObject;
+                    for(int i=0; i<response.length(); i++){
+                        try {
+                            jsonObject = response.getJSONObject(i);
+                            songs.add(jsonObject.getString("TitoloCanzone"));
 
-                    bitmap=setlist.getCover();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+
+                    intent.putStringArrayListExtra("canzoni", songs);
+                    intent.putExtra("cantante",artistName);
+                    intent.putExtra("data",dataM);
+                    intent.putExtra("id",idM);
+
+                    bitmap=bitmapM;
                     ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                     LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);
                     View navigationBar = getActivity().findViewById(android.R.id.navigationBarBackground);
@@ -71,7 +98,7 @@ public class ResultFragment extends Fragment {
                     Pair<View, String> holderPair = Pair.create((View) placeNameHolder, "tNameHolder");
                     ActivityOptionsCompat options;
                     if(navbar==null) {
-                       options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                        options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                                 imagePair, holderPair, navbar);
                     }
                     else {
@@ -79,13 +106,33 @@ public class ResultFragment extends Fragment {
                                 imagePair, holderPair);
                     }
                     startActivity(intent, options.toBundle());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
                 }
-            };
-        ca.setOnItemClickListener(onItemClickListener);
+            });
+
+            requestQueue.add(jsonArrayRequest);
+        }
+
+    };
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        RecyclerView recList=(RecyclerView)getActivity().findViewById(R.id.rv);
+            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            requestQueue = Volley.newRequestQueue(getActivity());
+            recList.setLayoutManager(llm);
+            MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
+            recList.setAdapter(ca);
+            ca.setOnItemClickListener(onItemClickListener);
 
     }
-    
+
 
     @Nullable
     @Override
@@ -103,7 +150,6 @@ public class ResultFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        onSetListSelecter = (OnSetListSelecter) context;
     }
 
 

@@ -34,6 +34,9 @@
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
 
+    <!-- Questa string non è da modificare in italiano  -->
+    <string name="partecipero_preferences">PREFERENCES_CONCERT</string>
+
     <string name="need">Need an account?</string>
     <string name="registrati">SIGN UP NOW</string>
     <string name="search">Search</string>

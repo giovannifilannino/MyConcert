@@ -44,7 +44,7 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.NoSongsFound;
 
-public class cerca extends AppCompatActivity implements search_fragment.OnSearch, ResultFragment.OnSetListSelecter , ListView.OnItemClickListener{
+public class cerca extends AppCompatActivity implements search_fragment.OnSearch, ListView.OnItemClickListener{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
@@ -193,21 +193,6 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         }
     }
 
-    @Override
-    public  void showSongs(ArrayList<String> songs, boolean songsavaible) {
-
-        noSongsFound = new NoSongsFound();
-
-        fragmentManager = getFragmentManager();
-
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if(songsavaible) {
-
-
-        } else {
-            fragmentTransaction.replace(R.id.content_frame, noSongsFound).addToBackStack("").commit();
-        }
-    }
 
 
     @Override

@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -61,41 +62,46 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private static final String SUCCESS_TAG = "success";
     private RequestQueue requestQueue;
     private ItemSongPlayAdapter itemSongPlayAdapter;
-    private boolean partecipation=false;
     private boolean visible=false;
-
-    private static String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"';
-
-    private DeezerPlayTrack deezerPlayTrack;
+    private String idConcerto;
+    private boolean partecipo;
+    private SharedPreferences sharedPreferences;
+    private String PREFERENCES = "";
 
 
     private View.OnClickListener setPartecipation = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(!partecipation){
-                partecipero.setImageResource(R.drawable.thumbsup_selected);
-                partecipation=true;
-                editSongList.setVisibility(View.VISIBLE);
+            partecipo = sharedPreferences.getBoolean(idConcerto+loginFragment.actualUsername,false);
+           final String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"' + "&idConcerto=" + '"' + idConcerto +'"';
+
                 JSONObject jsonObject = new JSONObject();
                 JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
                         JSONObject test = response;
-                        /*
                         try {
-                            String success = test.get(SUCCESS_TAG).toString();
-                            if(success.compareTo("1")==0){
-                                Log.d("partecipera","partecipera");
+                            int success = test.getInt(SUCCESS_TAG);
+                            Log.d("mlml","" + partecipo);
+                            if(!partecipo){
+                             if(success==1){
+                                partecipero.setImageResource(R.drawable.thumbsup_selected);
                                 editSongList.setVisibility(View.VISIBLE);
+                                 editor.putBoolean(idConcerto+loginFragment.actualUsername,true).commit();
+                                }
                             } else {
-                                Log.d("partecipera"," non partecipera");
-                                editSongList.setVisibility(View.VISIBLE);
+                                editor.putBoolean(idConcerto+loginFragment.actualUsername,false).commit();
+                                partecipero.setImageResource(R.drawable.thumbsup);
+                                editSongList.setVisibility(View.GONE);
+                                itemSongPlayAdapter.setGone();
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        */
+
 
                     }
                 }, new Response.ErrorListener() {
@@ -107,16 +113,11 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
                 });
                 requestQueue.add(arrayRequest);
-            } else {
-                partecipation=false;
-                partecipero.setImageResource(R.drawable.thumbsup);
-                editSongList.setVisibility(View.GONE);
-                itemSongPlayAdapter.setGone();
-                visible=false;
             }
-
-        }
     };
+
+
+
 
     private View.OnClickListener editSong = new View.OnClickListener() {
         @Override
@@ -140,12 +141,14 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail);
-
+        PREFERENCES = getResources().getString(R.string.partecipero_preferences);
+        idConcerto = getIntent().getStringExtra("id");
+        sharedPreferences = getSharedPreferences(PREFERENCES,MODE_PRIVATE);
+        partecipo = sharedPreferences.getBoolean(idConcerto+loginFragment.actualUsername,false);
         setlist = getIntent().getStringArrayListExtra("canzoni");
         nome=getIntent().getStringExtra("cantante");
         data=getIntent().getStringExtra("data");
@@ -166,6 +169,12 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         requestQueue = Volley.newRequestQueue(this);
         partecipero.setOnClickListener(setPartecipation);
         editSongList.setOnClickListener(editSong);
+
+        if(partecipo){
+            partecipero.setImageResource(R.drawable.thumbsup_selected);
+        } else {
+            partecipero.setImageResource(R.drawable.thumbsup);
+        }
 
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);

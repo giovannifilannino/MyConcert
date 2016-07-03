@@ -64,6 +64,7 @@ public class search_fragment extends Fragment {
     private String URL_VENUES = "http://api.setlist.fm/rest/0.1/search/setlists?venueName=";
     private String URL_COMBINED = "&venueName=";
     private String URL_ARTIST_CONCERT = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
+
     private EditText name_artist;
     private EditText name_venue;
     private Button search_button;
@@ -72,6 +73,7 @@ public class search_fragment extends Fragment {
     ArrayList<Setlist> setList = new ArrayList<Setlist>();
     private  boolean FROM_VENUES = false;
     private boolean FROM_MYCONCERTDB = false;
+    private ArrayList songsConcerto = new ArrayList();
 
     private String urlARtistCover;
 
@@ -158,7 +160,7 @@ public class search_fragment extends Fragment {
     private void fillArrayByDB(String artist) {
         String url = URL_ARTIST_CONCERT + '"' + artist + '"';
 
-        JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        final JsonArrayRequest arrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONArray jsonArray = response;
@@ -173,6 +175,7 @@ public class search_fragment extends Fragment {
                         setlist.setDate(jsonObject.getString("Data"));
                         setlist.setVenueName(jsonObject.getString("PostoConcerto"));
                         setlist.setId(jsonObject.getString("IdConcerto"));
+                        setlist.setSongs(songsConcerto);
                         setList.add(setlist);
                         FROM_MYCONCERTDB = true;
                     } catch (JSONException e) {
@@ -188,6 +191,7 @@ public class search_fragment extends Fragment {
         });
         requestQueue.add(arrayRequest);
     }
+
 
 
 
