@@ -50,7 +50,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private LinearLayout mTitleHolder;
     private ArrayList<String> setlist;
     private RelativeLayout mRevealView;
-    private EditText mEditTextTodo;
     private String nome;
     private String data;
     private String cit;
@@ -73,15 +72,14 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private boolean partecipo;
     private SharedPreferences sharedPreferences;
     private String PREFERENCES = "";
-
+    private int success = 0;
 
     private View.OnClickListener setPartecipation = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            partecipo = sharedPreferences.getBoolean(idConcerto+loginFragment.actualUsername,false);
-           final String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"' + "&idConcerto=" + '"' + idConcerto +'"';
-
+                String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"' + "&idConcerto=" + '"' + idConcerto +'"';
                 JSONObject jsonObject = new JSONObject();
+            Log.d("url" , URL);
                 JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -89,28 +87,23 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         JSONObject test = response;
                         try {
-                            int success = test.getInt(SUCCESS_TAG);
-                            Log.d("mlml","" + partecipo);
-                            if(!partecipo){
-                             if(success==1){
+                            success = test.getInt(SUCCESS_TAG);
+                            Log.d("mi fido","" + success);
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+                            if (success == 1) {
                                 partecipero.setImageResource(R.drawable.thumbsup_selected);
                                 editSongList.setVisibility(View.VISIBLE);
-                                 editor.putBoolean(idConcerto+loginFragment.actualUsername,true).commit();
-                                }
-                            } else {
-                                editor.putBoolean(idConcerto+loginFragment.actualUsername,false).commit();
-                                partecipero.setImageResource(R.drawable.thumbsup);
-                                editSongList.setVisibility(View.GONE);
-                                itemSongPlayAdapter.setGone();
+                                editor.putBoolean(idConcerto + loginFragment.actualUsername, true).commit();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        else {
+                            editor.putBoolean(idConcerto + loginFragment.actualUsername, false).commit();
+                            partecipero.setImageResource(R.drawable.thumbsup);
+                            editSongList.setVisibility(View.GONE);
+                            itemSongPlayAdapter.setGone();
                         }
-
-
-                    }
-                }, new Response.ErrorListener() {
+                    }}, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
@@ -118,7 +111,10 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
 
                 });
+
+
                 requestQueue.add(arrayRequest);
+
             }
     };
 

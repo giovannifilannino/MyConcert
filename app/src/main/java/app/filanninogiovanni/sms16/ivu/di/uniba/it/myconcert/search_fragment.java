@@ -118,6 +118,12 @@ public class search_fragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadSetListXMLData = new LoadSetListXMLData();
+    }
+
     View.OnClickListener artistSearchButton = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -237,6 +243,7 @@ public class search_fragment extends Fragment {
                 loadSetListXMLData = new LoadSetListXMLData();
             } else if(FROM_MYCONCERTDB){
                 onSearch.searchStart(setList, "");
+                loadSetListXMLData = new LoadSetListXMLData();
             }
         }
 
