@@ -57,7 +57,7 @@ public class ResultFragment extends Fragment {
 
     MyAdapter.OnItemClickListener onItemClickListener = new MyAdapter.OnItemClickListener() {
         @Override
-        public void onItemClick(View view, int position, Setlist setlist) {
+        public void onItemClick(View view, final int position, Setlist setlist) {
 
             final String artistName = setlist.getArtistName();
             final String idM = setlist.getId();
@@ -83,8 +83,11 @@ public class ResultFragment extends Fragment {
 
                     }
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
-
-                    intent.putStringArrayListExtra("canzoni", songs);
+                    if(songs.size()!=0) {
+                        intent.putStringArrayListExtra("canzoni", songs);
+                    } else {
+                        intent.putStringArrayListExtra("canzoni",setListArrayList.get(position).getSongs());
+                    }
                     intent.putExtra("cantante",artistName);
                     intent.putExtra("data",dataM);
                     intent.putExtra("id",idM);

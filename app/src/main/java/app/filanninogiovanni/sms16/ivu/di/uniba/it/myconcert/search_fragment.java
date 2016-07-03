@@ -175,7 +175,6 @@ public class search_fragment extends Fragment {
                         setlist.setDate(jsonObject.getString("Data"));
                         setlist.setVenueName(jsonObject.getString("PostoConcerto"));
                         setlist.setId(jsonObject.getString("IdConcerto"));
-                        setlist.setSongs(songsConcerto);
                         setList.add(setlist);
                         FROM_MYCONCERTDB = true;
                     } catch (JSONException e) {
