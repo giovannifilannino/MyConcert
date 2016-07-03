@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 
 
@@ -65,7 +67,7 @@ public class loginFragment extends Fragment{
     }
 
     public interface OnLoginConfirmed{
-        public void goToSearchFragment(String nome, String cognome, String alias,String url, int value);
+        public void goToSearchFragment();
 
     }
 
@@ -110,15 +112,24 @@ public class loginFragment extends Fragment{
                                     nome = jsonObject.getString("Nome");
                                     cognome = jsonObject.getString("Cognome");
                                     artista = jsonObject.getInt("artista");
-                                    urlImmagine = jsonObject.getString("Immagine");
+
                                     if(artista==1){
+                                        urlImmagine = jsonObject.getString("Immagine");
                                         alias = jsonObject.getString("Pseudonimo");
+                                        Intent artistaHome = new Intent(getContext(), ArtistaHome.class);
+                                        artistaHome.putExtra("nome", nome);
+                                        artistaHome.putExtra("cognome", cognome);
+                                        artistaHome.putExtra("alias", alias);
+                                        artistaHome.putExtra("url", urlImmagine);
+                                        startActivity(artistaHome);
+                                    } else {
+                                        mLogin.goToSearchFragment();
                                     }
                                 } catch (Exception e){
                                     e.printStackTrace();
                                 }
                                 usernameShare = username.getText().toString();
-                                mLogin.goToSearchFragment(nome,cognome,alias,urlImmagine,artista);
+
                                 requestQueue.stop();
 
                             } else {

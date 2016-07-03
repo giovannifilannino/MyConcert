@@ -45,7 +45,7 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.NoSongsFound;
 
-public class cerca extends AppCompatActivity implements search_fragment.OnSearch, ListView.OnItemClickListener{
+public class cerca extends AppCompatActivity implements search_fragment.OnSearch, ListView.OnItemClickListener {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
@@ -70,37 +70,40 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private String setlistString;
     private String concertString;
 
+    private Fragment chosenConcerts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.irko);
-        context=this;
+        context = this;
         searchString = getResources().getString(R.string.search);
         setlistString = getResources().getString(R.string.setlistmy);
         concertString = getResources().getString(R.string.concert);
+        chosenConcerts = new ChosenConcerts();
         recyclerView = (RecyclerView) findViewById(R.id.left_drawer);
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
-        choise = getIntent().getIntExtra("artista",0);
+        choise = getIntent().getIntExtra("artista", 0);
         nomeArtista = getIntent().getStringExtra("nomeArtista");
         cognomeArtista = getIntent().getStringExtra("cognomeArtista");
         aliasArtista = getIntent().getStringExtra("aliasArtista");
         urlImmagine = getIntent().getStringExtra("urlImmagine");
-        toolbar=(Toolbar)findViewById(R.id.tool_bar_find) ;
+        toolbar = (Toolbar) findViewById(R.id.tool_bar_find);
         setSupportActionBar(toolbar);
         layoutManager = new LinearLayoutManager(this);
 
-        int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp};
+        int ICONS[] = {R.drawable.ic_home_black_24dp, R.drawable.ic_library_music_black_24dp, R.drawable.ic_tv_black_24dp};
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.account);
-        AdapterItemDrawer adapterItemDrawer =new AdapterItemDrawer(optionDrawer,ICONS,"Utente",loginFragment.actualUsername,bitmap,this);
+        AdapterItemDrawer adapterItemDrawer = new AdapterItemDrawer(optionDrawer, ICONS, "Utente", loginFragment.actualUsername, bitmap, this);
 
         recyclerView.setAdapter(adapterItemDrawer);
 
         recyclerView.setLayoutManager(layoutManager);
         requestQueue = Volley.newRequestQueue(this);
 
-        mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close){
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close) {
             @Override
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -115,6 +118,9 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
                 // creates call to onPrepareOptionsMenu()
             }
         };
+
+
+
         //collegamento comportamento e icona per la toolbar e drawer
         drawerLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -126,82 +132,71 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
             @Override
             public void onItemClick(View view, int position, String scelta) {
-                if(optionDrawer[position].compareToIgnoreCase(searchString)==0){
-                    Log.d("mlml","cerca");
-                } else if(optionDrawer[position].compareToIgnoreCase(setlistString)==0){
-                    Log.d("mlml","setlist");
-                } else if(optionDrawer[position].compareToIgnoreCase(concertString)==0){
-                    Log.d("mlml","concerto");
+                if (optionDrawer[position].compareToIgnoreCase(searchString) == 0) {
+
+
+                    fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    Fragment search = new search_fragment();
+                    fragmentTransaction.replace(R.id.content_frame, search).commit();
+                } else if (optionDrawer[position].compareToIgnoreCase(setlistString) == 0) {
+                    Log.d("mlml", "setlist");
+                } else if (optionDrawer[position].compareToIgnoreCase(concertString) == 0) {
+                    fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content_frame, chosenConcerts).commit();
                 }
             }
         });
 
 
-        fragmentManager = getFragmentManager();
-         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-          Fragment search = new search_fragment();
-          if(choise==0){
-              fragmentTransaction.replace(R.id.content_frame, search);
-          } else {
-              Intent artistaHome =new Intent(context,ArtistaHome.class);
-              artistaHome.putExtra("nome",nomeArtista);
-              artistaHome.putExtra("cognome",cognomeArtista);
-              artistaHome.putExtra("alias",aliasArtista);
-              artistaHome.putExtra("url",urlImmagine);
-              startActivity(artistaHome);
-          }
-
-          fragmentTransaction.commit();
 
     }
 
 
+        @Override
+        public void searchStart ( final ArrayList<Setlist> urlDaCercare, String urlCover){
+            fragmentManager = getFragmentManager();
 
+            dialog = new ProgressDialog(this);
 
-    @Override
-    public void searchStart(final ArrayList<Setlist> urlDaCercare, String urlCover) {
-        fragmentManager = getFragmentManager();
-
-        dialog = new ProgressDialog(this);
-
-        dialog.setMessage("Caricamento Foto...");
-        dialog.show();
-        if(urlCover.compareTo("")==0){
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            dialog.hide();
-            fragmentTransaction.replace(R.id.content_frame,resultFragment).addToBackStack("miro").commit();
-            resultFragment.riempiArray(urlDaCercare);
-        }else {
-            ImageRequest imageRequest = new ImageRequest(urlCover, new Response.Listener<Bitmap>() {
-                @Override
-                public void onResponse(Bitmap response) {
-                    for (Setlist set : urlDaCercare) {
-                        set.setCover(response);
+            dialog.setMessage("Caricamento Foto...");
+            dialog.show();
+            if (urlCover.compareTo("") == 0) {
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                dialog.hide();
+                fragmentTransaction.replace(R.id.content_frame, resultFragment).addToBackStack("miro").commit();
+                resultFragment.riempiArray(urlDaCercare);
+            } else {
+                ImageRequest imageRequest = new ImageRequest(urlCover, new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        for (Setlist set : urlDaCercare) {
+                            set.setCover(response);
+                        }
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        dialog.hide();
+                        fragmentTransaction.replace(R.id.content_frame, resultFragment).addToBackStack("miro").commit();
+                        resultFragment.riempiArray(urlDaCercare);
                     }
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    dialog.hide();
-                    fragmentTransaction.replace(R.id.content_frame, resultFragment).addToBackStack("miro").commit();
-                    resultFragment.riempiArray(urlDaCercare);
-                }
-            }, 0, 0, ImageView.ScaleType.FIT_XY, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    dialog.hide();
+                }, 0, 0, ImageView.ScaleType.FIT_XY, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dialog.hide();
 
-                }
-            });
+                    }
+                });
 
-            requestQueue.add(imageRequest);
+                requestQueue.add(imageRequest);
 
+            }
         }
-    }
 
 
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(position==4){
+        @Override
+        public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
+            if (position == 4) {
                 final String[] jarray = new String[1];
                 final String[] Artista = new String[1];
                 final String[] dataconcerto = new String[1];
@@ -216,7 +211,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
                 try {
                     client.execute(new HttpGet(urlPHP));
-                } catch(IOException e) {
+                } catch (IOException e) {
                     //do something here
                 }
 
@@ -237,7 +232,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
                                             Artista[0] = jsonObject.getString("Artista");
                                             dataconcerto[0] = jsonObject.getString("Data");
-                                            utente[0] =jsonObject.getString("idUtenteP");
+                                            utente[0] = jsonObject.getString("idUtenteP");
                                             addconcert(finalConcerti, Artista[0], dataconcerto[0], i);
                                             i++;
 
@@ -256,31 +251,32 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
                     }
                 });
 
-                Intent intent = new Intent(this,ChosenConcerts.class);
-                intent.putStringArrayListExtra("concertiscelti",finalConcerti);}
+                Intent intent = new Intent(this, ChosenConcerts.class);
+                intent.putStringArrayListExtra("concertiscelti", finalConcerti);
+            }
 
 
+        }
 
-
-    }
-    private boolean checkVuoto(String query){
-        if(query.compareTo("[]")==0){
+    private boolean checkVuoto(String query) {
+        if (query.compareTo("[]") == 0) {
             return false;
         }
         return true;
     }
 
-    private JSONObject getJson(JSONArray jsonArray){
+    private JSONObject getJson(JSONArray jsonArray) {
         JSONObject result = null;
-        try{
+        try {
             result = jsonArray.getJSONObject(0);
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
         return result;
     }
-    private void addconcert(ArrayList<String> array,String artista,String data,int i){
-        array.add(i,artista.concat("-").concat(data));
+
+    private void addconcert(ArrayList<String> array, String artista, String data, int i) {
+        array.add(i, artista.concat("-").concat(data));
     }
 
 

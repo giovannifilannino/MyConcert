@@ -130,13 +130,13 @@ public class ResultFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         RecyclerView recList=(RecyclerView)getActivity().findViewById(R.id.rv);
-            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-            llm.setOrientation(LinearLayoutManager.VERTICAL);
-            requestQueue = Volley.newRequestQueue(getActivity());
-            recList.setLayoutManager(llm);
-            MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
-            recList.setAdapter(ca);
-            ca.setOnItemClickListener(onItemClickListener);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        requestQueue = Volley.newRequestQueue(getActivity());
+        recList.setLayoutManager(llm);
+        MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, setListArrayList);
+        recList.setAdapter(ca);
+        ca.setOnItemClickListener(onItemClickListener);
 
     }
 

@@ -77,7 +77,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private View.OnClickListener setPartecipation = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-                String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"' + "&idConcerto=" + '"' + idConcerto +'"';
+                String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"' + "&idConcerto=" + idConcerto;
                 JSONObject jsonObject = new JSONObject();
             Log.d("url" , URL);
                 JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {

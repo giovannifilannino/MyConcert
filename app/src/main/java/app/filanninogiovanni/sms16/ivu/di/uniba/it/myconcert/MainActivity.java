@@ -1,7 +1,9 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
@@ -82,15 +84,9 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     }
 
     @Override
-    public void goToSearchFragment(String nome, String cognome, String alias,String urlImmagine, int value) {
-        Intent intent = new Intent(this, cerca.class);
-        intent.putExtra("artista",value);
-        intent.putExtra("nomeArtista", nome);
-        intent.putExtra("cognomeArtista", cognome);
-        intent.putExtra("aliasArtista", alias);
-        intent.putExtra("urlImmagine",urlImmagine);
-        startActivity(intent);
-        this.finish();
+    public void goToSearchFragment() {
+        Intent goToCerca = new Intent(this,cerca.class);
+        startActivity(goToCerca);
     }
 
 

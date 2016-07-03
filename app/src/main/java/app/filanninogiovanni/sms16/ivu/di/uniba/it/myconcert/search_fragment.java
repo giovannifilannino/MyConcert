@@ -62,7 +62,7 @@ public class search_fragment extends Fragment {
     private XMLSetListParser setListParser;
     private  String URL_ARTIST = "http://api.setlist.fm/rest/0.1/search/setlists?artistName=";
     private String URL_VENUES = "http://api.setlist.fm/rest/0.1/search/setlists?cityName=";
-    private String URL_COMBINED = "&venueName=";
+    private String URL_COMBINED = "&cityName=";
     private String URL_ARTIST_CONCERT = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
 
     private EditText name_artist;
