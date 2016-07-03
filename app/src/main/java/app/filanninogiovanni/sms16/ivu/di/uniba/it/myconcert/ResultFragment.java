@@ -63,6 +63,8 @@ public class ResultFragment extends Fragment {
             final String idM = setlist.getId();
             final String dataM = setlist.getDate();
             final Bitmap bitmapM = setlist.getCover();
+            final String citta=setlist.getCity();
+            final String luogo=setlist.getVenueName();
             String url = URL_CANZONI_CONCERTO + idM;
             final View v = view;
 
@@ -86,6 +88,8 @@ public class ResultFragment extends Fragment {
                     intent.putExtra("cantante",artistName);
                     intent.putExtra("data",dataM);
                     intent.putExtra("id",idM);
+                    intent.putExtra("citta",citta);
+                    intent.putExtra("luogo",luogo);
 
                     bitmap=bitmapM;
                     ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);

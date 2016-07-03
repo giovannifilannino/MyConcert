@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -43,13 +44,18 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private ListView mList;
     private ImageView mImageView;
     private TextView nomeArtista;
+    private TextView citta;
+    private TextView luogo;
     private TextView dataTXT;
     private LinearLayout mTitleHolder;
     private ArrayList<String> setlist;
-    private LinearLayout mRevealView;
+    private RelativeLayout mRevealView;
     private EditText mEditTextTodo;
     private String nome;
     private String data;
+    private String cit;
+    private String lu;
+
     private boolean isEditTextVisible;
     private ImageButton partecipero;
     private ImageButton editSongList;
@@ -150,6 +156,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         sharedPreferences = getSharedPreferences(PREFERENCES,MODE_PRIVATE);
         partecipo = sharedPreferences.getBoolean(idConcerto+loginFragment.actualUsername,false);
         setlist = getIntent().getStringArrayListExtra("canzoni");
+        cit=getIntent().getStringExtra("citta");
+        lu=getIntent().getStringExtra("luogo");
         nome=getIntent().getStringExtra("cantante");
         data=getIntent().getStringExtra("data");
         mList = (ListView) findViewById(R.id.list);
@@ -159,7 +167,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         partecipero = (ImageButton) findViewById(R.id.partecipero);
         editSongList = (ImageButton) findViewById(R.id.editSongList);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
-        mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
+        mRevealView = (RelativeLayout) findViewById(R.id.llEditTextHolder);
+        citta=(TextView)findViewById(R.id.cittaDettagli);
+        luogo=(TextView)findViewById(R.id.luogoDettagli);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
         mTitleHolder.setBackgroundColor(color);
         final Context context=this;
@@ -183,7 +193,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             Palette.from(ResultFragment.bitmap).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
-                    int bgColor = palette.getLightMutedColor(context.getResources().getColor(R.color.colorPrimary));
+                    int bgColor = palette.getVibrantColor(context.getResources().getColor(R.color.colorPrimary));
                     mTitleHolder.setBackgroundColor(bgColor);
                 }
             });
@@ -194,7 +204,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             Palette.from(bit).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
-                    int bgColor = palette.getLightMutedColor(context.getResources().getColor(R.color.colorPrimary));
+                    int bgColor = palette.getVibrantColor(context.getResources().getColor(R.color.colorPrimary));
                     mTitleHolder.setBackgroundColor(bgColor);
                 }
             });
@@ -217,6 +227,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private void loadPlace() {
 
         dataTXT.setText(data);
+        citta.setText(cit);
+        luogo.setText(lu);
 
         nomeArtista.setText(nome);
 
