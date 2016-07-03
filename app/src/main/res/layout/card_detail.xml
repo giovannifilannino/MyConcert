@@ -32,30 +32,9 @@
         <RelativeLayout
             android:id="@+id/llEditTextHolder"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="match_parent"
             android:background="#95000000"
             android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/luogoDettagli"
-                android:layout_alignParentBottom="true"
-                android:text="Bari"
-                android:textSize="25dp"
-                android:padding="15dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cittaDettagli"
-                android:layout_above="@id/luogoConcerto"
-                android:text="Bari"
-                android:textSize="25dp"
-                android:padding="15dp"
-                />
-
-
 
 
         </RelativeLayout>

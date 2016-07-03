@@ -168,8 +168,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         editSongList = (ImageButton) findViewById(R.id.editSongList);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
         mRevealView = (RelativeLayout) findViewById(R.id.llEditTextHolder);
-        citta=(TextView)findViewById(R.id.cittaDettagli);
-        luogo=(TextView)findViewById(R.id.luogoDettagli);
+       // citta=(TextView)findViewById(R.id.cittaDettagli);
+       // luogo=(TextView)findViewById(R.id.luogoDettagli);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
         mTitleHolder.setBackgroundColor(color);
         final Context context=this;
@@ -227,8 +227,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private void loadPlace() {
 
         dataTXT.setText(data);
-        citta.setText(cit);
-        luogo.setText(lu);
+      //  citta.setText(cit);
+       // luogo.setText(lu);
 
         nomeArtista.setText(nome);
 
