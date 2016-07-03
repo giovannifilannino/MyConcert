@@ -57,6 +57,7 @@ public class ArtistaHomeFragment extends Fragment {
     RecyclerView.LayoutManager mLayoutManager;
     private TextView luogo;
     private TextView ext;
+    private TextView benvenuto;
     private TextView tit;
     private RecyclerView listaCanzoni;
     //private ImageView artistImage;
@@ -102,11 +103,13 @@ public class ArtistaHomeFragment extends Fragment {
         //artistImage = (ImageView) getActivity().findViewById(R.id.artista_immagine);
         requestQueue = Volley.newRequestQueue(getActivity());
         luogo=(TextView) getActivity().findViewById(R.id.txtConc);
+        benvenuto=(TextView) getActivity().findViewById(R.id.benvenuto);
         ext=(TextView) getActivity().findViewById(R.id.txtConc3);
         tit=(TextView) getActivity().findViewById(R.id.txtConc4);
         canzoni=(TextView) getActivity().findViewById(R.id.scritta);
         toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar_artista);
         toolbar.setTitle("HOME");
+        benvenuto.setText(getResources().getText(R.string.benvenuto)+" "+aliasArtistaString);
         String ali=aliasArtistaString.replaceAll("\\s+", "%20");
         String urlapp=urlPrimoConcerto+'"'+ali+'"'; double longitude;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(urlapp, new Response.Listener<JSONArray>() {
@@ -169,7 +172,8 @@ public class ArtistaHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(extra.compareToIgnoreCase("")!=0) {
-                    Uri gmmIntentUri = Uri.parse("geo:" + cor[1] + "," + cor[0]);
+                    Uri gmmIntentUri=Uri.parse("geo:<" + cor[1]  + ">,<" + cor[0] + ">?q=<" + cor[1]  + ">,<" + cor[0] + ">(" + "Ecco il tuo concerto" + ")");
+                   // Uri gmmIntentUri = Uri.parse("geo:" + cor[1] + "," + cor[0]);
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     mapIntent.setPackage("com.google.android.apps.maps");
                     if (mapIntent.resolveActivity(context.getPackageManager()) != null) {

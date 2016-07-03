@@ -140,29 +140,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //holder.nameVenue.setText(setList.getVenueName());
         // holder.nameCity.setText(setList.getCity());
         holder.date.setText(setList.getDate());
+
         if (setList.getCover() != null) {
+            Palette palette = Palette.generate(setList.getCover());
+            int standard=mContext.getResources().getColor(R.color.colorPrimary);
+            int vibrant = palette.getVibrantColor(standard);
+            colore = vibrant ;
+            holder.barra.setBackgroundColor(vibrant);
             holder.coverArtista.setImageBitmap(setList.getCover());
-            Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
-                @Override
-                public void onGenerated(Palette palette) {
-                    int bgColor = palette.getVibrantColor(mContext.getResources().getColor(R.color.colorPrimary));
-                    colore = bgColor;
-                    holder.barra.setBackgroundColor(bgColor);
-                }
-            });
+
         }
         else {
-
             Bitmap bit=BitmapFactory.decodeResource(mContext.getResources(),R.drawable.concertimilano);
+            Palette palette = Palette.generate(bit);
+            int standard=mContext.getResources().getColor(R.color.colorPrimary);
+            int vibrant = palette.getVibrantColor(standard);
+            colore = vibrant;
+            holder.barra.setBackgroundColor(vibrant);
             holder.coverArtista.setImageBitmap(bit);
-            Palette.from(bit).generate(new Palette.PaletteAsyncListener() {
-                @Override
-                public void onGenerated(Palette palette) {
-                    int bgColor = palette.getVibrantColor(mContext.getResources().getColor(R.color.colorPrimary));
-                    colore = bgColor;
-                    holder.barra.setBackgroundColor(bgColor);
-                }
-            });
         }
     }
 

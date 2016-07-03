@@ -117,13 +117,11 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         recList.setLayoutManager(llm);
         final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist, idConcerto);
         mImageView.setImageBitmap(ArtistaHomeFragment.immagine);
-        Palette.from(ArtistaHomeFragment.immagine).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                int bgColor = palette.getVibrantColor(context.getResources().getColor(R.color.colorPrimary));
-                mTitleHolder.setBackgroundColor(bgColor);
-            }
-        });
+        Palette palette = Palette.generate(ArtistaHomeFragment.immagine);
+        int standard=getResources().getColor(R.color.colorPrimary);
+        int vibrant = palette.getVibrantColor(standard);
+        mTitleHolder.setBackgroundColor(vibrant);
+
         recList.setAdapter(ca);
 
 

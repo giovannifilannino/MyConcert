@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.ItemSongPlayAdapter;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHomeFragment;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Song;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerPlayTrack;
 
@@ -186,25 +187,21 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);
         if(ResultFragment.bitmap!=null) {
+
+            Palette palette = Palette.generate(ResultFragment.bitmap);
+            int standard=getResources().getColor(R.color.colorPrimary);
+            int vibrant = palette.getVibrantColor(standard);
+            mTitleHolder.setBackgroundColor(vibrant);
             mImageView.setImageBitmap(ResultFragment.bitmap);
-            Palette.from(ResultFragment.bitmap).generate(new Palette.PaletteAsyncListener() {
-                @Override
-                public void onGenerated(Palette palette) {
-                    int bgColor = palette.getVibrantColor(context.getResources().getColor(R.color.colorPrimary));
-                    mTitleHolder.setBackgroundColor(bgColor);
-                }
-            });
         }
         else {
             Bitmap bit= BitmapFactory.decodeResource(getResources(),R.drawable.concertimilano);
             mImageView.setImageBitmap(bit);
-            Palette.from(bit).generate(new Palette.PaletteAsyncListener() {
-                @Override
-                public void onGenerated(Palette palette) {
-                    int bgColor = palette.getVibrantColor(context.getResources().getColor(R.color.colorPrimary));
-                    mTitleHolder.setBackgroundColor(bgColor);
-                }
-            });
+            Palette palette = Palette.generate(bit);
+            int standard=getResources().getColor(R.color.colorPrimary);
+            int vibrant = palette.getVibrantColor(standard);
+            mTitleHolder.setBackgroundColor(vibrant);
+
         }
         isEditTextVisible = false;fade.excludeTarget(android.R.id.statusBarBackground, true);
         fade.excludeTarget(android.R.id.navigationBarBackground, true);

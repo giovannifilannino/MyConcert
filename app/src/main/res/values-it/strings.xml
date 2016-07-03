@@ -27,6 +27,7 @@
     <string name="loading">Caricamento in corso...</string>
     <string name="closea">Chiudi</string>
     <string name="Venues">Piazza non trovata</string>
+    <string name="benvenuto">Benvenuto</string>
     <string name="VenuesDescr">Non esiste alcuna piazza che corrisponda ai parametri di ricerca inseriti</string>
     <string name="Artist">Artista non trovato</string>
     <string name="ArtistDescr">Non esiste alcun artista che corrisponda ai parametri di ricerca inseriti</string>
@@ -50,7 +51,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_maps">Mappa</string>
     <string name="luogoConc">Il tuo prossimo concerto è a </string>
-    <string name="scopri">scopri esattamente dove !!</string>
+    <string name="scopri">scopri esattamente dove !</string>
 
     <string-array name="opzioni">
         <item>Cerca</item>

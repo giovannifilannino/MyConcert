@@ -4,11 +4,22 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     >
+    <TextView
+        android:id="@+id/benvenuto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+
+        android:textStyle="bold"
+        android:textSize="30sp" />
 
     <RelativeLayout
         android:id="@+id/pross"
         android:layout_width="match_parent"
-
+        android:layout_below="@id/benvenuto"
         android:layout_height="200dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -21,7 +32,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:layout_centerHorizontal="true"
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
             android:textSize="20dp"
             android:text="@string/luogoConc"
 
@@ -65,6 +76,7 @@
     </RelativeLayout>
 
 
+
     <TextView
         android:id="@+id/scritta"
         android:layout_width="wrap_content"
@@ -73,6 +85,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/topfive"
         android:textSize="20dp" />
 
