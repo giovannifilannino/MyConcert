@@ -1,9 +1,13 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 
 import android.app.Fragment;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -29,9 +33,13 @@ import com.android.volley.toolbox.ImageRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.MapsActivity;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.searchattivi;
 
@@ -41,26 +49,33 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.searchattivi;
  */
 public class ArtistaHomeFragment extends Fragment {
 
+    private ImageView findImg;
     private TextView nomeArtista;
-    private TextView cognomeArtista;
-    private TextView aliasArtista;
+    private TextView luogo;
+    private TextView ext;
+    private TextView tit;
     private ListView listaCanzoni;
-    private ImageView artistImage;
+    //private ImageView artistImage;
     public static ArrayList<Setlist> concerti;
     private Toolbar toolbar;
+    TextView canzoni;
     ArrayList<Setlist> list = new ArrayList<Setlist>();
     private String urlImmagine;
     private String nomeArtistaString;
     private String cognomeArtistaString;
     private String aliasArtistaString;
+    double[] cor=new double[2];
     private DrawerLayout drawerLayout;
     public static Bitmap immagine;
+    String  luogoConcerto="";
+    String extra="";
     private ListView listViewDrawerLayout;
     private ArrayList<String> optionDrawer = new ArrayList<String>();
     private ActionBarDrawerToggle mDrawerToggle;
     private String formatJson = "&format=json";
 
     private String URL_TOP_FIVE = "http://mymusiclive.altervista.org/topfivesongs.php?artista=";
+    String urlPrimoConcerto="http://mymusiclive.altervista.org/getPrimoConcertoAttivo.php?username=";
 
     private ArrayList<String> songArray;
 
@@ -76,22 +91,100 @@ public class ArtistaHomeFragment extends Fragment {
     @Override
        public void onActivityCreated(Bundle savedInstanceState) {
                 super.onActivityCreated(savedInstanceState);
+        final Context context=getActivity();
         listaCanzoni = (ListView) getActivity().findViewById(R.id.listTopFiveSongs);
-        artistImage = (ImageView) getActivity().findViewById(R.id.artista_immagine);
+        findImg=(ImageView)getActivity().findViewById(R.id.findImg);
+        //artistImage = (ImageView) getActivity().findViewById(R.id.artista_immagine);
         requestQueue = Volley.newRequestQueue(getActivity());
+        luogo=(TextView) getActivity().findViewById(R.id.txtConc);
+        ext=(TextView) getActivity().findViewById(R.id.txtConc3);
+        tit=(TextView) getActivity().findViewById(R.id.txtConc4);
+        canzoni=(TextView) getActivity().findViewById(R.id.scritta);
         toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar_artista);
         toolbar.setTitle("HOME");
+        String ali=aliasArtistaString.replaceAll("\\s+", "%20");
+        String urlapp=urlPrimoConcerto+'"'+ali+'"'; double longitude;
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(urlapp, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                String postoConcerto="";
+                String cittaConcerto="";
+                JSONObject jsonObject;
+                JSONArray jsonArray=response;
+                try {
+                    if (jsonArray.toString().compareToIgnoreCase("[]")!=0){
+                        Setlist conc = new Setlist();
+                    jsonObject = response.getJSONObject(0);
+                    cittaConcerto = jsonObject.getString("CittaConcerto");
+                    luogoConcerto = cittaConcerto;
+                        extra=getString(R.string.scopri);
+                        ext.setText(extra);
+                        luogo.setText(luogoConcerto);
+                    conc.setCity(cittaConcerto);
+                    postoConcerto = jsonObject.getString("PostoConcerto");
+                    conc.setVenueName(postoConcerto);
+                    Geocoder coder = new Geocoder(context);
+                    try {
+                        ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(cittaConcerto + " " + postoConcerto, 50);
+                        for (Address add : adresses) {
+                            cor[0] = add.getLongitude();
+                            cor[1] = add.getLatitude();
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                    else {
+                        luogoConcerto = "";
+                        extra="";
+                        tit.setText(getText(R.string.noConc));
+                        ext.setText(extra);
+                        canzoni.setText(getText(R.string.nosongs));
+                        luogo.setText(luogoConcerto);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+
+        findImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(extra.compareToIgnoreCase("")!=0) {
+                    Uri gmmIntentUri = Uri.parse("geo:" + cor[1] + "," + cor[0]);
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
+                        startActivity(mapIntent);
+                    }
+                }
+            }
+
+
+        });
         final ImageRequest imageRequest = new ImageRequest(urlImmagine, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
-                artistImage.setImageBitmap(response);
-                artistImage.setScaleType(ImageView.ScaleType.FIT_XY);
+                // artistImage.setImageBitmap(response);
+                //artistImage.setScaleType(ImageView.ScaleType.FIT_XY);
                 immagine=response;
             }
         }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Wanna", urlImmagine);
             }
         });
 
@@ -104,9 +197,27 @@ public class ArtistaHomeFragment extends Fragment {
         String url = URL_TOP_FIVE + '"' + app + '"' + formatJson;
 
 
+
         fillSongArray(url);
 
 
+
+
+    }
+    private double[] getCoordinate(String ad){
+        Geocoder coder = new Geocoder(context);
+        double[] coordinate=new double[2];
+        try {
+            ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(ad, 50);
+            for(Address add : adresses) {
+                coordinate[0] = add.getLongitude();
+                coordinate[1] = add.getLatitude();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return coordinate;
     }
 
     private void fillSongArray(String url) {

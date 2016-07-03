@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -90,8 +91,8 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         layoutManager = new LinearLayoutManager(this);
 
         int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp};
-
-        AdapterItemDrawer adapterItemDrawer =new AdapterItemDrawer(optionDrawer,ICONS,"Utente",loginFragment.actualUsername,R.drawable.account,this);
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.account);
+        AdapterItemDrawer adapterItemDrawer =new AdapterItemDrawer(optionDrawer,ICONS,"Utente",loginFragment.actualUsername,bitmap,this);
 
         recyclerView.setAdapter(adapterItemDrawer);
 

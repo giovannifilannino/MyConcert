@@ -3,6 +3,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.util.Log;
@@ -87,6 +88,8 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
 
 
 
+
+
         viewholder.playYoutube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +124,7 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
 
         return convertView;
     }
+
     public void setVisible(){
         visible=true;
         notifyDataSetChanged();

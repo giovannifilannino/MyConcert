@@ -32,6 +32,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    public MapsActivity(int lat,int lng){
+        this.Lat=lat;
+        this.Lng=lng;
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.

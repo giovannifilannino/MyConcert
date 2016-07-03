@@ -54,9 +54,13 @@
     <string name="close">Drawer Closed</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="luogoConc">Your next concert is in </string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
+    <string name="scopri">discover exactly where !!</string>
+    <string name="noConc">Non hai nessun concerto da fare !!</string>
     <string name="section_format" translatable="false">Hello World from section: %1$d</string>
     <string name="closea">Close</string>
     <string name="Venues">Venues not found</string>

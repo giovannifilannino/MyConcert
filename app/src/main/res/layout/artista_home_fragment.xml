@@ -1,38 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/pross"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_marginTop="0dp"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/artista_immagine"/>
+        android:layout_height="200dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+>
 
         <TextView
-            android:id="@+id/scritta"
-            android:layout_below="@id/artista_immagine"
+            android:id="@+id/txtConc4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/topfive"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:textSize="20dp"/>
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="20dp"
+            android:textSize="20dp"
+            android:text="@string/luogoConc"
 
-
-        <ListView
-            android:layout_below="@id/scritta"
-            android:layout_width="match_parent"
+            />
+        <TextView
+            android:id="@+id/txtConc"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listTopFiveSongs">
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_below="@id/txtConc4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:textSize="20dp"
+            android:text=" "
 
-        </ListView>
+            />
 
+
+        <TextView
+            android:id="@+id/txtConc3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtConc"
+            android:layout_centerHorizontal="true"
+            android:text="@string/scopri"
+            android:layout_marginTop="10dp"
+
+            />
+
+        <ImageView
+            android:id="@+id/findImg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/txtConc3"
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/find" />
 
     </RelativeLayout>
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/scritta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pross"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/topfive"
+        android:textSize="20dp" />
+
+
+    <ListView
+
+        android:id="@+id/listTopFiveSongs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scritta">
+
+    </ListView>
+
+
+</RelativeLayout>

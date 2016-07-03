@@ -5,10 +5,10 @@ import android.app.Fragment;
 import android.app.ListActivity;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toolbar;
 
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -37,8 +37,7 @@ public class TwitterList extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar_twitter);
-        toolbar.setTitle("I VOSTRI TWEET");
+
         SearchTimeline searchTimeline = new SearchTimeline.Builder().query("#gameofthrones").build();
         TweetTimelineListAdapter tweetTimelineListAdapter = new TweetTimelineListAdapter.Builder(getActivity()).setTimeline(searchTimeline).build();
 
@@ -47,6 +46,9 @@ public class TwitterList extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.twitterview,container,false);
+        View view= inflater.inflate(R.layout.twitterview,container,false);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar_artista);
+        toolbar.setTitle("I VOSTRI TWEET");
+        return view;
     }
 }

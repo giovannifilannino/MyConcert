@@ -1,6 +1,7 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ public class AdapterItemDrawer extends RecyclerView.Adapter<AdapterItemDrawer.Vi
     private String mNavTitles[]; // String Array to store the passed titles Value from MainActivity.java     // Int Array to store the passed icons resource value from MainActivity.java
     private int mIcons[];
     private String name;        //String Resource for header View Name
-    private int profile;        //int Resource for header view profile picture
+    private Bitmap profile;        //int Resource for header view profile picture
     private String alias;       //String Resource for header view email
     Context context;
     OnItemClickListener mItemClickListener;
@@ -89,7 +90,7 @@ public class AdapterItemDrawer extends RecyclerView.Adapter<AdapterItemDrawer.Vi
         this.mItemClickListener = mItemClickListener;
     }
 
-    public AdapterItemDrawer(String Titles[],int Icons[],  String Name, String Alias, int Profile, Context passedContext){ // MyAdapter Constructor with titles and icons parameter
+    public AdapterItemDrawer(String Titles[],int Icons[],  String Name, String Alias, Bitmap Profile, Context passedContext){ // MyAdapter Constructor with titles and icons parameter
         // titles, icons, name, email, profile pic are passed from the main activity as we
         mNavTitles = Titles;//have seen earlier
         name = Name;
@@ -150,7 +151,7 @@ public class AdapterItemDrawer extends RecyclerView.Adapter<AdapterItemDrawer.Vi
         }
         else{
 
-            holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
+            holder.profile.setImageBitmap(profile);           // Similarly we set the resources for header view
             holder.Name.setText(name);
             holder.email.setText(alias);
         }
@@ -160,6 +161,14 @@ public class AdapterItemDrawer extends RecyclerView.Adapter<AdapterItemDrawer.Vi
     @Override
     public int getItemCount() {
         return mNavTitles.length+1; // the number of items in the list will be +1 the titles including the header view.
+    }
+
+    public void setImage(Bitmap bitmap){
+
+        profile=bitmap;
+        notifyDataSetChanged();
+
+
     }
 
 

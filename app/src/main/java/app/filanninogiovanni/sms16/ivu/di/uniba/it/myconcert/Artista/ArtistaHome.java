@@ -12,6 +12,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -39,6 +41,8 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ResultFragmentArtisti;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.BigScreenUtility.TwitterList;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.MainActivity;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.MapsActivity;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 import io.fabric.sdk.android.Fabric;
 
@@ -103,9 +107,11 @@ public class ArtistaHome extends AppCompatActivity {
     ArrayList<Setlist> concerti=new ArrayList<Setlist>();
     FragmentManager fragmentManager;
     String urlPHPpart = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
+
     private Intent goToTwitter;
     Context context;
     Toolbar toolbar;
+    static final boolean fatto=false;
     private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
     private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
 
@@ -127,10 +133,9 @@ public class ArtistaHome extends AppCompatActivity {
         int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp};
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
-
-
         recyclerView = (RecyclerView) findViewById(R.id.left_drawer);
-        AdapterItemDrawer adapterItemDrawer =new AdapterItemDrawer(optionDrawer,ICONS,nomeArtistaString+" "+cognomeArtistaString,aliasArtistaString,R.drawable.account,this);
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.account);
+        final AdapterItemDrawer adapterItemDrawer =new AdapterItemDrawer(optionDrawer,ICONS,nomeArtistaString+" "+cognomeArtistaString,aliasArtistaString,bitmap,this);
 
 
         recyclerView.setAdapter(adapterItemDrawer);
@@ -139,6 +144,19 @@ public class ArtistaHome extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
         ActionBarDrawerToggle mDrowerToggle =new ActionBarDrawerToggle(this,drawerLayout,
                 toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close){
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                if(ArtistaHomeFragment.immagine!=null&&!fatto){
+                    adapterItemDrawer.setImage(ArtistaHomeFragment.immagine);
+                }
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
         };
         drawerLayout.setDrawerListener(mDrowerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -159,7 +177,6 @@ public class ArtistaHome extends AppCompatActivity {
                             ResultFragmentArtisti resultFragmentArtisti=new ResultFragmentArtisti();
                             goToConcert(resultFragmentArtisti);
                             concerti.clear();
-
                         }
                         break;
                     case "HOME":
@@ -171,6 +188,7 @@ public class ArtistaHome extends AppCompatActivity {
                             artistaHome.setAliasArtistaString(aliasArtistaString);
                             artistaHome.setUrlImmagine(urlImmagine);
                             startTransiction(artistaHome);
+
                         }
                         break;
                     case "SCHERMI GRANDI":
@@ -178,9 +196,12 @@ public class ArtistaHome extends AppCompatActivity {
                             drawerLayout.closeDrawers();
                             TwitterList twitterList = new TwitterList();
                             startTransiction(twitterList);
+
                         }
+
                         break;
                 }
+                drawerLayout.closeDrawers();
             }
         };
         adapterItemDrawer.setOnItemClickListener(onItemClickListener);
@@ -240,18 +261,24 @@ public class ArtistaHome extends AppCompatActivity {
         fragmentTransaction.addToBackStack("").commit();
     }
 
+
+
+
     @Override
     public void onBackPressed() {
 
         Fragment current=fragmentManager.findFragmentById(R.id.content_frame);
         boolean check=current instanceof ArtistaHomeFragment;
+        final Context context=this;
         if(check){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage("Are you sure you want to exit?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             moveTaskToBack(true);
+                            Intent intent=new Intent(context, MainActivity.class);
+                            startActivity(intent);
                             finish();
                         }
                     })

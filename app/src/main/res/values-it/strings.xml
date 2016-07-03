@@ -35,7 +35,7 @@
     <string name="Imp">Impostazioni</string>
     <string name="Autentication">Problemi di autenticazione</string>
     <string name="AutenticationDescr">Combinazione username-password errata</string>
-    <string name="topfive">Canzoni più apprezzate: </string>
+    <string name="topfive">Canzoni più amate dai tuoi fan </string>
     <string name="action_settings">Impostazioni:</string>
     <string name="aliasartist">Alias:</string>
     <string name="nameartist">Nome Artista:</string>
@@ -49,6 +49,8 @@
     <string name="seek_to_hint">Secondi</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_maps">Mappa</string>
+    <string name="luogoConc">Il tuo prossimo concerto è a </string>
+    <string name="scopri">scopri esattamente dove !!</string>
 
     <string-array name="opzioni">
         <item>Cerca</item>
