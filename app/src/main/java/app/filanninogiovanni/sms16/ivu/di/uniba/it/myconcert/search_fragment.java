@@ -61,7 +61,7 @@ public class search_fragment extends Fragment {
 
     private XMLSetListParser setListParser;
     private  String URL_ARTIST = "http://api.setlist.fm/rest/0.1/search/setlists?artistName=";
-    private String URL_VENUES = "http://api.setlist.fm/rest/0.1/search/setlists?venueName=";
+    private String URL_VENUES = "http://api.setlist.fm/rest/0.1/search/setlists?cityName=";
     private String URL_COMBINED = "&venueName=";
     private String URL_ARTIST_CONCERT = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
 
@@ -181,6 +181,7 @@ public class search_fragment extends Fragment {
                         setlist.setDate(jsonObject.getString("Data"));
                         setlist.setVenueName(jsonObject.getString("PostoConcerto"));
                         setlist.setId(jsonObject.getString("IdConcerto"));
+                        urlARtistCover = jsonObject.getString("Immagine");
                         setList.add(setlist);
                         FROM_MYCONCERTDB = true;
                     } catch (JSONException e) {
@@ -242,7 +243,7 @@ public class search_fragment extends Fragment {
                 onSearch.searchStart(setList, "");
                 loadSetListXMLData = new LoadSetListXMLData();
             } else if(FROM_MYCONCERTDB){
-                onSearch.searchStart(setList, "");
+                onSearch.searchStart(setList, urlARtistCover);
                 loadSetListXMLData = new LoadSetListXMLData();
             }
         }
