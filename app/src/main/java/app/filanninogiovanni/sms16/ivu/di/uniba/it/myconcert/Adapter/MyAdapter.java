@@ -145,7 +145,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             Palette.from(setList.getCover()).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
-                    int bgColor = palette.getLightMutedColor(mContext.getResources().getColor(R.color.colorPrimary));
+                    int bgColor = palette.getVibrantColor(mContext.getResources().getColor(R.color.colorPrimary));
                     colore = bgColor;
                     holder.barra.setBackgroundColor(bgColor);
                 }
@@ -158,7 +158,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             Palette.from(bit).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
-                    int bgColor = palette.getLightMutedColor(mContext.getResources().getColor(R.color.colorPrimary));
+                    int bgColor = palette.getVibrantColor(mContext.getResources().getColor(R.color.colorPrimary));
                     colore = bgColor;
                     holder.barra.setBackgroundColor(bgColor);
                 }
