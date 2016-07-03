@@ -145,6 +145,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail);
         PREFERENCES = getResources().getString(R.string.partecipero_preferences);
@@ -164,8 +165,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         editSongList = (ImageButton) findViewById(R.id.editSongList);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
         mRevealView = (RelativeLayout) findViewById(R.id.llEditTextHolder);
-       // citta=(TextView)findViewById(R.id.cittaDettagli);
-       // luogo=(TextView)findViewById(R.id.luogoDettagli);
+        citta=(TextView)findViewById(R.id.cittaDettagli);
+        luogo=(TextView)findViewById(R.id.luogoDettagli);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
         mTitleHolder.setBackgroundColor(color);
         final Context context=this;
@@ -209,6 +210,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setExitTransition(fade);
         getWindow().setEnterTransition(fade);
+        citta.setVisibility(View.GONE);
+        luogo.setVisibility(View.GONE);
         loadPlace();
     }
 
@@ -223,8 +226,10 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private void loadPlace() {
 
         dataTXT.setText(data);
-      //  citta.setText(cit);
-       // luogo.setText(lu);
+       citta.setText(cit);
+       luogo.setText(lu);
+        citta.setVisibility(View.VISIBLE);
+        luogo.setVisibility(View.VISIBLE);
 
         nomeArtista.setText(nome);
 
@@ -269,6 +274,12 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         }
 
         return songArray;
+    }
+    @Override
+    public void onBackPressed() {
+        citta.setVisibility(View.GONE);
+        luogo.setVisibility(View.GONE);
+        super.onBackPressed();
     }
 
 }

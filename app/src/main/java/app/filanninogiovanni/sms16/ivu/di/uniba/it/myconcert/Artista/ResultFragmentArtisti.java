@@ -105,6 +105,8 @@ public class ResultFragmentArtisti extends Fragment {
                 intent.putExtra("cantante",setlist.getArtistName());
                 intent.putExtra("data",setlist.getDate());
                 intent.putExtra("id",setlist.getId());
+                intent.putExtra("citta",setlist.getCity());
+                intent.putExtra("luogo",setlist.getVenueName());
                 bitmap=setlist.getCover();
                 ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
                 LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);

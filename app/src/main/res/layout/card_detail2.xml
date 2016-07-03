@@ -12,8 +12,8 @@
             android:id="@+id/placeImage"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:scaleType="centerCrop"
             android:background="@color/verdeAcqua"
+            android:scaleType="centerCrop"
             android:transitionName="tImage" />
 
         <LinearLayout
@@ -35,58 +35,90 @@
         <LinearLayout
             android:id="@+id/placeNameHolder"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:background="@color/colorPrimaryDark"
+            android:orientation="vertical"
             android:transitionName="tNameHolder">
 
-            <TextView
-                android:id="@+id/artistaDett"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/artistaDett"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/dataDett"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/white" />
-            <TextView
-                android:id="@+id/dataDett"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="right"
-                android:layout_weight="1"
-                android:paddingRight="10dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/white"/>
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/cittaDett"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:layout_gravity="center"
+                    android:paddingRight="10dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/luogoDett"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
 
         </LinearLayout>
 
 
-
-
-
     </FrameLayout>
 
-    <RelativeLayout 
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:requiresFadingEdge="vertical" >
-        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:requiresFadingEdge="vertical"></android.support.v7.widget.RecyclerView>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_add_white_24dp"
-            android:id="@+id/floatingActionButton"
-            android:transitionName="bottone"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_add_white_24dp"
+            android:transitionName="bottone" />
     </RelativeLayout>
 
 </LinearLayout>

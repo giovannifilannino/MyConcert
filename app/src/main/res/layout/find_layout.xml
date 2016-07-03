@@ -3,18 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/find"
     android:background="@color/indigowhite">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="74dp"
 
-        android:id="@+id/toolCerca">
-    <include
-        android:id="@+id/tool_bar_find"
-        layout="@layout/tool_bar_lista"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        />
-    </android.support.design.widget.AppBarLayout>
 
     <EditText
         android:layout_width="match_parent"

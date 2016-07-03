@@ -279,7 +279,6 @@ public class ArtistaHome extends AppCompatActivity {
                             moveTaskToBack(true);
                             Intent intent=new Intent(context, MainActivity.class);
                             startActivity(intent);
-                            finish();
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {

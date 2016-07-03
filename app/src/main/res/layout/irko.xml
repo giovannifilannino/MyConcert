@@ -6,6 +6,17 @@
     android:layout_height="match_parent">
     <!-- The navigation drawer -->
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+
+        android:id="@+id/toolCerca">
+        <include
+            android:id="@+id/tool_bar_find"
+            layout="@layout/tool_bar_lista"
+            />
+    </android.support.design.widget.AppBarLayout>
+
 
     <FrameLayout
         android:id="@+id/content_frame"

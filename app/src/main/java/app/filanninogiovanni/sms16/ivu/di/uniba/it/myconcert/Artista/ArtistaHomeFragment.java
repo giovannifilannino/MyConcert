@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.AdapterSongsArtista;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.MapsActivity;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
@@ -51,14 +54,16 @@ public class ArtistaHomeFragment extends Fragment {
 
     private ImageView findImg;
     private TextView nomeArtista;
+    RecyclerView.LayoutManager mLayoutManager;
     private TextView luogo;
     private TextView ext;
     private TextView tit;
-    private ListView listaCanzoni;
+    private RecyclerView listaCanzoni;
     //private ImageView artistImage;
     public static ArrayList<Setlist> concerti;
     private Toolbar toolbar;
     TextView canzoni;
+    int idImg[]={R.drawable.uno,R.drawable.due,R.drawable.tre,R.drawable.quattro,R.drawable.cinque};
     ArrayList<Setlist> list = new ArrayList<Setlist>();
     private String urlImmagine;
     private String nomeArtistaString;
@@ -91,8 +96,8 @@ public class ArtistaHomeFragment extends Fragment {
     @Override
        public void onActivityCreated(Bundle savedInstanceState) {
                 super.onActivityCreated(savedInstanceState);
-        final Context context=getActivity();
-        listaCanzoni = (ListView) getActivity().findViewById(R.id.listTopFiveSongs);
+        context=getActivity();
+        listaCanzoni = (RecyclerView) getActivity().findViewById(R.id.listTopFiveSongs);
         findImg=(ImageView)getActivity().findViewById(R.id.findImg);
         //artistImage = (ImageView) getActivity().findViewById(R.id.artista_immagine);
         requestQueue = Volley.newRequestQueue(getActivity());
@@ -204,21 +209,6 @@ public class ArtistaHomeFragment extends Fragment {
 
 
     }
-    private double[] getCoordinate(String ad){
-        Geocoder coder = new Geocoder(context);
-        double[] coordinate=new double[2];
-        try {
-            ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(ad, 50);
-            for(Address add : adresses) {
-                coordinate[0] = add.getLongitude();
-                coordinate[1] = add.getLatitude();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return coordinate;
-    }
 
     private void fillSongArray(String url) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -230,7 +220,11 @@ public class ArtistaHomeFragment extends Fragment {
                         jsonObject = response.getJSONObject(i);
                         songArray.add(jsonObject.getString("NomeCanzone"));
                     }
-                    listaCanzoni.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, songArray));
+                    ////////////
+                    AdapterSongsArtista adapterSongsArtista=new AdapterSongsArtista(songArray,idImg,context);
+                    listaCanzoni.setAdapter(adapterSongsArtista);
+                    mLayoutManager=new LinearLayoutManager(context);
+                    listaCanzoni.setLayoutManager(mLayoutManager);
 
                 } catch (Exception e) {
                     e.printStackTrace();

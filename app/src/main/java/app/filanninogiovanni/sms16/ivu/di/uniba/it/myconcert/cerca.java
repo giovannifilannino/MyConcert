@@ -75,7 +75,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.irko);
-    context=this;
+        context=this;
         searchString = getResources().getString(R.string.search);
         setlistString = getResources().getString(R.string.setlistmy);
         concertString = getResources().getString(R.string.concert);
@@ -87,7 +87,8 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         cognomeArtista = getIntent().getStringExtra("cognomeArtista");
         aliasArtista = getIntent().getStringExtra("aliasArtista");
         urlImmagine = getIntent().getStringExtra("urlImmagine");
-
+        toolbar=(Toolbar)findViewById(R.id.tool_bar_find) ;
+        setSupportActionBar(toolbar);
         layoutManager = new LinearLayoutManager(this);
 
         int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp};
@@ -115,8 +116,10 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
             }
         };
         //collegamento comportamento e icona per la toolbar e drawer
-        drawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        drawerLayout.setDrawerListener(mDrawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerToggle.syncState();
 
 
         adapterItemDrawer.setOnItemClickListener(new AdapterItemDrawer.OnItemClickListener() {

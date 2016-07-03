@@ -33,13 +33,15 @@ import com.deezer.sdk.network.request.DeezerRequest;
 import com.deezer.sdk.network.request.event.RequestListener;
 import com.deezer.sdk.player.AlbumPlayer;
 import com.deezer.sdk.player.TrackPlayer;
+
 import org.json.JSONObject;
+
 import java.util.ArrayList;
+
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHomeFragment;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ResultFragmentArtisti;
 import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
-
 
 
 public class DetailActivity2 extends Activity implements View.OnClickListener {
@@ -54,6 +56,10 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
     private LinearLayout mRevealView;
     private EditText mEditTextTodo;
     private String nome;
+    private String cit;
+    private String lu;
+    private TextView citta;
+    private TextView luogo;
     private String data;
     private boolean isEditTextVisible;
     private InputMethodManager mInputManager;
@@ -83,21 +89,25 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail2);
-        final Context context=this;
+        final Context context = this;
         setlist = getIntent().getStringArrayListExtra("canzoni");
-        nome=getIntent().getStringExtra("cantante");
-        data=getIntent().getStringExtra("data");
-        idConcerto=getIntent().getStringExtra("id");
+        nome = getIntent().getStringExtra("cantante");
+        data = getIntent().getStringExtra("data");
+        cit=getIntent().getStringExtra("citta");
+        lu=getIntent().getStringExtra("luogo");
+        idConcerto = getIntent().getStringExtra("id");
         //mList = (ListView) findViewById(R.id.list);
         mImageView = (ImageView) findViewById(R.id.placeImage);
         nomeArtista = (TextView) findViewById(R.id.artistaDett);
-        dataTXT=(TextView) findViewById(R.id.dataDett);
+        citta = (TextView) findViewById(R.id.cittaDett);
+        luogo = (TextView) findViewById(R.id.luogoDett);
+        dataTXT = (TextView) findViewById(R.id.dataDett);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
         mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
         requestQueue = Volley.newRequestQueue(this);
-        final RecyclerView recList=(RecyclerView)findViewById(R.id.list);
-        OvershootInLeftAnimator animator=new OvershootInLeftAnimator();
+        final RecyclerView recList = (RecyclerView) findViewById(R.id.list);
+        OvershootInLeftAnimator animator = new OvershootInLeftAnimator();
         animator.setAddDuration(2000);
         animator.setRemoveDuration(2500);
         recList.setItemAnimator(animator);
@@ -105,26 +115,24 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist,idConcerto);
+        final Adapter2 ca = new Adapter2(this, R.layout.itemsong, setlist, idConcerto);
         mImageView.setImageBitmap(ArtistaHomeFragment.immagine);
         Palette.from(ArtistaHomeFragment.immagine).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                int bgColor = palette.getLightMutedColor(context.getResources().getColor(R.color.colorPrimary));
+                int bgColor = palette.getVibrantColor(context.getResources().getColor(R.color.colorPrimary));
                 mTitleHolder.setBackgroundColor(bgColor);
             }
         });
         recList.setAdapter(ca);
 
 
-
-
-        FloatingActionButton floatingActionButton=(FloatingActionButton)findViewById(R.id.floatingActionButton);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog=Customdialog(context,ca,recList);
+                Dialog dialog = Customdialog(context, ca, recList);
                 dialog.show();
             }
         });
@@ -135,24 +143,26 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
 
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mRevealView.setVisibility(View.INVISIBLE);
-        isEditTextVisible = false;fade.excludeTarget(android.R.id.statusBarBackground, true);
+        isEditTextVisible = false;
+        fade.excludeTarget(android.R.id.statusBarBackground, true);
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setExitTransition(fade);
         getWindow().setEnterTransition(fade);
+        citta.setVisibility(View.GONE);
+        luogo.setVisibility(View.GONE);
         loadPlace();
     }
 
-    private void setUpAdapter() {
 
-        mList.setAdapter(new ArrayAdapter<String>(this,R.layout.itemsong,R.id.textSong,setlist));
-
-    }
 
     private void loadPlace() {
 
         dataTXT.setText(data);
-
+        citta.setText(cit);
+        luogo.setText(lu);
         nomeArtista.setText(nome);
+        citta.setVisibility(View.VISIBLE);
+        luogo.setVisibility(View.VISIBLE);
 
     }
 
@@ -160,20 +170,8 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
 
     }
 
-    private void addToDo(String todo) {
-        mTodoList.add(todo);
-    }
 
-    private void getPhoto() {
 
-    }
-
-    private void colorize(Bitmap photo) {
-    }
-
-    private void applyPalette() {
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -186,7 +184,9 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
     private void hideEditText(final LinearLayout view) {
 
     }
-    private Dialog Customdialog(final Context context,final Adapter2 ca,final RecyclerView recList){
+
+
+    private Dialog Customdialog(final Context context, final Adapter2 ca, final RecyclerView recList) {
         LayoutInflater factory = LayoutInflater.from(context);
         final View view = factory.inflate(R.layout.customdialog, null);
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -196,7 +196,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         EditText canzone = (EditText) view.findViewById(R.id.canzone);
-                        String song=canzone.getText().toString();
+                        String song = canzone.getText().toString();
                         ca.addItem(1, song, context);
                         recList.scrollToPosition(0);
                     }
@@ -210,6 +210,10 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         return builder.create();
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        citta.setVisibility(View.GONE);
+        luogo.setVisibility(View.GONE);
+        super.onBackPressed();
+    }
 }
