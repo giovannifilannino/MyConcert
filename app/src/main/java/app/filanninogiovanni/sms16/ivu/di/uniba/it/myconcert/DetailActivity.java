@@ -123,6 +123,20 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             }
     };
 
+    private View.OnClickListener setplaylist=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String[] listSong=itemSongPlayAdapter.getSelected();
+            String need="&TitoliCanzoni[";
+            String URL = "mymusiclive.altervista.org/Playlist.php?&Data=" +"'"+ data +"'"+"&PseArtista="+"'"+ nomeArtista.getText() +"'"
+                    + "&Username="+"'"+ loginFragment.actualUsername +"'";
+
+            for(int i=0;i<listSong.length;i++){
+                URL=URL+ need+i+"]";
+
+            }
+        }
+    };
 
 
 
@@ -189,6 +203,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         requestQueue = Volley.newRequestQueue(this);
         partecipero.setOnClickListener(setPartecipation);
         editSongList.setOnClickListener(editSong);
+        sendplaylist.setOnClickListener(setplaylist);
 
         if(partecipo){
             partecipero.setImageResource(R.drawable.thumbsup_selected);
