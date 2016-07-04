@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,9 +35,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.ItemSongPlayAdapter;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHomeFragment;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Song;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.DeezerPlayTrack;
 
 public class DetailActivity extends Activity implements View.OnClickListener {
 
@@ -260,6 +257,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         nomeArtista.setText(nome);
 
     }
+
 
     private void windowTransition() {
 
