@@ -113,10 +113,30 @@
     </FrameLayout>
 
 
-    <ListView
-        android:id="@+id/list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:requiresFadingEdge="vertical" />
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:requiresFadingEdge="vertical"
+
+            />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="170dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_add_white_24dp"
+            android:id="@+id/playlist"
+            android:transitionName="bottone"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"/>
+        />
+    </RelativeLayout>
 
 </LinearLayout>

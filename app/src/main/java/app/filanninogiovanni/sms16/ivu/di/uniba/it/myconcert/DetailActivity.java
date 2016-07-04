@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.graphics.Palette;
 import android.transition.Fade;
 import android.transition.Transition;
@@ -48,6 +49,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private TextView citta;
     private TextView luogo;
     private TextView dataTXT;
+    private FloatingActionButton sendplaylist;
     private LinearLayout mTitleHolder;
     private ArrayList<String> setlist;
     private RelativeLayout mRevealView;
@@ -78,8 +80,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private View.OnClickListener setPartecipation = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-                String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"' + "&idConcerto=" + idConcerto;
-                JSONObject jsonObject = new JSONObject();
+                String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"' + "&idConcerto=" +
+                        "'"+ idConcerto+ "'";
+            JSONObject jsonObject = new JSONObject();
             Log.d("url" , URL);
                 JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
@@ -101,6 +104,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                         else {
                             editor.putBoolean(idConcerto + loginFragment.actualUsername, false).commit();
                             partecipero.setImageResource(R.drawable.thumbsup);
+                            sendplaylist.setVisibility(View.GONE);
                             editSongList.setVisibility(View.GONE);
                             itemSongPlayAdapter.setGone();
                         }
@@ -127,9 +131,11 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         public void onClick(View v) {
             if(!visible) {
                 itemSongPlayAdapter.setVisible();
+                sendplaylist.setVisibility(View.VISIBLE);
                 visible=true;
             }else {
                 itemSongPlayAdapter.setGone();
+                sendplaylist.setVisibility(View.GONE);
                 visible=false;
             }
             Log.d("Wanna","Chi sei goku non lo sai");
@@ -151,8 +157,13 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.card_detail);
         PREFERENCES = getResources().getString(R.string.partecipero_preferences);
         idConcerto = getIntent().getStringExtra("id");
+        Log.d("ID",""+ idConcerto);
+        //idConcerto="10";
+        //Log.d("ID",""+idConcerto);
+
         sharedPreferences = getSharedPreferences(PREFERENCES,MODE_PRIVATE);
         partecipo = sharedPreferences.getBoolean(idConcerto+loginFragment.actualUsername,false);
+        Log.d("ILvalosr","" + partecipo);
         setlist = getIntent().getStringArrayListExtra("canzoni");
         cit=getIntent().getStringExtra("citta");
         lu=getIntent().getStringExtra("luogo");
@@ -162,6 +173,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         mImageView = (ImageView) findViewById(R.id.placeImage);
         nomeArtista = (TextView) findViewById(R.id.artistaDett);
         dataTXT=(TextView) findViewById(R.id.dataDett);
+        sendplaylist=(FloatingActionButton) findViewById(R.id.playlist);
         partecipero = (ImageButton) findViewById(R.id.partecipero);
         editSongList = (ImageButton) findViewById(R.id.editSongList);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
@@ -180,6 +192,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
         if(partecipo){
             partecipero.setImageResource(R.drawable.thumbsup_selected);
+            sendplaylist.setVisibility(View.VISIBLE);
+            editSongList.setVisibility(View.VISIBLE);
         } else {
             partecipero.setImageResource(R.drawable.thumbsup);
         }
