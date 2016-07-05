@@ -6,72 +6,26 @@
     >
     <TextView
         android:id="@+id/benvenuto"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:padding="10dp"
 
         android:textStyle="bold"
-        android:textSize="30sp" />
+        android:textSize="20sp"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true"/>
 
     <RelativeLayout
         android:id="@+id/pross"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_alignTop="@+id/benvenuto"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentStart="true">
 
-        <TextView
-            android:id="@+id/txtConc4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="10dp"
-            android:textSize="20dp"
-            android:text="@string/luogoConc"
-
-            />
-        <TextView
-            android:id="@+id/txtConc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_below="@id/txtConc4"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:textSize="20dp"
-            android:text=" "
-
-            />
-
-
-        <TextView
-            android:id="@+id/txtConc3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtConc"
-            android:layout_centerHorizontal="true"
-            android:text="@string/scopri"
-            android:layout_marginTop="10dp"
-
-            />
-
-        <ImageView
-            android:id="@+id/findImg"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/txtConc3"
-
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/find" />
 
     </RelativeLayout>
 
@@ -81,13 +35,11 @@
         android:id="@+id/scritta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pross"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
         android:text="@string/topfive"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
 
     <android.support.v7.widget.RecyclerView
@@ -95,9 +47,56 @@
         android:id="@+id/listTopFiveSongs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/scritta">
+        android:layout_below="@+id/scritta"
+        android:layout_alignParentStart="true">
 
     </android.support.v7.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/findImg"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/find"
+        android:layout_marginEnd="92dp"
+        android:layout_alignEnd="@+id/pross"
+        android:layout_above="@+id/txtConc3"
+        android:layout_below="@+id/benvenuto" />
+
+    <TextView
+        android:id="@+id/txtConc3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scopri"
+
+        android:textSize="10dp"
+        android:layout_alignBottom="@+id/scritta"
+        android:layout_alignEnd="@+id/findImg" />
+
+    <TextView
+        android:id="@+id/txtConc4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:textSize="20dp"
+        android:text="@string/luogoConc"
+
+        android:layout_below="@+id/benvenuto"
+        android:layout_alignStart="@+id/pross" />
+
+    <TextView
+        android:id="@+id/txtConc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="20dp"
+        android:text=" "
+
+        android:layout_below="@+id/txtConc4"
+        android:layout_alignStart="@+id/scritta" />
 
 
 </RelativeLayout>
