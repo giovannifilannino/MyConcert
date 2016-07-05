@@ -38,12 +38,13 @@
                 android:layout_height="80dp"
                 android:background="@color/colorPrimaryDark"
                 android:orientation="vertical"
-                android:transitionName="tNameHolder">
+                android:transitionName="tNameHolder"
+                android:weightSum="1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:layout_weight="1">
+                    android:layout_weight="0.93">
 
                     <TextView
                         android:id="@+id/artistaDett"
@@ -61,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:gravity="right"
+                        android:gravity="left"
                         android:paddingRight="10dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@android:color/white" />
@@ -69,7 +70,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="38dp">
 
                     <TextView
                         android:id="@+id/cittaDett"
@@ -77,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingLeft="10dp"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:paddingRight="10dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@android:color/white" />
@@ -87,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="right"
+                        android:gravity="left"
                         android:paddingRight="10dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@android:color/white" />

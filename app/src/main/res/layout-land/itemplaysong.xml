@@ -16,10 +16,11 @@
     <TextView
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:padding="15dp"
+        android:padding="5dp"
         android:id="@+id/textSong"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_toStartOf="@+id/playDeezer">
+        android:layout_below="@+id/sendThisSong"
+        android:layout_toEndOf="@+id/sendThisSong">
     </TextView>
 
     <ImageButton
