@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -57,6 +58,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     private boolean isEditTextVisible;
     private ImageButton partecipero;
+    private int Numcanzoni=0;
     private ImageButton editSongList;
     private InputMethodManager mInputManager;
     private ArrayList<String> mTodoList;
@@ -65,6 +67,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     int defaultColor;
     int color;
     private static final String SUCCESS_TAG = "success";
+    private static final String ALLSUCCESS="ALLSUCCESS";
     private RequestQueue requestQueue;
     private ItemSongPlayAdapter itemSongPlayAdapter;
     private boolean visible=false;
@@ -124,17 +127,65 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             String[] listSong=itemSongPlayAdapter.getSelected();
-            String need="&TitoliCanzoni[";
-            String URL = "mymusiclive.altervista.org/Playlist.php?&Data=" +"'"+ data +"'"+"&PseArtista="+"'"+ nomeArtista.getText() +"'"
+            Log.d("HAi ","Cliccato il floating");
+            String need="&TitoloCanzoni[";
+            String URL = "http://mymusiclive.altervista.org/Playlist.php?&Data=" +"'"+ datformEN() +"'"+"&PseArtista="+"'"+ nomeArtista.getText() +"'"
                     + "&Username="+"'"+ loginFragment.actualUsername +"'";
-
+            char virgolette='"';
             for(int i=0;i<listSong.length;i++){
-                URL=URL+ need+i+"]";
+                if(listSong[i]!=null){
+                    URL=URL+ need+Numcanzoni+"]="+virgolette+listSong[i]+virgolette;
+
+                    Numcanzoni++;
+                }
+
 
             }
+            JSONObject jsonObject = new JSONObject();
+            Log.d("HAi ","" +URL);
+
+            JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("HAi ","Inviato la responsereq");
+
+                    JSONObject test = response;
+                    try {
+                        success = test.getInt(ALLSUCCESS);
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                        Log.d("HAi ","Sbagliato");
+
+                    }
+                    if (success == 1) {
+                        Toast.makeText(DetailActivity.this, "Hai inserito con successo la tua playlist", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(DetailActivity.this, "Errore nell'inserimento della playlist", Toast.LENGTH_LONG).show();
+                    }
+                }}, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("HAi ","errorresp");
+
+                }
+
+
+            });
+           requestQueue.add(arrayRequest);
+
+        Numcanzoni=0;
         }
     };
 
+    private String datformEN() {
+        String dataEN;
+        String giorno=data.substring(0,2);
+        String mese=data.substring(3,5);
+        String anno=data.substring(6,10);
+        dataEN=anno+"-"+mese+"-" +giorno;
+        return dataEN;
+    }
 
 
     private View.OnClickListener editSong = new View.OnClickListener() {
@@ -169,8 +220,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         PREFERENCES = getResources().getString(R.string.partecipero_preferences);
         idConcerto = getIntent().getStringExtra("id");
         Log.d("ID",""+ idConcerto);
-        //idConcerto="10";
-        //Log.d("ID",""+idConcerto);
+
 
         sharedPreferences = getSharedPreferences(PREFERENCES,MODE_PRIVATE);
         partecipo = sharedPreferences.getBoolean(idConcerto+loginFragment.actualUsername,false);
@@ -206,8 +256,11 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             partecipero.setImageResource(R.drawable.thumbsup_selected);
             sendplaylist.setVisibility(View.VISIBLE);
             editSongList.setVisibility(View.VISIBLE);
+            itemSongPlayAdapter.setVisible();
+            visible=true;
         } else {
             partecipero.setImageResource(R.drawable.thumbsup);
+            editSongList.setVisibility(View.GONE);
         }
 
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
