@@ -6,8 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -19,13 +17,11 @@
         android:id="@+id/username"
         android:textAlignment="center"
 
-        android:layout_marginLeft="45dp"
         android:textColorHint="@android:color/white"
 
-        android:layout_marginRight="40dp"
+        android:textColor="#ffffff"
         android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ffffff" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:textAlignment="center"
@@ -47,14 +43,13 @@
         android:layout_height="40dp"
         android:layout_marginRight="60dp"
         android:layout_marginLeft="60dp"
-        android:elevation="30dp"
         android:text="@string/login"
         android:id="@+id/buttonLogin"
         android:background="@drawable/rounded_bttn_blue"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3" />
     <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -68,17 +63,38 @@
     android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/imageView"
         android:src="@drawable/nondo"
 
-        android:layout_below="@+id/tool_bar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Sei un artista?"
+        android:id="@+id/textView3"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/password"
+        android:layout_toStartOf="@+id/regartista"
+        android:textSize="20dp" />
 
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Registrati"
+        android:id="@+id/regartista"
+        android:textColor="#ff0505"
+        style="bold"
+        android:layout_above="@+id/buttonLogin"
+        android:layout_toEndOf="@+id/cond"
+        android:textSize="20dp" />
 
 </RelativeLayout>
+
+

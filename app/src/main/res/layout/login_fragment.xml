@@ -87,8 +87,27 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrati"
+        android:id="@+id/regartista"
+        style="bold"
+        android:textColor="#ff0000"
+        android:textIsSelectable="true"
+        android:clickable="true"
+        android:layout_below="@+id/cond"
+        android:layout_toEndOf="@+id/cond" />
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Sei un artista?"
+        android:id="@+id/textView2"
+        android:layout_alignTop="@+id/regartista"
+        android:layout_toStartOf="@+id/regartista"
+        android:textColor="#feffffff" />
 
 
 </RelativeLayout>

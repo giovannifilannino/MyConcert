@@ -6,20 +6,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -31,6 +34,7 @@ public class loginFragment extends Fragment{
 
     private EditText username;
     private EditText password;
+    private TextView regartista;
     private Button login;
     ErrorClass errorClass=new ErrorClass();
     private Dialog dialog;
@@ -82,6 +86,17 @@ public class loginFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
+        //Registrazione artista da piattaforma. basta inserire l uri del form di registrazione direttamente dal browser
+        regartista= (TextView) getActivity().findViewById(R.id.regartista);
+        final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+        regartista.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(browserIntent);
+            }
+        });
+
 
 
         requestQueue = Volley.newRequestQueue(getActivity());
