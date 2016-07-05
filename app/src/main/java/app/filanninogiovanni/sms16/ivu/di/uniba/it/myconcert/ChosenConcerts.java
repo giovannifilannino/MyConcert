@@ -70,7 +70,6 @@ public class ChosenConcerts extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("sss","va qui");
             }
         });
         requestQueue.add(jsonArrayRequest);

@@ -122,6 +122,7 @@ public class search_fragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadSetListXMLData = new LoadSetListXMLData();
+        setList = new ArrayList<Setlist>();
     }
 
     View.OnClickListener artistSearchButton = new View.OnClickListener() {

@@ -103,6 +103,12 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         recyclerView.setLayoutManager(layoutManager);
         requestQueue = Volley.newRequestQueue(this);
 
+        fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment search = new search_fragment();
+        fragmentTransaction.replace(R.id.content_frame, search).commit();
+
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close) {
             @Override
             public void onDrawerClosed(View view) {
