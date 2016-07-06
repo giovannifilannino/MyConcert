@@ -1,7 +1,8 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 
-import android.support.v4.app.Fragment;
+
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -17,7 +18,13 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.PagerAdapter;
 import io.fabric.sdk.android.Fabric;
@@ -39,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     private ViewPager viewPager;
     private PagerAdapter adapter;
 
+    private TwitterAuthClient twitterAuthClient;
+
     private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
     private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
 
@@ -47,16 +56,24 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+        Log.d("dati inviati"," " + requestCode +" " +resultCode +" " +data.getDataString());
+        twitterAuthClient.onActivityResult(requestCode,resultCode,data
+
+        );
         // Pass the activity result to the fragment, which will then pass the result to the login
         // button.
+        /*
         PagerAdapter pagerAdapter = (PagerAdapter) viewPager.getAdapter();
         int index = viewPager.getCurrentItem();
-        Fragment fragment = pagerAdapter.getFragment(index);
-        Log.d("je murt d'allah",fragment.toString());
+        Fragment fragment = pagerAdapter.getRegisteredFragment(index);
+
+        Log.d("mlmlmlml",fragment.toString());
         if (fragment != null) {
             fragment.onActivityResult(requestCode, resultCode, data);
+            Log.d("dati inviati"," " + requestCode +" " +resultCode +" " +data.getDataString());
         }
-
+*/
 
     }
 
@@ -74,6 +91,19 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
         setSupportActionBar(toolbar);
 
+        twitterAuthClient = new TwitterAuthClient();
+        twitterAuthClient.authorize(this, new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                Log.d("mlml","va");
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Log.d("mlml","non va");
+            }
+        });
+
         //fragment registrazione //da sostituire con quella di login
        fragmentManager = getFragmentManager();
        // FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
@@ -90,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+                (getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

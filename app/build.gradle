@@ -51,8 +51,9 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'com.google.android.gms:play-services-maps:9.0.2'
     compile files('src/main/libs/deezer-sdk-0.10.16.jar')
-    compile('com.twitter.sdk.android:twitter:1.14.0@aar') {
+    compile('com.twitter.sdk.android:twitter:1.14.1@aar') {
         transitive = true;
     }
     compile 'de.hdodenhof:circleimageview:1.2.1'
+    compile 'com.android.support:support-v13:+'
 }

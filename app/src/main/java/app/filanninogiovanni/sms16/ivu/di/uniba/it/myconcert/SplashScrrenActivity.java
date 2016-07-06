@@ -8,12 +8,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class SplashScrrenActivity extends AppCompatActivity {
+
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
+    private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -98,8 +106,7 @@ public class SplashScrrenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    super.run();
-                    sleep(3000); //Delay of 10 seconds
+                    super.sleep(3000); //Delay of 10 seconds
                 } catch (Exception e) {
 
                 } finally {

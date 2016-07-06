@@ -2,12 +2,12 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 
 import android.app.Dialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +20,23 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
+import io.fabric.sdk.android.Fabric;
 
 
-public class loginFragment extends Fragment{
+public class loginFragment extends Fragment {
 
     private EditText username;
     private EditText password;
@@ -40,6 +49,8 @@ public class loginFragment extends Fragment{
     private String PasswordURL = "&password=";
     private String formatJson = "&format=json";
     public static String actualUsername;
+    private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
+    private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
 
 
     private String nome;
@@ -54,7 +65,8 @@ public class loginFragment extends Fragment{
 
     String franco;
 
-    public TwitterLoginButton twitterLoginButton;
+    private TwitterLoginButton loginButton;
+
     RequestQueue requestQueue;
 
     public TwitterSession getTwitterSession(){
@@ -88,21 +100,29 @@ public class loginFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
+        loginButton = (TwitterLoginButton) getActivity().findViewById(R.id.login_button_tweet);
 
-        twitterLoginButton = (TwitterLoginButton) getActivity().findViewById(R.id.login_button_tw);
-        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
+
+
+
+        loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
-                twitterSession = result.data;
-                Log.d("twitter","va");
-                Log.d("twitter",result.data.getUserName());
-            }
+                // The TwitterSession is also available through:
+                // Twitter.getInstance().core.getSessionManager().getActiveSession()
 
+                TwitterSession session = result.data;
+                // TODO: Remove toast and use the TwitterSession's userID
+                // with your app's user model
+                String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
+                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+            }
             @Override
             public void failure(TwitterException exception) {
-                Log.d("twitter","non va");
+                Log.d("TwitterKit", "Login with Twitter failure", exception);
             }
         });
+
 
         requestQueue = Volley.newRequestQueue(getActivity());
 
