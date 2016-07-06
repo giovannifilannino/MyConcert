@@ -10,20 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.AdapterCardTweet;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
 
@@ -64,7 +60,7 @@ public class ChosenConcerts extends Fragment {
                 LinearLayoutManager llm = new LinearLayoutManager(getActivity());
                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(llm);
-                MyAdapter ca = new MyAdapter(getActivity(), R.layout.card2, partecipationList);
+                AdapterCardTweet ca = new AdapterCardTweet(getActivity(), R.layout.card3, partecipationList);
                 recyclerView.setAdapter(ca);
             }
         }, new Response.ErrorListener() {

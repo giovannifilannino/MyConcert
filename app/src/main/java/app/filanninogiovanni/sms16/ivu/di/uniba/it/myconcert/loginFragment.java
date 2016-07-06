@@ -2,6 +2,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 
 import android.app.Dialog;
+import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -20,6 +21,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,10 +57,16 @@ public class loginFragment extends Fragment{
 
     private static String usernameShare;
 
+    public static TwitterSession twitterSession;
+
     String franco;
 
-
+    public TwitterLoginButton twitterLoginButton;
     RequestQueue requestQueue;
+
+    public TwitterSession getTwitterSession(){
+        return twitterSession;
+    }
 
 
     @Override
@@ -83,6 +96,20 @@ public class loginFragment extends Fragment{
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
 
+        twitterLoginButton = (TwitterLoginButton) getActivity().findViewById(R.id.login_button_tw);
+        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                twitterSession = result.data;
+                Log.d("twitter","va");
+                Log.d("twitter",result.data.getUserName());
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Log.d("twitter","non va");
+            }
+        });
 
         requestQueue = Volley.newRequestQueue(getActivity());
 
