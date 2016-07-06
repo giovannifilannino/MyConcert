@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,16 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
@@ -33,7 +34,6 @@ import org.json.JSONObject;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
-import io.fabric.sdk.android.Fabric;
 
 
 public class loginFragment extends Fragment {
@@ -53,12 +53,13 @@ public class loginFragment extends Fragment {
     private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
 
 
+
     private String nome;
     private String cognome;
     private int artista;
     private String urlImmagine;
     private String alias = "";
-
+    private TextView regartista;
     private static String usernameShare;
 
     public static TwitterSession twitterSession;
@@ -69,13 +70,14 @@ public class loginFragment extends Fragment {
 
     RequestQueue requestQueue;
 
-    public TwitterSession getTwitterSession(){
+    /*public TwitterSession getTwitterSession(){
         return twitterSession;
-    }
+    }*/
 
 
     @Override
     public void onAttach(Context context) {
+
         super.onAttach(context);
         try{
             mLogin = (OnLoginConfirmed) context;
@@ -100,9 +102,17 @@ public class loginFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         username = (EditText) getActivity().findViewById(R.id.username);
         password = (EditText) getActivity().findViewById(R.id.password);
+        regartista=(TextView) getActivity().findViewById(R.id.regartista) ;
+
         loginButton = (TwitterLoginButton) getActivity().findViewById(R.id.login_button_tweet);
 
-
+       regartista.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mymusiclive.altervista.org"));
+               startActivity(browserIntent);
+           }
+       });
 
 
         loginButton.setCallback(new Callback<TwitterSession>() {

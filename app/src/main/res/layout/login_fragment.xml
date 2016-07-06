@@ -93,7 +93,7 @@
         android:text="Registrati"
         android:id="@+id/regartista"
         style="bold"
-        android:textColor="#ff0000"
+        android:textColor="#fb0011"
         android:textIsSelectable="true"
         android:clickable="true"
         android:layout_below="@+id/cond"
@@ -107,7 +107,9 @@
         android:id="@+id/textView2"
         android:layout_alignTop="@+id/regartista"
         android:layout_toStartOf="@+id/regartista"
-        android:textColor="#feffffff" />
+        android:textColor="#feffffff"
+        />
+
     <com.twitter.sdk.android.core.identity.TwitterLoginButton
         android:id="@+id/login_button_tweet"
         android:layout_width="wrap_content"
