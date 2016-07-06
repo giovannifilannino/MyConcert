@@ -137,8 +137,11 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
     }
     public String[] getSelected(){
         String[] songchecked=new String[getItemCount()];
+
         for(int i=0;i<getItemCount();i++){
-            songchecked[i]="CAnzoneCheckata";
+            if(checked[i]){
+                songchecked[i]=songs.get(i).getTitle();
+            }
         }
         return songchecked;
     }

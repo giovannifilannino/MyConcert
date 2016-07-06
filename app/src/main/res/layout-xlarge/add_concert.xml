@@ -26,8 +26,9 @@
         android:textAlignment="center"
         android:id="@+id/luogoConcerto"
         android:layout_weight="1"
+        android:layout_marginTop="124dp"
         android:layout_below="@+id/dataConcerto"
-        android:layout_alignStart="@+id/dataConcerto" />
+        android:layout_alignParentStart="true" />
 
 
 
@@ -39,13 +40,16 @@
         android:gravity="center_vertical"
         android:id="@+id/canzoneConcerto"
         android:layout_below="@+id/luogoConcerto"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="91dp" />
 
     <android.support.v7.widget.RecyclerView
     android:id="@+id/list"
         android:layout_width="match_parent"
-    android:layout_height="350dp"
+    android:layout_height="fill_parent"
     android:requiresFadingEdge="vertical"
+        android:layout_marginBottom="108dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/canzoneConcerto" />
 </RelativeLayout>

@@ -4,8 +4,7 @@
     android:windowAllowReturnTransitionOverlap="false"
 
     android:orientation="vertical"
-    android:background="@android:color/white"
-    android:weightSum="1">
+    android:background="@android:color/white">
     <include
         android:id="@+id/tool_bar_lista"
         layout="@layout/tool_bar_lista"
@@ -14,15 +13,9 @@
         />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="fill_parent"
-        android:layout_height="587dp"
-        android:id="@+id/rv_partecipation"
-        android:layout_weight="0.81" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@android:id/empty"
-        android:text="Non partecipi a nessun concerto :( "/>
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/rv"
+        />
 
 </LinearLayout>
