@@ -1,7 +1,7 @@
 package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -13,9 +13,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ListView;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.PagerAdapter;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.loginFragment.OnLoginConfirmed{
 
@@ -31,11 +36,35 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
     private search_fragment search_fragmento;
+    private ViewPager viewPager;
+    private PagerAdapter adapter;
 
+    private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
+    private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Pass the activity result to the fragment, which will then pass the result to the login
+        // button.
+        PagerAdapter pagerAdapter = (PagerAdapter) viewPager.getAdapter();
+        int index = viewPager.getCurrentItem();
+        Fragment fragment = pagerAdapter.getFragment(index);
+        Log.d("je murt d'allah",fragment.toString());
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
 
         setContentView(R.layout.activity_main);
 
@@ -59,10 +88,11 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         tabLayout.setTabTextColors(Color.WHITE,R.color.colorAccent);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
+
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

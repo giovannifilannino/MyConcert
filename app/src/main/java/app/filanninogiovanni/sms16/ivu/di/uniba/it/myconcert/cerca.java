@@ -29,6 +29,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -44,6 +48,7 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.AdapterItem
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.NoSongsFound;
+import io.fabric.sdk.android.Fabric;
 
 public class cerca extends AppCompatActivity implements search_fragment.OnSearch, ListView.OnItemClickListener {
     private DrawerLayout drawerLayout;
@@ -72,6 +77,10 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
     private Fragment chosenConcerts;
 
+    private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
+    private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +102,8 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         toolbar = (Toolbar) findViewById(R.id.tool_bar_find);
         setSupportActionBar(toolbar);
         layoutManager = new LinearLayoutManager(this);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new TwitterCore(authConfig), new TweetComposer());
 
         int ICONS[] = {R.drawable.ic_home_black_24dp, R.drawable.ic_library_music_black_24dp, R.drawable.ic_tv_black_24dp};
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.account);
