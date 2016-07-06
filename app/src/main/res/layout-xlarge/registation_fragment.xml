@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/possibilesfondo"
+
+    tools:context="app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.MainActivity">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/interno"
+    android:background="@color/trasparente"
+    android:layout_above="@+id/buttonl"
+    android:layout_alignParentStart="true">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nomeReg"
+        android:hint="@string/name"
+        android:layout_marginTop="154dp"
+        android:textAlignment="center"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textColorHint="@android:color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cognomeReg"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:hint="Cognome"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/nomeReg" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:id="@+id/usernameReg"
+        android:textStyle="bold"
+        android:hint="@string/username"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:textAlignment="center"
+        android:layout_below="@+id/cognomeReg"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mailReg"
+        android:hint="@string/mail"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@+id/usernameReg"/>
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="@string/pass"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:alpha="51"
+        android:id="@+id/passwordReg"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@+id/mailReg"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentStart="false" />
+</RelativeLayout>
+
+
+
+    <Button
+
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/signup"
+        android:id="@+id/buttonl"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/rounded_bttn_blue"
+        android:textColor="@color/white"
+        android:elevation="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="43dp" />
+
+
+
+</RelativeLayout>
