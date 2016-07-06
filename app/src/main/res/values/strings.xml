@@ -61,7 +61,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
     <string name="scopri">discover exactly where !</string>
-    <string name="noConc">Non hai nessun concerto da fare !!</string>
+    <string name="noConc">You have non concert!</string>
     <string name="section_format" translatable="false">Hello World from section: %1$d</string>
     <string name="closea">Close</string>
     <string name="Venues">Venues not found</string>
@@ -78,8 +78,8 @@
 
     <string name="applicazionIDDeezer" translatable="false">182722</string>
 
-    <string name="title_activity_splash_scrren">My Concert</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_splash_scrren" translatable="false">My Concert</string>
+    <string name="dummy_button" translatable="false">Dummy Button</string>
+    <string name="dummy_content" translatable="false">DUMMY\nCONTENT</string>
     <string name="title_activity_concert_live_big_screen">ConcertLiveBigScreen</string>
 </resources>

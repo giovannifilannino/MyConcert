@@ -61,4 +61,7 @@
     <string name="search">Cerca</string>
     <string name="setlistmy">Le mie scalette</string>
     <string name="concert">Concerti</string>
+    <string name="title_activity_concert_live_big_screen">Grande schermo </string>
+    <string name="partecipero_preferences">partecipero</string>
+    <string name="noConc">Non hai nessun concerto da fare !!</string>
 </resources>
