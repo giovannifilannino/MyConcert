@@ -9,17 +9,14 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,14 +34,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.AdapterSongsArtista;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.MapsActivity;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.searchattivi;
 
 
 /**

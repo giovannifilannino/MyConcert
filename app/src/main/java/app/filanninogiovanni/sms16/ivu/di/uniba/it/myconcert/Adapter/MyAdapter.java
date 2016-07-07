@@ -112,8 +112,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             notifyItemInserted(0);
         final JSONObject jsonObject = new JSONObject();
 
-        URLAddConcerto += "&username="+ '"' +setList.getArtistName().replaceAll("\\s+","%20")+ '"'+
-                "&CittaConcerto=" + '"'+setList.getCity().replaceAll("\\s+","%20")+'"'+"&Data=" + '"'+setList.getDate().replaceAll("\\s+","%20")+'"'+"&PostoConcerto=" + '"'+setList.getVenueName().replaceAll("\\s+","%20")+'"';
+        URLAddConcerto += "&username="+ '"' +setList.getArtistName().replaceAll("\\s+","%20")+ '"'+"&CittaConcerto=" + '"'+setList.getCity().replaceAll("\\s+","%20")+'"'+"&Data=" + '"'+setList.getDate().replaceAll("\\s+","%20")+'"'+"&PostoConcerto=" + '"'+setList.getVenueName().replaceAll("\\s+","%20")+'"'+"&HashTag="+'"'+setList.getHashTag().replaceAll("\\s+","%20")+'"';
         JsonObjectRequest arrayRequest = new JsonObjectRequest(URLAddConcerto, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

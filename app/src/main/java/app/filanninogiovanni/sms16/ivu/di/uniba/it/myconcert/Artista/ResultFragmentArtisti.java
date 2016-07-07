@@ -168,6 +168,10 @@ public class ResultFragmentArtisti extends Fragment {
                         EditText luogo = (EditText) view.findViewById(R.id.luogoConcerto);
                         String lu=luogo.getText().toString();
                         add.setVenueName(lu);
+                        String hashtag ;
+                        EditText hash=(EditText) view.findViewById(R.id.hashtag);
+                        hashtag=hash.getText().toString();
+                        add.setHashTag("#"+hashtag);
                         DatePicker data = (DatePicker) view.findViewById(R.id.dataConcerto);
                         data.setBackgroundColor(getResources().getColor(R.color.bottoni));
                         int mese=data.getMonth()+1;
@@ -188,7 +192,7 @@ public class ResultFragmentArtisti extends Fragment {
                         }
                         String dataFinale=data.getYear()+"-"+mes+"-"+gio;
                         add.setDate(dataFinale);
-                        if(cit.compareToIgnoreCase("")==0||lu.compareToIgnoreCase("")==0){
+                        if(cit.compareToIgnoreCase("")==0||lu.compareToIgnoreCase("")==0||hashtag.compareToIgnoreCase("")==0){
                             Toast.makeText(context,"Dati errati",Toast.LENGTH_LONG).show();
                         }
                         else {

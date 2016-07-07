@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
 
     >
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
         android:id="@+id/cittaConcerto"
-        android:ems="5"
+        android:ems="10"
         android:hint="Città"
         android:textAlignment="center"
         android:elevation="2dp"
@@ -19,21 +21,38 @@
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/luogoConcerto"
         android:elevation="2dp"
         android:hint="Luogo"
         android:textAlignment="center"
-        android:ems="5"
+        android:ems="10"
         android:layout_below="@+id/cittaConcerto"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp" />
+    <EditText
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:id="@+id/hashtag"
+        android:ems="10"
+        android:layout_marginTop="15dp"
+        android:hint="Hashtag twitter"
+        android:textAlignment="center"
+        android:layout_below="@id/luogoConcerto"
+        android:elevation="2dp"
+        android:layout_centerHorizontal="true" />
 
     <DatePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/dataConcerto"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/luogoConcerto" />
+        android:layout_below="@+id/hashtag" />
 </RelativeLayout>
+</ScrollView>

@@ -82,25 +82,21 @@
 
                 <TextView
                     android:id="@+id/cittaDettagli"
-                    android:layout_width="138dp"
+                    android:layout_width="290dp"
                     android:layout_height="wrap_content"
-                    android:paddingRight="10dp"
                     android:paddingLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/white"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="70dp" />
+                    android:textColor="@android:color/white"  />
 
                 <TextView
                     android:id="@+id/luogoDettagli"
-                    android:layout_width="303dp"
+                    android:layout_width="309dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:gravity="right"
-                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/white"
-                    android:layout_gravity="right" />
+                    android:textColor="@android:color/white" />
             </LinearLayout>
 
         </LinearLayout>
