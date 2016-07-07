@@ -78,7 +78,8 @@ public class AdapterCardTweet extends RecyclerView.Adapter<AdapterCardTweet.View
             floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final TwitterSession session = loginFragment.twitterSession;
+                    final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+                            .getActiveSession();
                     final Intent intent = new ComposerActivity.Builder(mContext)
                             .session(session)
                             .hashtags("#aaaaa")

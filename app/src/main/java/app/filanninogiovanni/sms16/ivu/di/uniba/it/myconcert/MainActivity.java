@@ -25,6 +25,7 @@ import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.PagerAdapter;
 import io.fabric.sdk.android.Fabric;
@@ -82,27 +83,17 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         super.onCreate(savedInstanceState);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
-
+        Fabric.with(this, new TwitterCore(authConfig));
+        Fabric.with(this, new TwitterCore(authConfig), new TweetComposer());
         setContentView(R.layout.activity_main);
-
+        twitterAuthClient = new TwitterAuthClient();
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
         listViewDrawerLayout = (ListView) findViewById(R.id.left_drawer); //lista del menu laterale
 
         setSupportActionBar(toolbar);
 
-        twitterAuthClient = new TwitterAuthClient();
-        twitterAuthClient.authorize(this, new Callback<TwitterSession>() {
-            @Override
-            public void success(Result<TwitterSession> result) {
-                Log.d("mlml","va");
-            }
 
-            @Override
-            public void failure(TwitterException exception) {
-                Log.d("mlml","non va");
-            }
-        });
 
         //fragment registrazione //da sostituire con quella di login
        fragmentManager = getFragmentManager();
@@ -147,6 +138,24 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     public void goToSearchFragment() {
         Intent goToCerca = new Intent(this,cerca.class);
         startActivity(goToCerca);
+    }
+
+    @Override
+    public void loginTwitter() {
+
+        twitterAuthClient.authorize(this, new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                Log.d("mlml","va");
+                Log.d("mlml",result.data.getUserName());
+                Log.d("mlml",String.valueOf(result.data.getUserId()));
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Log.d("mlml","non va");
+            }
+        });
     }
 
 

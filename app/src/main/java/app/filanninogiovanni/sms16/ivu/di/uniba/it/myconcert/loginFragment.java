@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,9 +67,10 @@ public class loginFragment extends Fragment {
 
     String franco;
 
-    private TwitterLoginButton loginButton;
+    private ImageButton loginButton;
 
     RequestQueue requestQueue;
+
 
     /*public TwitterSession getTwitterSession(){
         return twitterSession;
@@ -88,8 +90,9 @@ public class loginFragment extends Fragment {
 
     public interface OnLoginConfirmed{
         public void goToSearchFragment();
-
+        public void loginTwitter();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,7 +107,7 @@ public class loginFragment extends Fragment {
         password = (EditText) getActivity().findViewById(R.id.password);
         regartista=(TextView) getActivity().findViewById(R.id.regartista) ;
 
-        loginButton = (TwitterLoginButton) getActivity().findViewById(R.id.login_button_tweet);
+        loginButton = (ImageButton) getActivity().findViewById(R.id.login_button_tweet);
 
        regartista.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -113,23 +116,10 @@ public class loginFragment extends Fragment {
                startActivity(browserIntent);
            }
        });
-
-
-        loginButton.setCallback(new Callback<TwitterSession>() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void success(Result<TwitterSession> result) {
-                // The TwitterSession is also available through:
-                // Twitter.getInstance().core.getSessionManager().getActiveSession()
-
-                TwitterSession session = result.data;
-                // TODO: Remove toast and use the TwitterSession's userID
-                // with your app's user model
-                String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
-                Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
-            }
-            @Override
-            public void failure(TwitterException exception) {
-                Log.d("TwitterKit", "Login with Twitter failure", exception);
+            public void onClick(View v) {
+                mLogin.loginTwitter();
             }
         });
 
