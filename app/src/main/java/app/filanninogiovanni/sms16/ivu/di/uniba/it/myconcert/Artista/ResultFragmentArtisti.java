@@ -171,7 +171,7 @@ public class ResultFragmentArtisti extends Fragment {
                         String hashtag ;
                         EditText hash=(EditText) view.findViewById(R.id.hashtag);
                         hashtag=hash.getText().toString();
-                        add.setHashTag("#"+hashtag);
+                        add.setHashTag(hashtag);
                         DatePicker data = (DatePicker) view.findViewById(R.id.dataConcerto);
                         data.setBackgroundColor(getResources().getColor(R.color.bottoni));
                         int mese=data.getMonth()+1;
