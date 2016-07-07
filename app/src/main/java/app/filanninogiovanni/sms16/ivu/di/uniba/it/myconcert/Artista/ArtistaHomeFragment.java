@@ -84,7 +84,7 @@ public class ArtistaHomeFragment extends Fragment {
     String urlPrimoConcerto="http://mymusiclive.altervista.org/getPrimoConcertoAttivo.php?username=";
 
     private ArrayList<String> songArray;
-
+    public static String HashTag = "";
     private RequestQueue requestQueue;
     Context context;
 
@@ -122,13 +122,15 @@ public class ArtistaHomeFragment extends Fragment {
                 try {
                     if (jsonArray.toString().compareToIgnoreCase("[]")!=0){
                         Setlist conc = new Setlist();
-                    jsonObject = response.getJSONObject(0);
-                    cittaConcerto = jsonObject.getString("CittaConcerto");
-                    luogoConcerto = cittaConcerto;
+                        jsonObject = response.getJSONObject(0);
+                        cittaConcerto = jsonObject.getString("CittaConcerto");
+                        luogoConcerto = cittaConcerto;
                         extra=getString(R.string.scopri);
                         ext.setText(extra);
                         luogo.setText(luogoConcerto);
-                    conc.setCity(cittaConcerto);
+                        HashTag = jsonObject.getString("HashTag");
+                        conc.setCity(cittaConcerto);
+
                     postoConcerto = jsonObject.getString("PostoConcerto");
                     conc.setVenueName(postoConcerto);
                     Geocoder coder = new Geocoder(context);

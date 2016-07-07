@@ -346,10 +346,11 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     private ArrayList<Song> getSongArray(String artist, ArrayList<String> songs){
         ArrayList<Song> songArray = new ArrayList<Song>();
-        for(String s: songs){
-            songArray.add(new Song(s,artist));
+        if(songs!=null) {
+            for (String s : songs) {
+                songArray.add(new Song(s, artist));
+            }
         }
-
         return songArray;
     }
     @Override

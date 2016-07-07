@@ -51,6 +51,7 @@ public class ChosenConcerts extends Fragment {
                         jsonObject = response.getJSONObject(i);
                         setlist.setArtistName(jsonObject.getString("PseArtista"));
                         setlist.setDate(jsonObject.getString("Data"));
+                        setlist.setHashTag(jsonObject.getString("HashTag"));
                         partecipationList.add(setlist);
                     } catch (JSONException e) {
                         e.printStackTrace();

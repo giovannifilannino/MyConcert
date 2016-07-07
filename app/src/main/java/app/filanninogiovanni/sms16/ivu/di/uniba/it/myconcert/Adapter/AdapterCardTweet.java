@@ -75,19 +75,6 @@ public class AdapterCardTweet extends RecyclerView.Adapter<AdapterCardTweet.View
             linearLayout=(LinearLayout) v.findViewById(R.id.mainHolder);
             linearLayout.setOnClickListener(this);
 
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final TwitterSession session = TwitterCore.getInstance().getSessionManager()
-                            .getActiveSession();
-                    final Intent intent = new ComposerActivity.Builder(mContext)
-                            .session(session)
-                            .hashtags("#aaaaa")
-                            .createIntent();
-                    mContext.startActivity(intent);
-                }
-            });
-
             floatingActionButton.setImageResource(R.drawable.tweeticon2);
 
         }
@@ -137,6 +124,21 @@ public class AdapterCardTweet extends RecyclerView.Adapter<AdapterCardTweet.View
         //holder.nameVenue.setText(setList.getVenueName());
         // holder.nameCity.setText(setList.getCity());
         holder.date.setText(setList.getDate());
+
+
+
+        holder.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+                        .getActiveSession();
+                final Intent intent = new ComposerActivity.Builder(mContext)
+                        .session(session)
+                        .hashtags(setList.getHashTag())
+                        .createIntent();
+                mContext.startActivity(intent);
+            }
+        });
 
         if (setList.getCover() != null) {
             Palette palette = Palette.generate(setList.getCover());

@@ -24,6 +24,8 @@ import com.twitter.sdk.android.tweetui.TweetView;
 import java.util.Arrays;
 import java.util.List;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHomeFragment;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
 
 /**
@@ -38,7 +40,7 @@ public class TwitterList extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SearchTimeline searchTimeline = new SearchTimeline.Builder().query("#gameofthrones").build();
+        SearchTimeline searchTimeline = new SearchTimeline.Builder().query(ArtistaHomeFragment.HashTag).build();
         TweetTimelineListAdapter tweetTimelineListAdapter = new TweetTimelineListAdapter.Builder(getActivity()).setTimeline(searchTimeline).build();
 
         setListAdapter(tweetTimelineListAdapter);

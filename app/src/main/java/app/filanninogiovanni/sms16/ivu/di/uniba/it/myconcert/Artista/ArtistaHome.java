@@ -131,7 +131,8 @@ public class ArtistaHome extends AppCompatActivity {
         setSupportActionBar(toolbar);
         final String[]  optionDrawer= {"HOME","CONCERTI ATTIVI","SCHERMI GRANDI"};
         int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp};
-
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
         recyclerView = (RecyclerView) findViewById(R.id.left_drawer);
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.account);
         final AdapterItemDrawer adapterItemDrawer =new AdapterItemDrawer(optionDrawer,ICONS,nomeArtistaString+" "+cognomeArtistaString,aliasArtistaString,bitmap,this);

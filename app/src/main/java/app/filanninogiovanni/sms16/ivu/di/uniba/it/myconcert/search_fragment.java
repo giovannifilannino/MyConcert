@@ -182,6 +182,7 @@ public class search_fragment extends Fragment {
                         setlist.setDate(jsonObject.getString("Data"));
                         setlist.setVenueName(jsonObject.getString("PostoConcerto"));
                         setlist.setId(jsonObject.getString("IdConcerto"));
+                        setlist.setHashTag("#"+jsonObject.getString("PseArtista"));
                         urlARtistCover = jsonObject.getString("Immagine");
                         setList.add(setlist);
                         FROM_MYCONCERTDB = true;
