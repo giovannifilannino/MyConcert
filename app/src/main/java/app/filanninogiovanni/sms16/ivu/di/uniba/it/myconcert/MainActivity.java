@@ -2,9 +2,7 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 
 
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;

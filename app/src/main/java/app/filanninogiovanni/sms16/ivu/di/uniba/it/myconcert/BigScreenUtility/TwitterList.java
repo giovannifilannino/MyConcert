@@ -6,6 +6,7 @@ import android.app.ListActivity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,10 @@ public class TwitterList extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SearchTimeline searchTimeline = new SearchTimeline.Builder().query(ArtistaHomeFragment.HashTag).build();
+        String query = "#" + ArtistaHomeFragment.HashTag;
+        
+
+        SearchTimeline searchTimeline = new SearchTimeline.Builder().query(query).build();
         TweetTimelineListAdapter tweetTimelineListAdapter = new TweetTimelineListAdapter.Builder(getActivity()).setTimeline(searchTimeline).build();
 
         setListAdapter(tweetTimelineListAdapter);
