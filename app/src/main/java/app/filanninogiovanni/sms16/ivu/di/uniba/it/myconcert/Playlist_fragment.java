@@ -29,6 +29,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+
 /**
  * Created by delmi on 08/07/2016.
  */
@@ -37,6 +39,8 @@ public class Playlist_fragment extends Fragment {
     private ArrayList Data = new ArrayList();
     private ArrayList Artista = new ArrayList();
     private RequestQueue requestQueue;
+    ArrayList<Setlist> setLists = new ArrayList<Setlist>();
+    Setlist setlist;
 
 
 
@@ -57,7 +61,7 @@ public class Playlist_fragment extends Fragment {
                         Data.add(jsonObject.getString("NomeCanzone"));
                         Artista.add(jsonObject.getString("PseArtista"));
 
-                    } catch (JSONException e) {
+                        } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
@@ -81,6 +85,7 @@ public class Playlist_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.playlist_fragment,container,false);
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
