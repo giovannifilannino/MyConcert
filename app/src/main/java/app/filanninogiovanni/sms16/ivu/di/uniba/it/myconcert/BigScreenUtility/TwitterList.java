@@ -42,7 +42,7 @@ public class TwitterList extends ListFragment {
         super.onCreate(savedInstanceState);
 
         String query = "#" + ArtistaHomeFragment.HashTag;
-        
+
 
         SearchTimeline searchTimeline = new SearchTimeline.Builder().query(query).build();
         TweetTimelineListAdapter tweetTimelineListAdapter = new TweetTimelineListAdapter.Builder(getActivity()).setTimeline(searchTimeline).build();

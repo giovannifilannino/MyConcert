@@ -14,7 +14,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -25,7 +32,13 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.PagerAdapter;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.loginFragment.OnLoginConfirmed{
@@ -50,29 +63,20 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
     private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
 
+    private String URL = "http://mymusiclive.altervista.org/checkUtente.php?username=";
+    private static final String SUCCESS_TAG = "success";
+    private RequestQueue requestQueue;
+    private String URLRegistration = "http://mymusiclive.altervista.org/registration.php?";
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         Log.d("dati inviati"," " + requestCode +" " +resultCode +" " +data.getDataString());
         twitterAuthClient.onActivityResult(requestCode,resultCode,data
 
         );
-        // Pass the activity result to the fragment, which will then pass the result to the login
-        // button.
-        /*
-        PagerAdapter pagerAdapter = (PagerAdapter) viewPager.getAdapter();
-        int index = viewPager.getCurrentItem();
-        Fragment fragment = pagerAdapter.getRegisteredFragment(index);
-
-        Log.d("mlmlmlml",fragment.toString());
-        if (fragment != null) {
-            fragment.onActivityResult(requestCode, resultCode, data);
-            Log.d("dati inviati"," " + requestCode +" " +resultCode +" " +data.getDataString());
-        }
-*/
 
     }
 
@@ -80,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        requestQueue = Volley.newRequestQueue(this);
         Fabric.with(this, new Twitter(authConfig));
         Fabric.with(this, new TwitterCore(authConfig));
         Fabric.with(this, new TwitterCore(authConfig), new TweetComposer());
@@ -91,16 +96,8 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
         setSupportActionBar(toolbar);
 
-
-
-        //fragment registrazione //da sostituire con quella di login
        fragmentManager = getFragmentManager();
-       // FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
 
-      //  loginFragment = new loginFragment();
-
-      //  fragmentTransaction.add(R.id.content_frame, loginFragment);
-      //  fragmentTransaction.commit();
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.login));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.signup));
@@ -142,11 +139,38 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     public void loginTwitter() {
 
         twitterAuthClient.authorize(this, new Callback<TwitterSession>() {
+            JSONObject jsonObject = new JSONObject();
             @Override
             public void success(Result<TwitterSession> result) {
-                Log.d("mlml","va");
-                Log.d("mlml",result.data.getUserName());
-                Log.d("mlml",String.valueOf(result.data.getUserId()));
+                URL = URL + '"'+result.data.getUserName()+'"';
+                final String user = result.data.getUserName();
+                JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        JSONObject test = response;
+                        try {
+                            String success = test.getString(SUCCESS_TAG);
+                            Log.d("mlml",success);
+
+                            if(success.compareTo("1")==0){
+                                goToSearchFragment();
+                            } else {
+                                RegistrationAndLogin(user);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+
+
+                });
+                requestQueue.add(arrayRequest);
             }
 
             @Override
@@ -155,6 +179,38 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
             }
         });
     }
+
+    private void RegistrationAndLogin(String user){
+        JSONObject jsonObject = new JSONObject();
+        URLRegistration += "&nome=" + user  + "&cognome="  + "" + "&username=" + user+ "&password=" + "";
+        JsonObjectRequest arrayRequest = new JsonObjectRequest(URLRegistration, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONObject test = response;
+                try {
+                    String success = test.get(SUCCESS_TAG).toString();
+                    if(success.compareTo("1")==0){
+                        goToSearchFragment();
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+
+        });
+        requestQueue.add(arrayRequest);
+
+    }
+
 
 
 }
