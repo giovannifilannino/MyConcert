@@ -101,6 +101,17 @@ public class ResultFragment extends Fragment {
 
                     Pair<View, String> navbar =Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
 
+
+
+
+
+
+
+
+
+
+
+
                     Pair<View, String> imagePair = Pair.create((View ) placeImage, "tImage");
                     Pair<View, String> holderPair = Pair.create((View) placeNameHolder, "tNameHolder");
                     ActivityOptionsCompat options;
