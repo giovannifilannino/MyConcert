@@ -86,11 +86,25 @@ public class ArtistaHomeFragment extends Fragment {
         return inflater.inflate(R.layout.artista_home_fragment, container, false);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("alias",aliasArtistaString);
+        outState.putString("nome",nomeArtistaString);
+        outState.putString("cognome",cognomeArtistaString);
+        outState.putString("url",urlImmagine);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
        public void onActivityCreated(Bundle savedInstanceState) {
                 super.onActivityCreated(savedInstanceState);
         context=getActivity();
+        if(savedInstanceState!=null){
+            aliasArtistaString=savedInstanceState.getString("alias");
+            nomeArtistaString=savedInstanceState.getString("nome");
+            cognomeArtistaString=savedInstanceState.getString("cognome");
+            urlImmagine=savedInstanceState.getString("url");
+        }
         listaCanzoni = (RecyclerView) getActivity().findViewById(R.id.listTopFiveSongs);
         findImg=(ImageView)getActivity().findViewById(R.id.findImg);
         //artistImage = (ImageView) getActivity().findViewById(R.id.artista_immagine);

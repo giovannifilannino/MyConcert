@@ -68,7 +68,7 @@ public class ArtistaHome extends AppCompatActivity {
     ArrayList<Setlist> concerti=new ArrayList<Setlist>();
     FragmentManager fragmentManager;
     String urlPHPpart = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
-
+String stato;
     private Intent goToTwitter;
     Context context;
     Toolbar toolbar;
@@ -81,6 +81,10 @@ public class ArtistaHome extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.artistahome);
+        if(savedInstanceState!=null)
+        {
+            stato=savedInstanceState.getString("stato");
+        }
         fragmentManager =getFragmentManager();
         urlImmagine=getIntent().getStringExtra("url");
         nomeArtistaString=getIntent().getStringExtra("nome");
@@ -167,6 +171,7 @@ public class ArtistaHome extends AppCompatActivity {
         };
         adapterItemDrawer.setOnItemClickListener(onItemClickListener);
 
+
         ArtistaHomeFragment artistaHome=new ArtistaHomeFragment();
         artistaHome.setNomeArtistaString(nomeArtistaString);
         artistaHome.setCognomeArtitaString(cognomeArtistaString);
@@ -174,6 +179,7 @@ public class ArtistaHome extends AppCompatActivity {
         artistaHome.setUrlImmagine(urlImmagine);
         startTransiction(artistaHome);
     }
+
     public void goToConcert(final ResultFragmentArtisti fragment){
         String artista=aliasArtistaString.replaceAll("\\s+","%20");
         String url=urlPHPpart+'"'+artista + '"';
@@ -221,8 +227,6 @@ public class ArtistaHome extends AppCompatActivity {
         fragmentTransaction.replace(R.id.content_frame, fragment);
         fragmentTransaction.addToBackStack("").commit();
     }
-
-
 
 
     @Override
