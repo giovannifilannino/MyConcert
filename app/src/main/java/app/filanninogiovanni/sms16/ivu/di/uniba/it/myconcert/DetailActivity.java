@@ -83,7 +83,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"' + "&idConcerto=" +
                         "'"+ idConcerto+ "'";
             JSONObject jsonObject = new JSONObject();
-            Log.d("url" , URL);
+            Log.d("url_partecipation" , URL);
                 JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -129,12 +129,12 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             String[] listSong=itemSongPlayAdapter.getSelected();
             Log.d("HAi ","Cliccato il floating");
             String need="&TitoloCanzoni[";
-            String URL = "http://mymusiclive.altervista.org/Playlist.php?&Data=" +"'"+ datformEN() +"'"+"&PseArtista="+"'"+ nomeArtista.getText() +"'"
-                    + "&Username="+"'"+ loginFragment.actualUsername +"'";
-            char virgolette='"';
+            String URL = "http://mymusiclive.altervista.org/Playlist.php?&Data=" +'"'+ datformEN() +'"'+"&PseArtista="+'"'+ nomeArtista.getText().toString().replaceAll("\\s+","%20") +'"'
+                    + "&Username="+'"'+ loginFragment.actualUsername.replaceAll("\\s+","%20") +'"' +"&id=" + '"'+idConcerto + '"';
+
             for(int i=0;i<listSong.length;i++){
                 if(listSong[i]!=null){
-                    URL=URL+ need+Numcanzoni+"]="+virgolette+listSong[i]+virgolette;
+                    URL=URL+ need+Numcanzoni+"]="+'"'+listSong[i].replaceAll("\\s+","%20")+'"';
 
                     Numcanzoni++;
                 }
@@ -147,7 +147,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.d("HAi ","Inviato la responsereq");
 
                     JSONObject test = response;
                     try {
@@ -180,9 +179,10 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     private String datformEN() {
         String dataEN;
-        String giorno=data.substring(0,2);
-        String mese=data.substring(3,5);
-        String anno=data.substring(6,10);
+        Log.d("dataaaa",data);
+        String giorno=data.substring(9,10);
+        String mese=data.substring(6,7);
+        String anno=data.substring(0,4);
         dataEN=anno+"-"+mese+"-" +giorno;
         return dataEN;
     }

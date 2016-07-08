@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -153,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
                             Log.d("mlml",success);
 
                             if(success.compareTo("1")==0){
+                                loginFragment.setActualUsername(user);
                                 goToSearchFragment();
                             } else {
                                 RegistrationAndLogin(user);
@@ -182,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
     private void RegistrationAndLogin(String user){
         JSONObject jsonObject = new JSONObject();
+        loginFragment.setActualUsername(user);
         URLRegistration += "&nome=" + user  + "&cognome="  + "" + "&username=" + user+ "&password=" + "";
         JsonObjectRequest arrayRequest = new JsonObjectRequest(URLRegistration, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
                 try {
                     String success = test.get(SUCCESS_TAG).toString();
                     if(success.compareTo("1")==0){
+
                         goToSearchFragment();
                     } else {
 

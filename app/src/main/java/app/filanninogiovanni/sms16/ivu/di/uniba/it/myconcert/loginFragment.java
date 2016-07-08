@@ -50,6 +50,9 @@ public class loginFragment extends Fragment {
     private String PasswordURL = "&password=";
     private String formatJson = "&format=json";
     public static String actualUsername;
+
+
+
     private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
     private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
 
@@ -63,7 +66,6 @@ public class loginFragment extends Fragment {
     private TextView regartista;
     private static String usernameShare;
 
-    public static TwitterSession twitterSession;
 
     String franco;
 
@@ -227,6 +229,9 @@ public class loginFragment extends Fragment {
     }
 
 
+    public static void setActualUsername(String actualUsername) {
+        loginFragment.actualUsername = actualUsername;
+    }
 
 
 }
