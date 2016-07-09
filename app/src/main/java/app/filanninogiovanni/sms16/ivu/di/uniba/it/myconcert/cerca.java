@@ -76,6 +76,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
     private String concertString;
 
     private Fragment chosenConcerts;
+    private Fragment playlist_fragment;
 
     private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
     private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
@@ -91,6 +92,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         setlistString = getResources().getString(R.string.setlistmy);
         concertString = getResources().getString(R.string.concert);
         chosenConcerts = new ChosenConcerts();
+        playlist_fragment=new Playlist_fragment();
         recyclerView = (RecyclerView) findViewById(R.id.left_drawer);
         optionDrawer = getResources().getStringArray(R.array.opzioni); //opzioni del menu laterale
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout); //information per la comparsa del menu laterale
@@ -158,6 +160,9 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
                     Fragment search = new search_fragment();
                     fragmentTransaction.replace(R.id.content_frame, search).commit();
                 } else if (optionDrawer[position].compareToIgnoreCase(setlistString) == 0) {
+                    fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content_frame, playlist_fragment).commit();
                 } else if (optionDrawer[position].compareToIgnoreCase(concertString) == 0) {
                     fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

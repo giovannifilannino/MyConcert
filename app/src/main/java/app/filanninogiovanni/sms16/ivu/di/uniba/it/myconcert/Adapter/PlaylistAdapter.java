@@ -92,6 +92,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
     }
 
+
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position,Setlist setlist);
     }

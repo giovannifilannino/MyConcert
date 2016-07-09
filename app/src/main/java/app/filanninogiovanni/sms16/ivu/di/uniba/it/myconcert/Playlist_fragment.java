@@ -90,4 +90,11 @@ public class Playlist_fragment extends Fragment {
         requestQueue.add(jsonArrayRequest);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        setLists=new ArrayList<>();
+    }
+
+
 }
