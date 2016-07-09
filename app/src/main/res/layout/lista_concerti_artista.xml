@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:windowAllowReturnTransitionOverlap="false"
+
 
     android:orientation="vertical"
     android:background="@android:color/white">
@@ -16,6 +19,7 @@
         android:id="@+id/rv"
         />
 
+
         <android.support.design.widget.FloatingActionButton
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -26,7 +30,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="20dp"
+            app:layout_behavior="com.valdio.valdioveliu.floatingactionbuttonproject.Scrolling_Floating_Action_Button.FAB_Hide_on_Scroll"
             android:layout_marginRight="20dp"
             />
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

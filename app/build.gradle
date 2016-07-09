@@ -54,7 +54,10 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:1.14.1@aar') {
         transitive = true;
     }
+    compile 'com.github.clans:fab:1.6.4'
+
     compile 'de.hdodenhof:circleimageview:1.2.1'
     compile 'com.android.support:support-v13:+'
+
     
 }

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.AdapterCardTweet;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.PlaylistAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 
 /**
@@ -36,60 +40,70 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
  */
 
 public class Playlist_fragment extends Fragment {
-    private ArrayList Data = new ArrayList();
-    private ArrayList Artista = new ArrayList();
+
     private RequestQueue requestQueue;
     ArrayList<Setlist> setLists = new ArrayList<Setlist>();
     Setlist setlist;
+    private RecyclerView recyclerView;
 
 
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_chosen_concerts,container,false);
+    }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        requestQueue = Volley.newRequestQueue(getActivity());
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        requestQueue = Volley.newRequestQueue(getContext());
         String URL="http://mymusiclive.altervista.org/getPlaylist.php?&user=" + '"'+loginFragment.actualUsername+'"';
         Log.d("HAi ","" +URL);
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            JSONObject jsonObject;
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                JSONObject jsonObject;
-                for(int i=0; i<response.length(); i++){
+
+                for(int i=0; i<response.length();i++){
                     try {
                         jsonObject = response.getJSONObject(i);
-                        Data.add(jsonObject.getString("NomeCanzone"));
-                        Artista.add(jsonObject.getString("PseArtista"));
-
-                        } catch (JSONException e) {
+                        Setlist setlist = new Setlist();
+                        setlist.setDate(jsonObject.getString("DataConcerto"));
+                        setlist.setArtistName(jsonObject.getString("PseArtista"));
+                        setLists.add(i,setlist);
+                        String data=jsonObject.getString("DataConcerto");
+                        Log.d("DAta"+ i,""+data);
+                        String artista=jsonObject.getString("PseArtista");
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
+                recyclerView = (RecyclerView) getActivity().findViewById(R.id.rv_partecipation);
+                LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+                llm.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(llm);
 
 
+
+
+                PlaylistAdapter ca = new PlaylistAdapter(getActivity(), R.layout.card2, setLists);
+                recyclerView.setAdapter(ca);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("HAi ","errorresp");
-
             }
-
-
         });
         requestQueue.add(jsonArrayRequest);
     }
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.playlist_fragment,container,false);
-    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
+    public void onPause() {
+        super.onPause();
+        setLists=new ArrayList<>();
     }
+
+
 }
