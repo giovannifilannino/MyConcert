@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +30,8 @@ import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
@@ -60,6 +65,7 @@ public class AdapterCardTweet extends RecyclerView.Adapter<AdapterCardTweet.View
         LinearLayout barra;
         ImageView coverArtista;
         FloatingActionButton floatingActionButton;
+        FloatingActionButton floatingActionButtonmaps;
         // CardView cardView;
         LinearLayout linearLayout;
         public ViewHolder(View v) {
@@ -70,6 +76,7 @@ public class AdapterCardTweet extends RecyclerView.Adapter<AdapterCardTweet.View
             date = (TextView) v.findViewById(R.id.data);
             barra=(LinearLayout)v.findViewById(R.id.placeNameHolder);
             floatingActionButton=(FloatingActionButton) v.findViewById(R.id.tweetIT);
+            floatingActionButtonmaps=(FloatingActionButton) v.findViewById(R.id.maps);
             //cardView=(CardView)v.findViewById(R.id.cv);
             coverArtista = (ImageView) v.findViewById(R.id.placeImage);
             linearLayout=(LinearLayout) v.findViewById(R.id.mainHolder);
@@ -126,7 +133,15 @@ public class AdapterCardTweet extends RecyclerView.Adapter<AdapterCardTweet.View
         holder.date.setText(setList.getDate());
 
 
+        holder.floatingActionButtonmaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?daddr="+setList.getCity()+" "+setList.getVenueName()));
+                        mContext.startActivity(intent);
+            }
+        });
         holder.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

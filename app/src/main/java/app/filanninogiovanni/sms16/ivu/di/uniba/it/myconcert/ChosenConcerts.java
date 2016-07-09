@@ -52,6 +52,8 @@ public class ChosenConcerts extends Fragment {
                         setlist.setArtistName(jsonObject.getString("PseArtista"));
                         setlist.setDate(jsonObject.getString("Data"));
                         setlist.setHashTag(jsonObject.getString("HashTag"));
+                        setlist.setCity(jsonObject.getString("CittaConcerto"));
+                        setlist.setVenueName(jsonObject.getString("PostoConcerto"));
                         partecipationList.add(setlist);
                     } catch (JSONException e) {
                         e.printStackTrace();
