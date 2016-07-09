@@ -45,7 +45,8 @@
     <string name="search">Search</string>
     <string name="setlistmy">My SetList</string>
     <string name="concert">Concerts</string>
-
+    <string name="areuartist">Are you an artist?</string>
+    <string name="signinartist">Sign in</string>
 
     <string-array name="opzioni">
         <item>@string/search</item>

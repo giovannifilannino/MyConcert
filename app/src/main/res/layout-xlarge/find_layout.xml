@@ -20,13 +20,12 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:inputType="textPersonName"
         android:id="@+id/venue_name_search"
-        android:layout_marginLeft="45dp"
         android:hint="@string/venues"
         android:layout_marginRight="80dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/artist_name_search"
         android:layout_alignStart="@+id/artist_name_search" />
 

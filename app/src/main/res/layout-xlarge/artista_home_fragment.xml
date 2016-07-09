@@ -63,6 +63,14 @@
 
             />
 
+        <ImageView
+            android:id="@+id/findImg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/find"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
 
@@ -74,7 +82,8 @@
         android:layout_marginLeft="20dp"
         android:text="@string/topfive"
         android:textSize="20dp"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/pross"
         android:layout_centerHorizontal="true" />
 
 
@@ -82,21 +91,13 @@
 
         android:id="@+id/listTopFiveSongs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
         android:layout_alignParentBottom="true"
+        android:layout_below="@id/scritta"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="190dp">
+        android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
-
-    <ImageView
-        android:id="@+id/findImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-
-        android:src="@drawable/find"
-        android:layout_below="@+id/pross"
-        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

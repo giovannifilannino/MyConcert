@@ -96,24 +96,23 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login_button_tweet"
-        android:layout_toStartOf="@+id/regartista"
-        android:text="Sei un artista?"
-        android:layout_marginTop="50dp"
+        android:text="@string/signup"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/imageView" />
     <TextView
         android:id="@+id/regartista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:text="Registrati"
+        android:text="@string/signinartist"
         android:textColor="@color/red"
-        android:layout_marginTop="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="320dp"
+        android:layout_marginTop="70dp"
         android:layout_below="@id/login_button_tweet"
+        android:layout_toRightOf="@id/textView2"
         android:textIsSelectable="true"
+        android:layout_centerHorizontal="true"
         android:textStyle="bold"
        />
 
