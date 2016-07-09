@@ -95,8 +95,8 @@ String stato;
         requestQueue = Volley.newRequestQueue(this);
         toolbar=(Toolbar)findViewById(R.id.tool_bar_artista) ;
         setSupportActionBar(toolbar);
-        final String[]  optionDrawer= {"HOME","CONCERTI ATTIVI","SCHERMI GRANDI", "NERCHIONE"};
-        int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp,R.drawable.ic_tv_black_24dp};
+        final String[]  optionDrawer= {"HOME","CONCERTI ATTIVI","SCHERMI GRANDI", "SCELTE UTENTI"};
+        int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp,R.drawable.ic_playlist_add_check_black_24dp};
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         recyclerView = (RecyclerView) findViewById(R.id.left_drawer);
@@ -164,7 +164,7 @@ String stato;
                             startTransiction(twitterList);
 
                         }
-                    case "NERCHIONE":
+                    case "SCELTE UTENTI":
                         drawerLayout.closeDrawers();
                         dialog = new ProgressDialog(context);
                         dialog.setMessage("Caricamento..");
