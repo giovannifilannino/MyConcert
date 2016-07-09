@@ -111,7 +111,7 @@
         android:textColor="@color/red"
         android:layout_marginTop="50dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="560dp"
+        android:layout_marginRight="320dp"
         android:layout_below="@id/login_button_tweet"
         android:textIsSelectable="true"
         android:textStyle="bold"
