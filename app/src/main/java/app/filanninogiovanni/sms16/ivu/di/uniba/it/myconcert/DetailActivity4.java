@@ -2,18 +2,13 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
 import android.transition.Transition;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -22,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -37,54 +31,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter3;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHomeFragment;
-import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
-
-
-
-import android.app.Activity;
-import android.app.Application;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.graphics.Palette;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.transition.Fade;
-import android.transition.Transition;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.deezer.sdk.network.connect.DeezerConnect;
-import com.deezer.sdk.network.request.DeezerRequest;
-import com.deezer.sdk.network.request.event.RequestListener;
-import com.deezer.sdk.player.AlbumPlayer;
-import com.deezer.sdk.player.TrackPlayer;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.Adapter2;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHomeFragment;
-import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ResultFragmentArtisti;
-import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
 
 
 public class DetailActivity4 extends Activity implements View.OnClickListener {
@@ -96,7 +44,7 @@ public class DetailActivity4 extends Activity implements View.OnClickListener {
     private TextView dataTXT;
     private LinearLayout mTitleHolder;
     private ArrayList<String> setlist;
-    private RelativeLayout mRevealView;
+    private LinearLayout mRevealView;
     private EditText mEditTextTodo;
     private String nome;
     private String cit;
@@ -131,7 +79,7 @@ public class DetailActivity4 extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.card_detail);
+        setContentView(R.layout.card_detail_best_songs);
         final Context context = this;
         setlist = getIntent().getStringArrayListExtra("canzoni");
         nome = getIntent().getStringExtra("cantante");
@@ -146,15 +94,15 @@ public class DetailActivity4 extends Activity implements View.OnClickListener {
         luogo = (TextView) findViewById(R.id.luogoDett);
         dataTXT = (TextView) findViewById(R.id.dataDett);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
-        mRevealView = (RelativeLayout) findViewById(R.id.llEditTextHolder);
+        mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
         defaultColor = getResources().getColor(R.color.colorPrimaryDark);
         requestQueue = Volley.newRequestQueue(this);
-        final RecyclerView recList = (RecyclerView) findViewById(R.id.playlist);
+        final RecyclerView recList = (RecyclerView) findViewById(R.id.list);
         //recList.addItemDecoration(new LineItemDecoration());
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        final Adapter3 ca = new Adapter3(this, R.layout.item_best_songs, setlist, idConcerto);
+        final Adapter3 ca = new Adapter3(this, R.layout.item_best_songs, setlist);
         mImageView.setImageBitmap(ArtistaHomeFragment.immagine);
         Palette palette = Palette.generate(ArtistaHomeFragment.immagine);
         int standard=getResources().getColor(R.color.colorPrimary);
