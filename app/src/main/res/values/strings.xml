@@ -36,7 +36,7 @@
     <string name="databreve" translatable="false">aaaa-mm-gg</string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
-
+    <string name="not_logged">You are not logged on Twitter.</string>
     <!-- Questa string non è da modificare in italiano  -->
     <string name="partecipero_preferences">PREFERENCES_CONCERT</string>
 

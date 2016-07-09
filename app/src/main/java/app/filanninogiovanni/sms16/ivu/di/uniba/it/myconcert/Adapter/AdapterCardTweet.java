@@ -132,11 +132,16 @@ public class AdapterCardTweet extends RecyclerView.Adapter<AdapterCardTweet.View
             public void onClick(View v) {
                 final TwitterSession session = TwitterCore.getInstance().getSessionManager()
                         .getActiveSession();
-                final Intent intent = new ComposerActivity.Builder(mContext)
-                        .session(session)
-                        .hashtags(setList.getHashTag())
-                        .createIntent();
-                mContext.startActivity(intent);
+                if(session == null){
+                    Toast.makeText(mContext,R.string.not_logged,Toast.LENGTH_LONG).show();
+                } else {
+                    final Intent intent = new ComposerActivity.Builder(mContext)
+                            .session(session)
+                            .hashtags(setList.getHashTag())
+                            .createIntent();
+                    mContext.startActivity(intent);
+                }
+
             }
         });
 

@@ -158,7 +158,6 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
                     Fragment search = new search_fragment();
                     fragmentTransaction.replace(R.id.content_frame, search).commit();
                 } else if (optionDrawer[position].compareToIgnoreCase(setlistString) == 0) {
-                    Log.d("mlml", "setlist");
                 } else if (optionDrawer[position].compareToIgnoreCase(concertString) == 0) {
                     fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

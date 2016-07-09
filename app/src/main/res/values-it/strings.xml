@@ -65,4 +65,5 @@
     <string name="title_activity_concert_live_big_screen">Grande schermo </string>
     <string name="partecipero_preferences">partecipero</string>
     <string name="noConc">Non hai nessun concerto da fare !!</string>
+    <string name="not_logged">Non sei connesso a Twitter.</string>
 </resources>
