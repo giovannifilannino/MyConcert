@@ -83,16 +83,14 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 String URL = "http://mymusiclive.altervista.org/setPartecipation.php?username=" + '"' + loginFragment.actualUsername + '"' + "&idConcerto=" +
                         "'"+ idConcerto+ "'";
             JSONObject jsonObject = new JSONObject();
-            Log.d("url_partecipation" , URL);
                 JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         JSONObject test = response;
                         try {
                             success = test.getInt(SUCCESS_TAG);
-                            Log.d("mi fido","" + success);
+
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
@@ -142,7 +140,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
             }
             JSONObject jsonObject = new JSONObject();
-            Log.d("HAi ","" +URL);
+
 
             JsonObjectRequest arrayRequest = new JsonObjectRequest(URL, jsonObject, new Response.Listener<JSONObject>() {
                 @Override
@@ -153,7 +151,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                         success = test.getInt(ALLSUCCESS);
                     } catch (JSONException e1) {
                         e1.printStackTrace();
-                        Log.d("HAi ","Sbagliato");
+
 
                     }
                     if (success == 1) {
@@ -165,7 +163,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 }}, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("HAi ","errorresp");
 
                 }
 
@@ -179,7 +176,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     private String datformEN() {
         String dataEN;
-        Log.d("dataaaa",data);
         String giorno=data.substring(9,10);
         String mese=data.substring(6,7);
         String anno=data.substring(0,4);
@@ -200,7 +196,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 sendplaylist.setVisibility(View.GONE);
                 visible=false;
             }
-            Log.d("Wanna","Chi sei goku non lo sai");
         }
     };
 
@@ -212,6 +207,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -219,13 +215,13 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.card_detail);
         PREFERENCES = getResources().getString(R.string.partecipero_preferences);
         idConcerto = getIntent().getStringExtra("id");
-        Log.d("ID",""+ idConcerto);
-
 
         sharedPreferences = getSharedPreferences(PREFERENCES,MODE_PRIVATE);
         partecipo = sharedPreferences.getBoolean(idConcerto+loginFragment.actualUsername,false);
-        Log.d("ILvalosr","" + partecipo);
+
+
         setlist = getIntent().getStringArrayListExtra("canzoni");
+        Log.d("setlist","" + setlist.size());
         cit=getIntent().getStringExtra("citta");
         lu=getIntent().getStringExtra("luogo");
         nome=getIntent().getStringExtra("cantante");

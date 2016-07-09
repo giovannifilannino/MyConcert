@@ -84,7 +84,13 @@ public class ResultFragment extends Fragment {
                     }
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
                     if(songs.size()!=0) {
-                        intent.putStringArrayListExtra("canzoni", songs);
+                        if(intent.hasExtra("canzoni")){
+                            intent.removeExtra("canzoni");
+                            intent.putStringArrayListExtra("canzoni", songs);
+                        } else {
+                            intent.putStringArrayListExtra("canzoni", songs);
+                        }
+
                     } else {
                         intent.putStringArrayListExtra("canzoni",setListArrayList.get(position).getSongs());
                     }
@@ -100,18 +106,6 @@ public class ResultFragment extends Fragment {
                     View navigationBar = getActivity().findViewById(android.R.id.navigationBarBackground);
 
                     Pair<View, String> navbar =Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
-
-
-
-
-
-
-
-
-
-
-
-
                     Pair<View, String> imagePair = Pair.create((View ) placeImage, "tImage");
                     Pair<View, String> holderPair = Pair.create((View) placeNameHolder, "tNameHolder");
                     ActivityOptionsCompat options;
@@ -149,6 +143,12 @@ public class ResultFragment extends Fragment {
         recList.setAdapter(ca);
         ca.setOnItemClickListener(onItemClickListener);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        songs = new ArrayList();
     }
 
 
