@@ -5,7 +5,7 @@
     <string name="surname">Surname</string>
     <string name="username">Username</string>
     <string name="sHome">Find your next concert!</string>
-
+    <string name="loading_photo">Loading photo....</string>
     <string name="mail" translatable="false">E-mail</string>
     <string name="password">Password</string>
     <string name="confirmpass">Confirm Password:</string>
@@ -13,7 +13,7 @@
     <string name="artist">Artist</string>
     <string name="venues">Venues</string>
     <string name="find">Find</string>
-    <string name="login" translatable="false">LOGIN</string>
+    <string name="login">LOGIN</string>
     <string name="pass">Password</string>
     <string name="us">Username</string>
     <string name="condizione">OR</string>
@@ -39,7 +39,8 @@
     <string name="not_logged">You are not logged on Twitter.</string>
     <!-- Questa string non è da modificare in italiano  -->
     <string name="partecipero_preferences">PREFERENCES_CONCERT</string>
-
+    <string name="insertplaylist">Your playlist has been sent correctly</string>
+    <string name="errorplaylist">Your playlist has not been sent correctly</string>
     <string name="need">Need an account?</string>
     <string name="registrati">SIGN UP NOW</string>
     <string name="search">Search</string>
@@ -78,9 +79,13 @@
     <string name="AutenticationDescr">Wrong Username-Password combination</string>
     <string name="loading">loading...</string>
     <string name="title_activity_maps">Map</string>
-
+    <string name="no_user_avabile">This user don't exist</string>
     <string name="applicazionIDDeezer" translatable="false">182722</string>
-
+    <string name="add_song">Add song</string>
+    <string name="signinyes">Signed Up Successfully</string>
+    <string name="signinno">Signed Up Not Successfully</string>
+    <string name="cancel_song">Add song</string>
+    <string name="add_songtitle">Add song title</string>
     <string name="title_activity_splash_scrren" translatable="false">My Concert</string>
     <string name="dummy_button" translatable="false">Dummy Button</string>
     <string name="dummy_content" translatable="false">DUMMY\nCONTENT</string>

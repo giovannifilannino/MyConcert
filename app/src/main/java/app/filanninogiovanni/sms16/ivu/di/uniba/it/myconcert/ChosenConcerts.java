@@ -40,7 +40,6 @@ public class ChosenConcerts extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         requestQueue = Volley.newRequestQueue(getContext());
-        Log.d("sss",URL_GET_PARTECIPATION);
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL_GET_PARTECIPATION, new Response.Listener<JSONArray>() {
             JSONObject jsonObject;
             Setlist setlist = new Setlist();

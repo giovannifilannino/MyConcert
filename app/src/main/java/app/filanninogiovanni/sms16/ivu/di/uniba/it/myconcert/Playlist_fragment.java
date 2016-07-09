@@ -59,7 +59,6 @@ public class Playlist_fragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         requestQueue = Volley.newRequestQueue(getContext());
         String URL="http://mymusiclive.altervista.org/getPlaylist.php?&user=" + '"'+loginFragment.actualUsername+'"';
-        Log.d("HAi ","" +URL);
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             JSONObject jsonObject;
 
@@ -74,7 +73,6 @@ public class Playlist_fragment extends Fragment {
                         setlist.setArtistName(jsonObject.getString("PseArtista"));
                         setLists.add(i,setlist);
                         String data=jsonObject.getString("DataConcerto");
-                        Log.d("DAta"+ i,""+data);
                         String artista=jsonObject.getString("PseArtista");
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -44,10 +44,9 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ResultFragm
 import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
 
 
-public class DetailActivity2 extends Activity implements View.OnClickListener {
+public class DetailActivity2 extends Activity{
 
     public static final String EXTRA_PARAM_ID = "place_id";
-    private ListView mList;
     private ImageView mImageView;
     private TextView nomeArtista;
     private TextView dataTXT;
@@ -96,7 +95,6 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         cit=getIntent().getStringExtra("citta");
         lu=getIntent().getStringExtra("luogo");
         idConcerto = getIntent().getStringExtra("id");
-        //mList = (ListView) findViewById(R.id.list);
         mImageView = (ImageView) findViewById(R.id.placeImage);
         nomeArtista = (TextView) findViewById(R.id.artistaDett);
         citta = (TextView) findViewById(R.id.cittaDett);
@@ -111,7 +109,6 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         animator.setAddDuration(2000);
         animator.setRemoveDuration(2500);
         recList.setItemAnimator(animator);
-        //recList.addItemDecoration(new LineItemDecoration());
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
@@ -164,24 +161,6 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
 
     }
 
-    private void windowTransition() {
-
-    }
-
-
-
-
-    @Override
-    public void onClick(View v) {
-    }
-
-    private void revealEditText(LinearLayout view) {
-
-    }
-
-    private void hideEditText(final LinearLayout view) {
-
-    }
 
 
     private Dialog Customdialog(final Context context, final Adapter2 ca, final RecyclerView recList) {
@@ -189,8 +168,7 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
         final View view = factory.inflate(R.layout.customdialog, null);
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(view)
-                // Add action buttons
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getText(R.string.add_song), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         EditText canzone = (EditText) view.findViewById(R.id.canzone);
@@ -199,12 +177,12 @@ public class DetailActivity2 extends Activity implements View.OnClickListener {
                         recList.scrollToPosition(0);
                     }
                 })
-                .setNegativeButton("Cancell", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getText(R.string.cancel_song), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                     }
                 })
-                .setTitle("Aggiungi titolo canzone");
+                .setTitle(getResources().getText(R.string.add_songtitle));
         return builder.create();
     }
 

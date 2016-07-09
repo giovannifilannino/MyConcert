@@ -155,7 +155,7 @@ public class loginFragment extends Fragment {
                                 requestQueue.stop();
 
                             } else {
-                                Toast.makeText(getActivity(), "Utente non esistente", Toast.LENGTH_LONG);
+                                Toast.makeText(getActivity(), getResources().getText(R.string.no_user_avabile), Toast.LENGTH_LONG);
                                 ErrorClass.onCreateDialog(ErrorClass.DIALOG_FAILACCESS_ID,getActivity());
                             }
 

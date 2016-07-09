@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        Log.d("dati inviati"," " + requestCode +" " +resultCode +" " +data.getDataString());
         twitterAuthClient.onActivityResult(requestCode,resultCode,data
 
         );
@@ -148,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
                         JSONObject test = response;
                         try {
                             String success = test.getString(SUCCESS_TAG);
-                            Log.d("mlml",success);
+
 
                             if(success.compareTo("1")==0){
                                 loginFragment.setActualUsername(user);
@@ -174,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
             @Override
             public void failure(TwitterException exception) {
-                Log.d("mlml","non va");
+
             }
         });
     }

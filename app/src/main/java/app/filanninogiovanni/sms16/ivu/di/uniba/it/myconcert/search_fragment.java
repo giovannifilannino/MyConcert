@@ -79,7 +79,7 @@ public class search_fragment extends Fragment {
 
     private RequestQueue requestQueue;
     private String artist;
-
+    private String query = "";
     private DeezerArtist deezerArtist;
 
     @Override
@@ -89,7 +89,7 @@ public class search_fragment extends Fragment {
         onSearch = (OnSearch) context;
     }
 
-    private String query = "";
+
 
     public interface OnSearch{
         public void searchStart(ArrayList<Setlist> urlDaCercare, String urlCover);

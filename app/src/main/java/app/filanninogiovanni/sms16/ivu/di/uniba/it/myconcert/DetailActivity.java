@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.ItemSongPlayAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Song;
 
-public class DetailActivity extends Activity implements View.OnClickListener {
+public class DetailActivity extends Activity {
 
     public static final String EXTRA_PARAM_ID = "place_id";
     private ListView mList;
@@ -155,10 +155,10 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
                     }
                     if (success == 1) {
-                        Toast.makeText(DetailActivity.this, "Hai inserito con successo la tua playlist", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailActivity.this, getResources().getText(R.string.insertplaylist), Toast.LENGTH_LONG).show();
                     }
                     else {
-                        Toast.makeText(DetailActivity.this, "Errore nell'inserimento della playlist", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailActivity.this, getResources().getText(R.string.errorplaylist), Toast.LENGTH_LONG).show();
                     }
                 }}, new Response.ErrorListener() {
                 @Override
@@ -215,13 +215,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.card_detail);
         PREFERENCES = getResources().getString(R.string.partecipero_preferences);
         idConcerto = getIntent().getStringExtra("id");
-
         sharedPreferences = getSharedPreferences(PREFERENCES,MODE_PRIVATE);
         partecipo = sharedPreferences.getBoolean(idConcerto+loginFragment.actualUsername,false);
-
-
         setlist = getIntent().getStringArrayListExtra("canzoni");
-        Log.d("setlist","" + setlist.size());
         cit=getIntent().getStringExtra("citta");
         lu=getIntent().getStringExtra("luogo");
         nome=getIntent().getStringExtra("cantante");
@@ -308,37 +304,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     }
 
 
-    private void windowTransition() {
-
-    }
-
-    private void addToDo(String todo) {
-        mTodoList.add(todo);
-    }
-
-    private void getPhoto() {
-
-
-    }
-
-    private void colorize(Bitmap photo) {
-    }
-
-    private void applyPalette() {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-    }
-
-    private void revealEditText(LinearLayout view) {
-
-    }
-
-    private void hideEditText(final LinearLayout view) {
-
-    }
 
     private ArrayList<Song> getSongArray(String artist, ArrayList<String> songs){
         ArrayList<Song> songArray = new ArrayList<Song>();

@@ -68,4 +68,8 @@
     <string name="not_logged">Non sei connesso a Twitter.</string>
     <string name="areuartist">Sei un\'artista?</string>
     <string name="signinartist">Registrati</string>
+    <string name="loading_photo">Caricamento foto...</string>
+    <string name="login">LOGIN</string>
+    <string name="insertplaylist">La tua playlist è stata inviata correttamente.</string>
+
 </resources>
