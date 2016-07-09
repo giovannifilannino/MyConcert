@@ -62,15 +62,20 @@ public class Playlist_fragment extends Fragment {
         Log.d("HAi ","" +URL);
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             JSONObject jsonObject;
-            Setlist setlist = new Setlist();
+
             @Override
             public void onResponse(JSONArray response) {
+
                 for(int i=0; i<response.length();i++){
                     try {
                         jsonObject = response.getJSONObject(i);
+                        Setlist setlist = new Setlist();
                         setlist.setDate(jsonObject.getString("DataConcerto"));
                         setlist.setArtistName(jsonObject.getString("PseArtista"));
-                        setLists.add(setlist);
+                        setLists.add(i,setlist);
+                        String data=jsonObject.getString("DataConcerto");
+                        Log.d("DAta"+ i,""+data);
+                        String artista=jsonObject.getString("PseArtista");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -79,6 +84,10 @@ public class Playlist_fragment extends Fragment {
                 LinearLayoutManager llm = new LinearLayoutManager(getActivity());
                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(llm);
+
+
+
+
                 PlaylistAdapter ca = new PlaylistAdapter(getActivity(), R.layout.card2, setLists);
                 recyclerView.setAdapter(ca);
             }
