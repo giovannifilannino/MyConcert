@@ -37,6 +37,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.BigScreenUtility.TwitterList;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Concert;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.MainActivity;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
@@ -94,8 +95,8 @@ String stato;
         requestQueue = Volley.newRequestQueue(this);
         toolbar=(Toolbar)findViewById(R.id.tool_bar_artista) ;
         setSupportActionBar(toolbar);
-        final String[]  optionDrawer= {"HOME","CONCERTI ATTIVI","SCHERMI GRANDI"};
-        int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp};
+        final String[]  optionDrawer= {"HOME","CONCERTI ATTIVI","SCHERMI GRANDI", "NERCHIONE"};
+        int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp,R.drawable.ic_tv_black_24dp};
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         recyclerView = (RecyclerView) findViewById(R.id.left_drawer);
@@ -163,7 +164,16 @@ String stato;
                             startTransiction(twitterList);
 
                         }
-
+                    case "NERCHIONE":
+                        drawerLayout.closeDrawers();
+                        dialog = new ProgressDialog(context);
+                        dialog.setMessage("Caricamento..");
+                        dialog.show();
+                        if(current!=null && !(current instanceof Concerti)) {
+                            Concerti conc=new Concerti();
+                            goToConcert(conc);
+                            concerti.clear();
+                        }
                         break;
                 }
                 drawerLayout.closeDrawers();
@@ -181,6 +191,47 @@ String stato;
     }
 
     public void goToConcert(final ResultFragmentArtisti fragment){
+        String artista=aliasArtistaString.replaceAll("\\s+","%20");
+        String url=urlPHPpart+'"'+artista + '"';
+        JsonArrayRequest arrayRequest =new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                JSONObject jsonObject;
+                try{
+                    for(int i=0;i< response.length();i++){
+                        Setlist conc=new Setlist();
+                        jsonObject = response.getJSONObject(i);
+                        data = jsonObject.getString("Data");
+                        conc.setDate(data);
+                        postoConcerto = jsonObject.getString("PostoConcerto");
+                        conc.setVenueName(postoConcerto);
+                        cittaConcerto = jsonObject.getString("CittaConcerto");
+                        conc.setCity(cittaConcerto);
+                        pseArtista=jsonObject.getString("PseArtista");
+                        conc.setArtistName(pseArtista);
+                        idConcerto=jsonObject.getString("IdConcerto");
+                        conc.setId(idConcerto);
+                        conc.setCover(ArtistaHomeFragment.immagine);
+                        concerti.add(conc);
+                    }
+                    fragment.riempiArray(concerti,aliasArtistaString,ArtistaHomeFragment.immagine);
+                    dialog.hide();
+                    startTransiction(fragment);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(arrayRequest);
+    }
+
+    public void goToConcert(final Concerti fragment){
         String artista=aliasArtistaString.replaceAll("\\s+","%20");
         String url=urlPHPpart+'"'+artista + '"';
         JsonArrayRequest arrayRequest =new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
