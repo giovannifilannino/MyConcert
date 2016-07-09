@@ -70,7 +70,6 @@ public class ArtistaHome extends AppCompatActivity {
     FragmentManager fragmentManager;
     String urlPHPpart = "http://mymusiclive.altervista.org/concertiAttiviArtista.php?username=";
 String stato;
-    private Intent goToTwitter;
     Context context;
     Toolbar toolbar;
     static final boolean fatto=false;
