@@ -18,8 +18,10 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:id="@+id/textSong"
+        android:layout_marginLeft="30dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_toStartOf="@+id/playDeezer">
+        android:gravity="left"
+        >
     </TextView>
 
     <ImageButton

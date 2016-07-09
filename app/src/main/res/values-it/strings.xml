@@ -66,4 +66,6 @@
     <string name="partecipero_preferences">partecipero</string>
     <string name="noConc">Non hai nessun concerto da fare !!</string>
     <string name="not_logged">Non sei connesso a Twitter.</string>
+    <string name="areuartist">Sei un\'artista?</string>
+    <string name="signinartist">Registrati</string>
 </resources>

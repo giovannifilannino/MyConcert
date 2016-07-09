@@ -18,21 +18,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.ErrorClass;
 
@@ -51,13 +43,6 @@ public class loginFragment extends Fragment {
     private String formatJson = "&format=json";
     public static String actualUsername;
 
-
-
-    private static final String TWITTER_KEY = "9R1qMlXL3qRX4wwkKasPn6yvE";
-    private static final String TWITTER_SECRET = "kTZ7Z9aU0b04igbUAp12AjgR0tcXXnHvPVc90E0t6aRUx5bh24";
-
-
-
     private String nome;
     private String cognome;
     private int artista;
@@ -72,11 +57,6 @@ public class loginFragment extends Fragment {
     private ImageButton loginButton;
 
     RequestQueue requestQueue;
-
-
-    /*public TwitterSession getTwitterSession(){
-        return twitterSession;
-    }*/
 
 
     @Override
@@ -208,10 +188,12 @@ public class loginFragment extends Fragment {
     }
 
     private boolean isNetworkAvailable() {
+
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
     }
 
     private JSONObject getJson(JSONArray jsonArray){
