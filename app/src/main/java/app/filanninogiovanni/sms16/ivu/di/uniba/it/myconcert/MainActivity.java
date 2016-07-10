@@ -126,8 +126,10 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
     }
 
     @Override
-    public void goToSearchFragment() {
+    public void goToSearchFragment(String nome, String cognome) {
         Intent goToCerca = new Intent(this,cerca.class);
+        goToCerca.putExtra("nome",nome);
+        goToCerca.putExtra("cognome",cognome);
         startActivity(goToCerca);
     }
 
@@ -150,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
                             if(success.compareTo("1")==0){
                                 loginFragment.setActualUsername(user);
-                                goToSearchFragment();
+                                goToSearchFragment(user,"");
                             } else {
                                 RegistrationAndLogin(user);
                             }
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         });
     }
 
-    private void RegistrationAndLogin(String user){
+    private void RegistrationAndLogin(final String user){
         JSONObject jsonObject = new JSONObject();
         loginFragment.setActualUsername(user);
         URLRegistration += "&nome=" + user  + "&cognome="  + "" + "&username=" + user+ "&password=" + "";
@@ -189,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
                     String success = test.get(SUCCESS_TAG).toString();
                     if(success.compareTo("1")==0){
 
-                        goToSearchFragment();
+                        goToSearchFragment(user,"");
                     } else {
 
                     }

@@ -66,9 +66,9 @@ public class RegistrationFragment extends Fragment {
                         try {
                             String success = test.get(SUCCESS_TAG).toString();
                             if(success.compareTo("1")==0){
-                                Toast.makeText(getActivity(),getResources().getText(R.string.signinyes),Toast.LENGTH_LONG);
+                                Toast.makeText(getActivity(),getResources().getText(R.string.signinyes),Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getActivity(),getResources().getText(R.string.signinno),Toast.LENGTH_LONG);
+                                Toast.makeText(getActivity(),getResources().getText(R.string.signinno),Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

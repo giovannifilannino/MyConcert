@@ -71,7 +71,7 @@ public class loginFragment extends Fragment {
     }
 
     public interface OnLoginConfirmed{
-        public void goToSearchFragment();
+        public void goToSearchFragment(String nome,String cognome);
         public void loginTwitter();
     }
 
@@ -145,7 +145,9 @@ public class loginFragment extends Fragment {
                                         artistaHome.putExtra("url", urlImmagine);
                                         startActivity(artistaHome);
                                     } else {
-                                        mLogin.goToSearchFragment();
+
+
+                                        mLogin.goToSearchFragment(nome,cognome);
                                     }
                                 } catch (Exception e){
                                     e.printStackTrace();

@@ -92,7 +92,7 @@ public class search_fragment extends Fragment {
 
 
     public interface OnSearch{
-        public void searchStart(ArrayList<Setlist> urlDaCercare, String urlCover);
+        public void searchStart(ArrayList<Setlist> urlDagoToSearchFragmentre, String urlCover);
     }
 
     @Nullable

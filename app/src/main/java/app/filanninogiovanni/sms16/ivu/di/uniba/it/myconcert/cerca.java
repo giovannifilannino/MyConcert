@@ -101,6 +101,8 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         cognomeArtista = getIntent().getStringExtra("cognomeArtista");
         aliasArtista = getIntent().getStringExtra("aliasArtista");
         urlImmagine = getIntent().getStringExtra("urlImmagine");
+        String nomeUtente=getIntent().getStringExtra("nome");
+        String cognomeUtente=getIntent().getStringExtra("cognome");
         toolbar = (Toolbar) findViewById(R.id.tool_bar_find);
         setSupportActionBar(toolbar);
         layoutManager = new LinearLayoutManager(this);
@@ -109,7 +111,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
         int ICONS[] = {R.drawable.ic_home_black_24dp, R.drawable.ic_library_music_black_24dp, R.drawable.ic_tv_black_24dp};
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.account);
-        AdapterItemDrawer adapterItemDrawer = new AdapterItemDrawer(optionDrawer, ICONS, "Utente", loginFragment.actualUsername, bitmap, this);
+        AdapterItemDrawer adapterItemDrawer = new AdapterItemDrawer(optionDrawer, ICONS,nomeUtente+" "+cognomeUtente , loginFragment.actualUsername, bitmap, this);
 
         recyclerView.setAdapter(adapterItemDrawer);
 
