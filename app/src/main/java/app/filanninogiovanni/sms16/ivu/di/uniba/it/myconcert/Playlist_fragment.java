@@ -134,7 +134,8 @@ public class Playlist_fragment extends Fragment {
     public void caricaCanzoni(int position, final Intent intent, final ActivityOptionsCompat options){
         String idConcerto=setLists.get(position).getId();
 
-        String url="http://mymusiclive.altervista.org/getlistacanzoniPlaylist.php?id="+'"'+idConcerto+ '"';
+
+        String url="http://mymusiclive.altervista.org/getlistacanzoniPlaylist.php?id="+'"'+idConcerto+ '"' +"&Username=" + '"'+loginFragment.actualUsername +'"';
         Log.d("URL","" + url);
         JsonArrayRequest arrayRequest =new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
