@@ -11,12 +11,9 @@ public class Song {
     private String artist;
     private boolean checked = false;
 
-    public boolean getCheched(){
-        return checked;
-    }
 
-    public void setCheckd(boolean bool){
-        this.checked = bool;
+    public Song(){
+
     }
 
 
@@ -28,6 +25,13 @@ public class Song {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title){
+        this.title=title;
+    }
+    public void setArtist(String artist){
+        this.artist=artist;
     }
 
     public String getArtist() {

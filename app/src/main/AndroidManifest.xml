@@ -24,6 +24,8 @@
         <activity
             android:name=".DetailActivity2" />
         <activity
+            android:name=".DetailActivity3" />
+        <activity
             android:name=".DetailActivity4" />
         <activity
             android:name=".BigScreenUtility.TwitterList"/>

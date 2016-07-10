@@ -2,15 +2,22 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 
 import android.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,8 +29,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.MyAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.PlaylistAdapter;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
+
+import static app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.ResultFragment.bitmap;
 
 /**
  * Created by delmi on 08/07/2016.
@@ -35,6 +45,8 @@ public class Playlist_fragment extends Fragment {
     ArrayList<Setlist> setLists = new ArrayList<Setlist>();
     Setlist setlist;
     private RecyclerView recyclerView;
+    ArrayList<String> canzoni=new ArrayList<String>();
+
 
 
 
@@ -61,9 +73,8 @@ public class Playlist_fragment extends Fragment {
                         Setlist setlist = new Setlist();
                         setlist.setDate(jsonObject.getString("DataConcerto"));
                         setlist.setArtistName(jsonObject.getString("PseArtista"));
+                        setlist.setId(jsonObject.getString("idConcerto"));
                         setLists.add(i,setlist);
-                        String data=jsonObject.getString("DataConcerto");
-                        String artista=jsonObject.getString("PseArtista");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -78,6 +89,39 @@ public class Playlist_fragment extends Fragment {
 
                 PlaylistAdapter ca = new PlaylistAdapter(getActivity(), R.layout.card2, setLists);
                 recyclerView.setAdapter(ca);
+                PlaylistAdapter.OnItemClickListener onItemClickListener= new PlaylistAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position, Setlist setlist) {
+
+
+                        Intent intent = new Intent(getActivity(), DetailActivity3.class);
+                        intent.putExtra("cantante",setlist.getArtistName());
+                        intent.putExtra("data",setlist.getDate());
+                        intent.putExtra("id",setlist.getId());
+                        intent.putExtra("citta",setlist.getCity());
+                        intent.putExtra("luogo",setlist.getVenueName());
+                        bitmap=setlist.getCover();
+                        ImageView placeImage = (ImageView) v.findViewById(R.id.placeImage);
+                        LinearLayout placeNameHolder = (LinearLayout) v.findViewById(R.id.placeNameHolder);
+                        View navigationBar = getActivity().findViewById(android.R.id.navigationBarBackground);
+                        Pair<View, String> navbar =Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
+                        Pair<View, String> imagePair = Pair.create((View ) placeImage, "tImage");
+                        Pair<View, String> holderPair = Pair.create((View) placeNameHolder, "tNameHolder");
+                        ActivityOptionsCompat options;
+                        if(navbar==null) {
+                            options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                    imagePair, holderPair, navbar);
+                        }
+                        else {
+                            options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                    imagePair, holderPair);
+                        }
+                        caricaCanzoni(position,intent,options);
+                        canzoni.clear();
+
+                    }
+                };
+                ca.setOnItemClickListener(onItemClickListener);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -87,10 +131,40 @@ public class Playlist_fragment extends Fragment {
         requestQueue.add(jsonArrayRequest);
     }
 
+    public void caricaCanzoni(int position, final Intent intent, final ActivityOptionsCompat options){
+        String idConcerto=setLists.get(position).getId();
+
+        String url="http://mymusiclive.altervista.org/getlistacanzoniPlaylist.php?id="+'"'+idConcerto+ '"';
+        Log.d("URL","" + url);
+        JsonArrayRequest arrayRequest =new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject;
+                try{
+                    for(int i=0;i< response.length();i++){
+                        jsonObject = response.getJSONObject(i);
+                        canzoni.add( jsonObject.getString("NomeCanzone"));
+
+                    }
+                    intent.putStringArrayListExtra("canzoni", canzoni);
+                    startActivity(intent, options.toBundle());
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        requestQueue.add(arrayRequest);
+    }
+
+
     @Override
     public void onPause() {
         super.onPause();
-        setLists=new ArrayList<>();
     }
 
 
