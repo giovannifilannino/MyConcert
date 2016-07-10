@@ -91,6 +91,12 @@ public class DetailActivity3 extends Activity implements View.OnClickListener {
         nomeArtista = (TextView) findViewById(R.id.artistaDett);
         citta = (TextView) findViewById(R.id.cittaDett);
         luogo = (TextView) findViewById(R.id.luogoDett);
+        if(citta.getText()=="" && luogo.getText()==""){
+            citta.setVisibility(View.GONE);
+            luogo.setVisibility(View.GONE);
+            LinearLayout ll=(LinearLayout) findViewById(R.id.SecondLine);
+            ll.setVisibility(View.GONE);
+        }
         dataTXT = (TextView) findViewById(R.id.dataDett);
         mTitleHolder = (LinearLayout) findViewById(R.id.placeNameHolder);
         mRevealView = (LinearLayout) findViewById(R.id.llEditTextHolder);
@@ -104,7 +110,6 @@ public class DetailActivity3 extends Activity implements View.OnClickListener {
         final Adapter3 ca = new Adapter3(this, R.layout.item_best_songs, setlist);
         //mImageView.setImageBitmap(ArtistaHomeFragment.immagine);
         mImageView.setImageResource(R.drawable.concertimilano);
-       // Palette palette = Palette.generate(ArtistaHomeFragment.immagine);
         int standard=getResources().getColor(R.color.colorPrimary);
         //int vibrant = palette.getVibrantColor(standard);
         //mTitleHolder.setBackgroundColor(vibrant);
