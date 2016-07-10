@@ -109,11 +109,11 @@ public class ItemSongPlayAdapter extends ArrayAdapter<Song>{
                 ImageButton imageButton = (ImageButton) v;
 
                 if(!playSong) {
-                    imageButton.setImageResource(android.R.drawable.ic_media_pause);
+                    imageButton.setImageResource(R.drawable.ic_stop_black_24dp);
                     playSong = true;
                     deezerPlayTrack.PlaySong(queryTitle,artista);
                 } else {
-                    imageButton.setImageResource(android.R.drawable.ic_media_play);
+                    imageButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     playSong = false;
                     deezerPlayTrack.StopSong();
 
