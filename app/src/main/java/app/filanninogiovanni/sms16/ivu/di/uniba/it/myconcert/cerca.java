@@ -233,6 +233,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
                             Intent intent=new Intent(context, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
+                            finish();
                         }
                     })
                     .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
