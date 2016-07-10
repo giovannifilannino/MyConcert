@@ -151,15 +151,18 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
             @Override
             public void onItemClick(View view, int position, String scelta) {
                 if (optionDrawer[position].compareToIgnoreCase(searchString) == 0) {
+                    drawerLayout.closeDrawers();
                     fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     Fragment search = new search_fragment();
                     fragmentTransaction.replace(R.id.content_frame, search).commit();
                 } else if (optionDrawer[position].compareToIgnoreCase(setlistString) == 0) {
+                    drawerLayout.closeDrawers();
                     fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.content_frame, playlist_fragment).commit();
                 } else if (optionDrawer[position].compareToIgnoreCase(concertString) == 0) {
+                    drawerLayout.closeDrawers();
                     fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.content_frame, chosenConcerts).commit();

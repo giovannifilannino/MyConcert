@@ -6,7 +6,12 @@
     <string name="name">Nome</string>
     <string name="surname">Cognome</string>
     <string name="pass">Password</string>
+    <string name="exit">Sicuro di voler uscire?</string>
     <string name="us">Username</string>
+    <string name="si">Si</string>
+    <string name="atten">Attenzione</string>
+    <string name="presente">Canzone già presente</string>
+    <string name="no">No</string>
     <string name="sHome">Cerca subito il tuo prossimo concerto!</string>
     <string name="register">Registrazione</string>
     <string name="signup">REGISTRATI</string>
@@ -15,6 +20,10 @@
     <string name="close">Drawer Chiuso</string>
     <string name="artist">Artista</string>
     <string name="venues">Sedi</string>
+    <string name="home">HOME</string>
+    <string name="concertiAttivi">CONCERTI ATTIVI</string>
+    <string name="preferiteDaiFan">PREFERITE DAI FAN</string>
+    <string name="schermiGrandi">TWITTER</string>
     <string name="find">Cerca</string>
     <string name="need">Hai bisogno di un account?</string>
     <string name="registrati">REGISTRATI ORA</string>

@@ -36,6 +36,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.ItemSongPlayAdapter;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Song;
 
 public class DetailActivity extends Activity {
@@ -49,7 +50,7 @@ public class DetailActivity extends Activity {
     private TextView dataTXT;
     private FloatingActionButton sendplaylist;
     private LinearLayout mTitleHolder;
-    private ArrayList<String> setlist;
+    private ArrayList<String> setlist=new ArrayList<String>();;
     private RelativeLayout mRevealView;
     private String nome;
     private String data;

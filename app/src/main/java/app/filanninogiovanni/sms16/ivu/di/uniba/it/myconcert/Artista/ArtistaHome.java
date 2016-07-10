@@ -59,6 +59,11 @@ public class ArtistaHome extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DrawerLayout drawerLayout;
     public String data;
+    private String home;
+    private String attivi;
+    private String schermiGrandi;
+    private String favorite;
+
     public String postoConcerto;
     public String cittaConcerto;
     public String idConcerto;
@@ -94,7 +99,11 @@ String stato;
         requestQueue = Volley.newRequestQueue(this);
         toolbar=(Toolbar)findViewById(R.id.tool_bar_artista) ;
         setSupportActionBar(toolbar);
-        final String[]  optionDrawer= {"HOME","CONCERTI ATTIVI","SCHERMI GRANDI", "SCELTE UTENTI"};
+        home=getResources().getString(R.string.home);
+        attivi=getResources().getString(R.string.concertiAttivi);
+        schermiGrandi=getResources().getString(R.string.schermiGrandi);
+        favorite=getResources().getString(R.string.preferiteDaiFan);
+        final String[]  optionDrawer= {home,attivi,schermiGrandi,favorite };
         int ICONS[] = {R.drawable.ic_home_black_24dp,R.drawable.ic_library_music_black_24dp,R.drawable.ic_tv_black_24dp,R.drawable.ic_playlist_add_check_black_24dp};
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
@@ -137,7 +146,7 @@ String stato;
                         if(current!=null && !(current instanceof ResultFragmentArtisti)){
                             drawerLayout.closeDrawers();
                             dialog = new ProgressDialog(context);
-                            dialog.setMessage("Caricamento..");
+                            dialog.setMessage(getResources().getString(R.string.loading));
                             dialog.show();
                             ResultFragmentArtisti resultFragmentArtisti=new ResultFragmentArtisti();
                             goToConcert(resultFragmentArtisti);
@@ -166,7 +175,7 @@ String stato;
                     case "SCELTE UTENTI":
                         drawerLayout.closeDrawers();
                         dialog = new ProgressDialog(context);
-                        dialog.setMessage("Caricamento..");
+                        dialog.setMessage(getResources().getString(R.string.loading));
                         dialog.show();
                         if(current!=null && !(current instanceof Concerti)) {
                             Concerti conc=new Concerti();
@@ -287,16 +296,16 @@ String stato;
         final Context context=this;
         if(check){
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("Are you sure you want to exit?")
+            builder.setMessage(R.string.exit)
                     .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             moveTaskToBack(true);
                             Intent intent=new Intent(context, MainActivity.class);
                             startActivity(intent);
                         }
                     })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }

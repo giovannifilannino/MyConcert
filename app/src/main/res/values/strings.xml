@@ -4,6 +4,7 @@
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="username">Username</string>
+    <string name="exit">Are you sure you want to exit?</string>
     <string name="sHome">Find your next concert!</string>
     <string name="loading_photo">Loading photo....</string>
     <string name="mail" translatable="false">E-mail</string>
@@ -32,6 +33,14 @@
     <string name="player_error">Error initializing YouTube player</string>
     <string name="seek_to">Jump To</string>
     <string name="benvenuto">Welcome</string>
+    <string name="si">Yes</string>
+    <string name="no">No</string>
+    <string name="home">HOME</string>
+    <string name="concertiAttivi">NEXT CONCERTS</string>
+    <string name="preferiteDaiFan">FAVOURITE SONGS</string>
+    <string name="schermiGrandi">TWITTER</string>
+    <string name="atten">Attention</string>
+    <string name="presente">Song Already Present</string>
     <string name="seek_to_hint">Seconds</string>
     <string name="databreve" translatable="false">aaaa-mm-gg</string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
@@ -79,7 +88,7 @@
     <string name="AutenticationDescr">Wrong Username-Password combination</string>
     <string name="loading">loading...</string>
     <string name="title_activity_maps">Map</string>
-    <string name="no_user_avabile">This user don't exist</string>
+    <string name="no_user_avabile">This user don\'t exist</string>
     <string name="applicazionIDDeezer" translatable="false">182722</string>
     <string name="add_song">Add song</string>
     <string name="signinyes">Signed Up Successfully</string>

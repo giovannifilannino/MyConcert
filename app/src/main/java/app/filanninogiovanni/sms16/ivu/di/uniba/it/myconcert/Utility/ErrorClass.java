@@ -95,8 +95,8 @@ public class ErrorClass {
                 break;
             case 6:
                 final AlertDialog.Builder builder4=new AlertDialog.Builder(context);
-                builder4.setTitle("Attenzione");
-                builder4.setMessage("Canzone già presente");
+                builder4.setTitle(R.string.atten);
+                builder4.setMessage(R.string.presente);
                 builder4.setCancelable(true);
                 builder4.setPositiveButton(context.getResources().getString(R.string.closea),new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
