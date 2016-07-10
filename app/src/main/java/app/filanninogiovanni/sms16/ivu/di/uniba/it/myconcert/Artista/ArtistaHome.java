@@ -141,19 +141,19 @@ String stato;
             @Override
             public void onItemClick(View view, int position, String scelta) {
                 Fragment current=fragmentManager.findFragmentById(R.id.content_frame);
-                switch (optionDrawer[position]){
-                    case "CONCERTI ATTIVI":
-                        if(current!=null && !(current instanceof ResultFragmentArtisti)){
-                            drawerLayout.closeDrawers();
-                            dialog = new ProgressDialog(context);
-                            dialog.setMessage(getResources().getString(R.string.loading));
-                            dialog.show();
-                            ResultFragmentArtisti resultFragmentArtisti=new ResultFragmentArtisti();
-                            goToConcert(resultFragmentArtisti);
-                            concerti.clear();
-                        }
-                        break;
-                    case "HOME":
+                if(optionDrawer[position].compareToIgnoreCase(attivi)==0) {
+                    if (current != null && !(current instanceof ResultFragmentArtisti)) {
+                        drawerLayout.closeDrawers();
+                        dialog = new ProgressDialog(context);
+                        dialog.setMessage(getResources().getString(R.string.loading));
+                        dialog.show();
+                        ResultFragmentArtisti resultFragmentArtisti = new ResultFragmentArtisti();
+                        goToConcert(resultFragmentArtisti);
+                        concerti.clear();
+                    }
+                }
+                else{
+                    if(optionDrawer[position].compareToIgnoreCase(home)==0){
                         if(current!=null && !(current instanceof ArtistaHomeFragment)){
                             drawerLayout.closeDrawers();
                             ArtistaHomeFragment artistaHome=new ArtistaHomeFragment();
@@ -164,32 +164,34 @@ String stato;
                             startTransiction(artistaHome);
 
                         }
-                        break;
-                    case "SCHERMI GRANDI":
-                        if(current!=null && !(current instanceof TwitterList)) {
-                            drawerLayout.closeDrawers();
-                            TwitterList twitterList = new TwitterList();
-                            startTransiction(twitterList);
-
+                    }
+                    else {
+                        if(optionDrawer[position].compareToIgnoreCase(schermiGrandi)==0){
+                            if(current!=null && !(current instanceof TwitterList)) {
+                                drawerLayout.closeDrawers();
+                                TwitterList twitterList = new TwitterList();
+                                startTransiction(twitterList);
+                            }
                         }
-                    case "SCELTE UTENTI":
-                        drawerLayout.closeDrawers();
-                        dialog = new ProgressDialog(context);
-                        dialog.setMessage(getResources().getString(R.string.loading));
-                        dialog.show();
-                        if(current!=null && !(current instanceof Concerti)) {
-                            Concerti conc=new Concerti();
-                            goToConcert(conc);
-                            concerti.clear();
+                        else {
+                            if(optionDrawer[position].compareToIgnoreCase(favorite)==0){
+                                drawerLayout.closeDrawers();
+                                dialog = new ProgressDialog(context);
+                                dialog.setMessage(getResources().getString(R.string.loading));
+                                dialog.show();
+                                if(current!=null && !(current instanceof Concerti)) {
+                                    Concerti conc=new Concerti();
+                                    goToConcert(conc);
+                                    concerti.clear();
+                                }
+                            }
                         }
-                        break;
+                    }
                 }
                 drawerLayout.closeDrawers();
             }
         };
         adapterItemDrawer.setOnItemClickListener(onItemClickListener);
-
-
         ArtistaHomeFragment artistaHome=new ArtistaHomeFragment();
         artistaHome.setNomeArtistaString(nomeArtistaString);
         artistaHome.setCognomeArtitaString(cognomeArtistaString);

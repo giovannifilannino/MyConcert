@@ -21,8 +21,8 @@
     <string name="artist">Artista</string>
     <string name="venues">Sedi</string>
     <string name="home">HOME</string>
-    <string name="concertiAttivi">CONCERTI ATTIVI</string>
-    <string name="preferiteDaiFan">PREFERITE DAI FAN</string>
+    <string name="concertiAttivi">PROSSIMI CONCERTI</string>
+    <string name="preferiteDaiFan">CANZONI PREFERITE</string>
     <string name="schermiGrandi">TWITTER</string>
     <string name="find">Cerca</string>
     <string name="need">Hai bisogno di un account?</string>
