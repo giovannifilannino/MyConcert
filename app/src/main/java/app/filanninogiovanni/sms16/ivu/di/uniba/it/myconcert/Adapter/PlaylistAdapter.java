@@ -42,7 +42,6 @@ import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.R;
  * Created by delmi on 09/06/2016.
  */
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHolder> {
-    private String[] mDataset;
     LayoutInflater inflater;
     List<Setlist> setlists;
     OnItemClickListener mItemClickListener;
@@ -94,10 +93,12 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position,Setlist setlist);
+
     }
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
+
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public PlaylistAdapter(Context context, int resource, List<Setlist> objects) {
