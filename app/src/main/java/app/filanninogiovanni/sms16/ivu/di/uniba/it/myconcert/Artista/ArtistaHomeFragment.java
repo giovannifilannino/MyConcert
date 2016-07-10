@@ -157,7 +157,6 @@ public class ArtistaHomeFragment extends Fragment {
                         extra="";
                         tit.setText(getText(R.string.noConc));
                         ext.setText(extra);
-                        canzoni.setText(getText(R.string.nosongs));
                         luogo.setText(luogoConcerto);
                     }
 
