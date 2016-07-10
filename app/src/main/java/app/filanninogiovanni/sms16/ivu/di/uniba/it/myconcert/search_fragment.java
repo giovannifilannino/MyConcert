@@ -229,14 +229,17 @@ public class search_fragment extends Fragment {
             String json = s;
             JSONObject jsonObject = null;
             JSONObject trueJsonObject = null;
-            try {
-                jsonObject = new JSONObject(s);
-                JSONArray jsonArray = jsonObject.getJSONArray("data");
-                trueJsonObject = jsonArray.getJSONObject(0);
-                urlARtistCover = trueJsonObject.getString("picture_big");
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if(!FROM_MYCONCERTDB) {
+                try {
+                    jsonObject = new JSONObject(s);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    trueJsonObject = jsonArray.getJSONObject(0);
 
+                    urlARtistCover = trueJsonObject.getString("picture_big");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
             }
             if(!(urlARtistCover==null)) {
                 onSearch.searchStart(setList, urlARtistCover);

@@ -3,6 +3,8 @@ package app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
@@ -109,10 +111,12 @@ public class DetailActivity3 extends Activity implements View.OnClickListener {
         recList.setLayoutManager(llm);
         final Adapter3 ca = new Adapter3(this, R.layout.item_best_songs, setlist);
         //mImageView.setImageBitmap(ArtistaHomeFragment.immagine);
+        Bitmap bit=BitmapFactory.decodeResource(getResources(),R.drawable.concertimilano);
+        Palette palette = Palette.generate(bit);
         mImageView.setImageResource(R.drawable.concertimilano);
         int standard=getResources().getColor(R.color.colorPrimary);
-        //int vibrant = palette.getVibrantColor(standard);
-        //mTitleHolder.setBackgroundColor(vibrant);
+        int vibrant = palette.getVibrantColor(standard);
+        mTitleHolder.setBackgroundColor(vibrant);
 
         recList.setAdapter(ca);
 

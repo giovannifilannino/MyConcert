@@ -17,6 +17,7 @@
     <string name="signup">REGISTRATI</string>
     <string name="username">Nome Utente</string>
     <string name="open">Drawer Aperto</string>
+    <string name="pres">Ancora niente da mostrare :(</string>
     <string name="close">Drawer Chiuso</string>
     <string name="artist">Artista</string>
     <string name="venues">Sedi</string>
@@ -33,6 +34,7 @@
     <string name="nomeArtista">Artista:</string>
     <string name="nomeCitta">Città:</string>
     <string name="nomeVenue">Sede:</string>
+    <string name="cancel_song">Rinuncia</string>
     <string name="nosongs">Non sono disponibili canzoni...</string>
     <string name="loading">Caricamento in corso...</string>
     <string name="closea">Chiudi</string>
@@ -62,6 +64,8 @@
     <string name="title_activity_maps">Mappa</string>
     <string name="luogoConc">Il tuo prossimo concerto è a </string>
     <string name="scopri">scopri esattamente dove !</string>
+    <string name="add_song">Aggiungi canzone</string>
+    <string name="add_songtitle">Aggiungi titolo canzone</string>
 
     <string-array name="opzioni">
         <item>Cerca</item>
@@ -71,6 +75,7 @@
     <string name="search">Cerca</string>
     <string name="setlistmy">Le mie scalette</string>
     <string name="concert">Concerti</string>
+    <string name="login">LOGIN</string>
     <string name="title_activity_concert_live_big_screen">Grande schermo </string>
     <string name="partecipero_preferences">partecipero</string>
     <string name="noConc">Non hai nessun concerto da fare !!</string>
@@ -78,7 +83,7 @@
     <string name="areuartist">Sei un\'artista?</string>
     <string name="signinartist">Registrati</string>
     <string name="loading_photo">Caricamento foto...</string>
-    <string name="login">LOGIN</string>
+
     <string name="insertplaylist">La tua playlist è stata inviata correttamente.</string>
 
 </resources>

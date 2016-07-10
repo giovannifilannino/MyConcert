@@ -57,7 +57,7 @@
     <string name="concert">Concerts</string>
     <string name="areuartist">Are you an artist?</string>
     <string name="signinartist">Sign in</string>
-
+    <string name="pres">Nothing to show  :(</string>
     <string-array name="opzioni">
         <item>@string/search</item>
         <item>@string/setlistmy</item>
@@ -93,7 +93,7 @@
     <string name="add_song">Add song</string>
     <string name="signinyes">Signed Up Successfully</string>
     <string name="signinno">Signed Up Not Successfully</string>
-    <string name="cancel_song">Add song</string>
+    <string name="cancel_song">Undo</string>
     <string name="add_songtitle">Add song title</string>
     <string name="title_activity_splash_scrren" translatable="false">My Concert</string>
     <string name="dummy_button" translatable="false">Dummy Button</string>
