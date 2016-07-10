@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
         goToCerca.putExtra("nome",nome);
         goToCerca.putExtra("cognome",cognome);
         startActivity(goToCerca);
+        finish();
     }
 
     @Override
@@ -212,6 +213,9 @@ public class MainActivity extends AppCompatActivity implements app.filanninogiov
 
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        super.onBackPressed();
+    }
 }

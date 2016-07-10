@@ -6,12 +6,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +48,7 @@ import java.util.ArrayList;
 
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Adapter.AdapterItemDrawer;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHome;
+import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Artista.ArtistaHomeFragment;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Entities.Setlist;
 import app.filanninogiovanni.sms16.ivu.di.uniba.it.myconcert.Utility.NoSongsFound;
 import io.fabric.sdk.android.Fabric;
@@ -157,17 +160,17 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
                     fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     Fragment search = new search_fragment();
-                    fragmentTransaction.replace(R.id.content_frame, search).commit();
+                    fragmentTransaction.replace(R.id.content_frame, search).addToBackStack("").commit();
                 } else if (optionDrawer[position].compareToIgnoreCase(setlistString) == 0) {
                     drawerLayout.closeDrawers();
                     fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.content_frame, playlist_fragment).commit();
+                    fragmentTransaction.replace(R.id.content_frame, playlist_fragment).addToBackStack("").commit();
                 } else if (optionDrawer[position].compareToIgnoreCase(concertString) == 0) {
                     drawerLayout.closeDrawers();
                     fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.content_frame, chosenConcerts).commit();
+                    fragmentTransaction.replace(R.id.content_frame, chosenConcerts).addToBackStack("").commit();
                 }
             }
         });
@@ -214,4 +217,34 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
 
             }
         }
+    @Override
+    public void onBackPressed() {
+
+        Fragment current=fragmentManager.findFragmentById(R.id.content_frame);
+        boolean check=current instanceof search_fragment;
+        final Context context=this;
+        if(check){
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(R.string.exit)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            moveTaskToBack(true);
+                            Intent intent=new Intent(context, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 }

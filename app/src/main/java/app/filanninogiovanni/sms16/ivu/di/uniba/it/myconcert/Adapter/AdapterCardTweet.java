@@ -184,6 +184,7 @@ public class AdapterCardTweet extends RecyclerView.Adapter<AdapterCardTweet.View
     // Return the size of your dataset (invoked by the information manager)
     @Override
     public int getItemCount() {
-        return setlists.size();
+        return
+                setlists.size();
     }
 }

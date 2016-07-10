@@ -64,6 +64,7 @@ public class ChosenConcerts extends Fragment {
                 recyclerView.setLayoutManager(llm);
                 AdapterCardTweet ca = new AdapterCardTweet(getActivity(), R.layout.card3, partecipationList);
                 recyclerView.setAdapter(ca);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -71,6 +72,7 @@ public class ChosenConcerts extends Fragment {
             }
         });
         requestQueue.add(jsonArrayRequest);
+        partecipationList.clear();
     }
 
 
