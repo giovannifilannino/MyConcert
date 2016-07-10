@@ -123,12 +123,14 @@ public class Playlist_fragment extends Fragment {
                 };
                 ca.setOnItemClickListener(onItemClickListener);
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
             }
         });
         requestQueue.add(jsonArrayRequest);
+        setLists.clear();
     }
 
     public void caricaCanzoni(int position, final Intent intent, final ActivityOptionsCompat options){

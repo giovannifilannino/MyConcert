@@ -219,11 +219,7 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
         }
     @Override
     public void onBackPressed() {
-
-        Fragment current=fragmentManager.findFragmentById(R.id.content_frame);
-        boolean check=current instanceof search_fragment;
         final Context context=this;
-        if(check){
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(R.string.exit)
                     .setCancelable(false)
@@ -243,9 +239,5 @@ public class cerca extends AppCompatActivity implements search_fragment.OnSearch
                     });
             AlertDialog alert = builder.create();
             alert.show();
-        }
-        else {
-            super.onBackPressed();
-        }
     }
 }
